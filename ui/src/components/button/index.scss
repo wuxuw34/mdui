@@ -1,0 +1,48 @@
+.button {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  letter-spacing: 0.025em;
+  outline: 0;
+  box-sizing: border-box;
+  white-space: nowrap;
+  height: var(--height);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: all 0.2s linear;
+
+  &:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    user-select: none;
+    background-color: var(--color-disabled);
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.default {
+  color: var(--color-primary);
+  background-color: var(--color-surface-container);
+}
+
+.selected {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  animation: ripple 600ms ease-out;
+  pointer-events: none;
+}

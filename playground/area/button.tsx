@@ -1,38 +1,45 @@
-import { Car } from "lucide-react";
+import { Car, Home } from "lucide-react";
 import { Mbutton } from "mdui";
 import { useState } from "react";
 
 export default function Button() {
   const [selected, setSelected] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <div className="flex flex-col  gap-2">
       <div>按钮</div>
-      <div className="flex gap-2">
+      <div>
+        <input
+          type="checkbox"
+          defaultChecked={disabled}
+          onChange={(e) => setDisabled(e.target.checked)}
+        />
+        <switch>禁用</switch>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          defaultChecked={selected}
+          onChange={(e) => setSelected(e.target.checked)}
+        />
+        <switch>选中</switch>
+      </div>
+      <div className="flex flex-col gap-2 w-[120px]">
         <Mbutton
           selected={selected}
-          onClick={() => setSelected(!selected)}
+          disabled={disabled}
+          startIcon={<Home />}
         >
           默认按钮
         </Mbutton>
-        <Mbutton color="black">黑色</Mbutton>
-        <Mbutton variant="text">文本按钮</Mbutton>
         <Mbutton
-          variant="tonal"
           selected={selected}
+          disabled={disabled}
+          startIcon={<Home />}
+          variant="filled"
         >
-          文本按钮
-        </Mbutton>
-        <Mbutton
-          variant="outline"
-          selected={selected}
-          startIcon={<Car />}
-        >
-          边框按钮
-        </Mbutton>
-        <Mbutton disabled={true}>禁用</Mbutton>
-        <Mbutton variant="icon">
-          <Car />
+          填充按钮
         </Mbutton>
       </div>
     </div>

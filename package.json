@@ -1,11 +1,11 @@
 {
-  "name": "mdui",
+  "name": "mdui-ui",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "playground": "pnpm -F playground dev",
-    "ui": "pnpm -F ui build"
+    "playground": "pnpm -F playground dev --force",
+    "ui": "pnpm -F mdui build"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.26",
+    "sass": "^1.97.2",
     "typescript-eslint": "^8.53.0"
   }
 }

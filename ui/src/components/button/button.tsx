@@ -1,15 +1,20 @@
-import { forwardRef, useContext, useEffect, useRef, useState } from "react";
-import buttonVariants from "./variants";
-import "./index.css";
-import { cn } from "../../utils/cn";
+import React, {
+  forwardRef,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import "./index.scss";
 import { nanoid } from "nanoid";
 import useRipple from "../../hooks/useRipple";
 import mButtonGroupContext from "../buttonGroup/context";
+import handleButtonCustomClassNames from "./button-custom";
 
 export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   ripple?: boolean;
-  color?: string;
-  variant?: "default" | "outline" | "text" | "icon" | "tonal";
+  variant?: "default" | "outline" | "text" | "icon" | "tonal" | "filled";
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   pressed?: boolean;
@@ -34,7 +39,6 @@ export interface MButtonRef {
 const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   const {
     size = "md",
-    color,
     variant = "default",
     className,
     startIcon,
@@ -62,6 +66,34 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   });
   const initialPadding = useRef<boolean>(false); // 是否初始化了
   const targetPaddingRef = useRef<number[]>([]); // 目标padding值
+  const buttonStyle = useMemo<{
+    className: string;
+    style: React.CSSProperties;
+  }>(() => {
+    return handleButtonCustomClassNames({
+      size,
+      variant,
+      shape,
+      outline,
+      animation,
+      shadow,
+      hover,
+      icon,
+      active,
+      selected,
+    });
+  }, [
+    size,
+    variant,
+    shape,
+    outline,
+    animation,
+    shadow,
+    hover,
+    icon,
+    active,
+    selected,
+  ]);
 
   function getRippleBackgroundColor() {
     if (variant === "default") {
@@ -71,7 +103,9 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
     }
   }
 
-  if (variant === "text") {
+  if (variant === "default") {
+    outline = true;
+  } else if (variant === "text") {
     // 文本按钮
     outline = false;
     background = false;
@@ -124,7 +158,7 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
       paddings: [number, number],
       size: number,
       orientation: "horizontal" | "vertical",
-      isCurrent: boolean
+      isCurrent: boolean,
     ) => {
       const p = [...paddings];
       if (orientation === "horizontal") {
@@ -148,7 +182,7 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
         targetPaddingRef.current as [number, number],
         groupContext.amount,
         groupContext.orientation,
-        true
+        true,
       );
       if (groupContext.orientation === "vertical") {
         button.style.height = `${v[1]}px`;
@@ -161,7 +195,7 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
         targetPaddingRef.current as [number, number],
         groupContext.amount,
         groupContext.orientation,
-        false
+        false,
       );
       if (groupContext.orientation === "vertical") {
         button.style.height = `${v[1]}px`;
@@ -187,29 +221,14 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
       data-selected={selected}
       data-id={id}
       disabled={disabled}
-      className={cn(
-        buttonVariants({
-          className,
-          variant,
-          selected,
-          animation,
-          outline,
-          size,
-          background,
-          shape,
-          hover,
-          shadow,
-          icon,
-          active,
-        })
-      )}
+      className={buttonStyle.className}
       style={
         {
-          "--color": color || "var(--primary)",
           "--radius":
             shape === "rounded"
               ? `var(--radius-${size})`
               : `var(--radius-square-${size})`,
+          ...buttonStyle.style,
           ...rest.style,
         } as React.CSSProperties
       }

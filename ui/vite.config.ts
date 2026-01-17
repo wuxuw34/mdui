@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts';
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({ insertTypesEntry: true, tsconfigPath: './tsconfig.app.json' })],
+  plugins: [react(), tailwindcss(), dts({ insertTypesEntry: true, tsconfigPath: './tsconfig.app.json' })],
   build: {
+    cssCodeSplit: false,
     rolldownOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime', /playground\/.*/],
       output: {
