@@ -1,101 +1,67 @@
-import { useEffect, useRef, useState } from "react";
-import { cn } from "../../utils/cn";
-import {
-  inputVariants,
-  sliderVariants,
-  thumbVariants,
-  trackVariants,
-} from "./variants";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import "./index.css";
+import { handleSliderCustomStyle } from "./slider-curtom";
+import useDraggable from "../../hooks/useDraggale";
 
-interface MSliderProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  orientation?: "horizontal" | "vertical";
-  size?: number;
+export interface MSliderProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant: "";
+  size: TSize;
 }
 
-export default function MSlider({
-  orientation = "horizontal",
-  className,
-  size = 12,
-  ...rest
-}: MSliderProps) {
-  const [currentValue, setCurrentValue] = useState(0);
+export default function MSlider(props: MSliderProps) {
+  const { variant, style, size, className, ...rest } = props;
+  const sliderStyle = useMemo(() => {
+    return handleSliderCustomStyle({
+      variant,
+      className,
+      size,
+    });
+  }, [variant, className, size]);
+  const [range, setRange] = useState<[number, number]>([0, 100]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState(0);
-
-  useEffect(() => {
-    function updateContainerHeight() {
-      setContainerHeight(containerRef.current?.offsetHeight || 0);
-    }
-    updateContainerHeight();
-  }, []);
+  const {
+    targetRef: targetLeftRef,
+    onPointerDown: onLeftPointerDown,
+    position: leftPosition,
+  } = useDraggable(containerRef);
+  const {
+    targetRef: targetRightRef,
+    onPointerDown: onRightPointerDown,
+    position: rightPosition,
+  } = useDraggable(containerRef);
 
   return (
     <div
-      role="slider"
       ref={containerRef}
-      className={cn(sliderVariants({ orientation, className }))}
-      style={
-        {
-          "--color": "var(--primary)",
-        } as React.CSSProperties
-      }
+      className={sliderStyle.className}
+      style={{
+        ...sliderStyle.style,
+        ...style,
+      }}
       {...rest}
     >
-      <input
-        type="range"
-        className={cn(inputVariants({ orientation }))}
-        defaultValue={currentValue}
-        onChange={(e) => {
-          setCurrentValue(Number(e.target.value));
-        }}
-        style={{
-          width: orientation === "horizontal" ? "100%" : containerHeight + "px",
-        }}
-      />
       <div
-        className={cn(trackVariants({ orientation }))}
-        style={
-          {
-            "--size": `${size}px`,
-            ...(orientation === "vertical"
-              ? {
-                  height: `calc(${currentValue}% - 4px)`,
-                }
-              : {
-                  width: `calc(${currentValue}% - 4px)`,
-                }),
-          } as unknown as React.CSSProperties
-        }
+        className={`track inactive`}
+        style={{
+          width: `${leftPosition.x}%`,
+        }}
       ></div>
       <div
-        className="relative min-w-[4px] flex flex-col items-center justify-center pointer-events-none"
+        className={`track active`}
         style={{
-          ...(orientation === "vertical"
-            ? {
-                width: `${size + 4}px`,
-              }
-            : {
-                height: `${size + 4}px`,
-              }),
+          width: `${rightPosition.x - leftPosition.x}%`,
         }}
-      >
-        <div className={cn(thumbVariants({ orientation }))}></div>
-      </div>
+      ></div>
       <div
-        className={cn(trackVariants({ orientation }))}
-        style={
-          {
-            ...(orientation === "horizontal"
-              ? {
-                  width: `calc(${100 - currentValue}% - 4px)`,
-                }
-              : {
-                  height: `calc(${100 - currentValue}% - 4px)`,
-                }),
-            "--size": `${size}px`,
-          } as unknown as React.CSSProperties
-        }
+        ref={targetRightRef}
+        onPointerDown={onRightPointerDown}
+        className="thumb"
+      ></div>
+      <div
+        className={`track inactive`}
+        style={{
+          width: `${100 - rightPosition.x}%`,
+        }}
       ></div>
     </div>
   );
