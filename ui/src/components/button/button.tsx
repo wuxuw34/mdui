@@ -17,18 +17,11 @@ export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   variant?: "default" | "outline" | "text" | "icon" | "tonal" | "filled";
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-  pressed?: boolean;
   disabled?: boolean;
-  selected?: boolean;
+  selected?: boolean | undefined;
   shape?: "rounded" | "square";
-  animation?: boolean;
-  outline?: boolean;
-  background?: boolean;
-  hover?: boolean;
-  shadow?: boolean;
   size?: "sm" | "xs" | "md" | "lg" | "xl";
-  icon?: boolean;
-  active?: boolean;
+  radiusInverse?: boolean;
 }
 
 export interface MButtonRef {
@@ -44,21 +37,21 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
     startIcon,
     endIcon,
     disabled,
-    animation = true,
     shape = "rounded",
-    active = true,
     selected,
-    shadow = true,
-    hover = true,
-    icon = false,
+    ripple = true,
+    style,
+
     ...rest
   } = props;
-  let { outline, background, ripple = true } = props;
+  const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
+  let { radiusInverse = false } = props;
+  radiusInverse = groupContext.variant === "connected";
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { setEnabled: setRippleEnabled } = useRipple(buttonRef, {
     className: getRippleBackgroundColor(),
   });
-  const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
+
   const [id] = useState(nanoid()); // 按钮的唯一标识
   const sizeRef = useRef({
     width: "",
@@ -74,54 +67,18 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
       size,
       variant,
       shape,
-      outline,
-      animation,
-      shadow,
-      hover,
-      icon,
-      active,
       selected,
+      className,
+      radiusInverse,
     });
-  }, [
-    size,
-    variant,
-    shape,
-    outline,
-    animation,
-    shadow,
-    hover,
-    icon,
-    active,
-    selected,
-  ]);
+  }, [size, variant, shape, selected, className, radiusInverse]);
 
   function getRippleBackgroundColor() {
     if (variant === "default") {
-      return "bg-[rgba(255,255,255,0.6)]";
+      return "ripple-active-default";
     } else {
-      return "bg-[var(--color)] opacity-[0.05]";
+      return "ripple-active";
     }
-  }
-
-  if (variant === "default") {
-    outline = true;
-  } else if (variant === "text") {
-    // 文本按钮
-    outline = false;
-    background = false;
-    ripple = false;
-  } else if (variant === "outline") {
-    outline = true;
-    background = false;
-    ripple = true;
-  } else if (variant === "icon") {
-    outline = false;
-    background = false;
-    ripple = true;
-  } else if (variant === "tonal") {
-    outline = false;
-    background = true;
-    ripple = true;
   }
 
   useEffect(() => {
@@ -133,6 +90,15 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   useEffect(() => {
     const button = buttonRef.current;
     if (!button) {
+      return;
+    }
+    // 这个动画需要判断是否关闭
+    if (!groupContext.animation) {
+      // 还原
+      if (initialPadding.current) {
+        button.style.width = sizeRef.current.width;
+        button.style.height = sizeRef.current.height;
+      }
       return;
     }
     // 还原
@@ -229,7 +195,7 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
               ? `var(--radius-${size})`
               : `var(--radius-square-${size})`,
           ...buttonStyle.style,
-          ...rest.style,
+          ...style,
         } as React.CSSProperties
       }
     >

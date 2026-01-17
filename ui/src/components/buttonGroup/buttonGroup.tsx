@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import buttonGroupVariants from "./variants";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./index.css";
-import { cn } from "../../utils/cn";
 import mButtonGroupContext from "./context";
+import { handleButtonGroupCustomStyle } from "./buttonGroup-custom";
 
-export interface MButtonGroupProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
+export interface MButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode;
   orientation?: "vertical" | "horizontal";
-  variant?: "default" | "standard" | "split" | "segmented";
-  gap?: number;
+  variant?: "default" | "standard" | "connected";
   animation?: boolean;
+  gap?: TSize;
   amount?: number;
 }
 
@@ -19,8 +17,10 @@ export default function MbuttonGroup({
   orientation = "horizontal",
   className,
   animation = true,
-  amount = 20,
+  amount = 10,
   variant = "default",
+  gap = "md",
+  style,
   ...rest
 }: MButtonGroupProps) {
   const childrenArr = React.Children.toArray(children);
@@ -30,11 +30,23 @@ export default function MbuttonGroup({
     pre: "",
     next: "",
   });
+  const buttonGroupStyle = useMemo<{
+    className: string;
+    style: React.CSSProperties;
+  }>(() => {
+    return handleButtonGroupCustomStyle({
+      variant,
+      className,
+      orientation,
+      amount,
+      gap,
+    });
+  }, [variant, className, orientation, amount, gap]);
 
   function setCurrent(id: string) {
     if (!animation) return;
     const children = Array.from(
-      groupRef.current?.children || []
+      groupRef.current?.children || [],
     ) as HTMLElement[];
     let index = -1;
     for (const child of children) {
@@ -70,7 +82,7 @@ export default function MbuttonGroup({
     if (!animation) return;
     const clickerHandler = (e: MouseEvent) => {
       const children = Array.from(
-        groupRef.current?.children || []
+        groupRef.current?.children || [],
       ) as HTMLElement[];
       let index = -1,
         id = "";
@@ -99,18 +111,18 @@ export default function MbuttonGroup({
         setCurrent,
         orientation,
         amount,
+        variant,
+        animation,
       }}
     >
       <div
         role="group"
         ref={groupRef}
-        className={cn(
-          buttonGroupVariants({
-            orientation,
-            className,
-            variant,
-          })
-        )}
+        className={buttonGroupStyle.className}
+        style={{
+          ...buttonGroupStyle.style,
+          ...style,
+        }}
         {...rest}
       >
         {childrenArr}

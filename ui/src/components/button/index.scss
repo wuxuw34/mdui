@@ -1,4 +1,4 @@
-.button {
+.mdui-button {
   position: relative;
   overflow: hidden;
   display: flex;
@@ -16,9 +16,29 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   transition: all 0.2s linear;
+  padding: var(--padding);
+  gap: var(--gap);
+  // margin: 4px;
 
   &:hover {
-    box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-hover-button);
+    background-color: var(--color-on-primary);
+  }
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.2s linear;
+  }
+
+  &:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+    background-color: var(--color-on-primary);
   }
 
   &:disabled {
@@ -28,21 +48,81 @@
     color: var(--color-text-disabled);
     cursor: not-allowed;
   }
+
+  &:active {
+    transform: scale(0.95);
+    border-radius: var(--radius-pressed);
+  }
+
+  &.selected {
+    border-radius: var(--radius-pressed);
+  }
 }
 
 .default {
   color: var(--color-primary);
-  background-color: var(--color-surface-container);
+  &:hover::before {
+    background-color: var(--color-primary-container);
+  }
+  &.selected {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
 }
 
-.selected {
+.filled {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  &:focus {
+    background-color: var(--color-primary);
+  }
+  &.unselected {
+    background-color: var(--color-surface-container);
+    color: var(--color-on-surface-variant);
+  }
+  &:selected {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
 }
 
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  animation: ripple 600ms ease-out;
-  pointer-events: none;
+.tonal {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  &.selected {
+    background-color: var(--color-secondary);
+    color: var(--color-on-secondary);
+  }
+}
+.outline {
+  color: var(--color-on-surface-variant);
+  outline: 1px solid var(--color-outline-variant);
+  &.selected {
+    background-color: var(--color-inverse-surface);
+    color: var(--color-inverse-on-surface);
+  }
+}
+.text {
+  color: var(--color-primary);
+  box-shadow: none;
+  &:hover {
+    box-shadow: none;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+.inverse-radius {
+  border-radius: var(--rounded) !important;
+}
+.ripple-active-default {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.ripple-active {
+  background-color: var(--color-primary);
+  opacity: 0.1;
 }

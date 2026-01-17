@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../area/button";
+import ButtonGroup from "../area/buttonGroup";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -23,6 +24,7 @@ export default function App() {
         <switch>黑暗模式</switch>
       </div>
       <Button />
+      <ButtonGroup />
     </div>
   );
 }
