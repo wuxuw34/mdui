@@ -1,0 +1,46 @@
+/* 重置默认外观 */
+input[type="range"] {
+  -webkit-appearance: none; /* 清除 WebKit 默认样式 */
+  appearance: none;
+  width: 100%;
+  height: 24px; /* 这个值影响整体点击区域，但不直接控制轨道 */
+  background: transparent;
+  outline: none;
+}
+
+/* 轨道（Track）—— 已选 & 未选部分 */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px; /* 👈 调整轨道高度 */
+  background: #ddd;
+  border-radius: 4px;
+}
+input[type="range"]::-moz-range-track {
+  height: 8px; /* Firefox */
+  background: #ddd;
+  border-radius: 4px;
+}
+input[type="range"]::-ms-track {
+  height: 8px; /* IE/Edge（已基本淘汰）*/
+  background: #ddd;
+  border-radius: 4px;
+}
+
+/* 手柄（Thumb） */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px; /* 👈 手柄高度 */
+  width: 20px;  /* 👈 手柄宽度 */
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px; /* 垂直居中：(手柄高 - 轨道高) / 2 = (20-8)/2=6 */
+}
+input[type="range"]::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  background: #007bff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}

@@ -1,0 +1,15 @@
+.item {
+  flex: 0 0 auto;
+  padding: 0 20px !important;
+}
+
+.active {
+  padding: 0 36px !important;
+  flex: 1 0 auto;
+}
+
+.neighbor {
+  padding: 0 12px !important;
+  flex: 0 1 auto;
+  max-width: 100px;
+}
