@@ -1,5 +1,5 @@
 import { Home } from "lucide-react";
-import { Mbutton } from "mdui";
+import { MButton } from "mdui";
 import { useState } from "react";
 
 export default function Button() {
@@ -37,47 +37,47 @@ export default function Button() {
       </div>
       <div className="flex flex-col gap-2 w-[120px]">
         <div>
-          <Mbutton
+          <MButton
             selected={selected}
             disabled={disabled}
             startIcon={<Home />}
             shape="rounded"
           >
             默认按钮
-          </Mbutton>
+          </MButton>
         </div>
-        <Mbutton
+        <MButton
           selected={selected}
           disabled={disabled}
           startIcon={<Home />}
           variant="filled"
         >
           填充按钮
-        </Mbutton>
-        <Mbutton
+        </MButton>
+        <MButton
           selected={selected}
           disabled={disabled}
           startIcon={<Home />}
           variant="tonal"
         >
           tonal按钮
-        </Mbutton>
-        <Mbutton
+        </MButton>
+        <MButton
           selected={selected}
           disabled={disabled}
           startIcon={<Home />}
           variant="outline"
         >
           outline按钮
-        </Mbutton>
-        <Mbutton
+        </MButton>
+        <MButton
           selected={selected}
           disabled={disabled}
           startIcon={<Home />}
           variant="text"
         >
           文本按钮
-        </Mbutton>
+        </MButton>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { MbuttonGroup, Mbutton } from "mdui";
+import { MButtonGroup, MButton } from "mdui";
 import { useState } from "react";
 
 export default function ButtonsGroup() {
@@ -16,9 +16,9 @@ export default function ButtonsGroup() {
         />
         <switch>启用动画</switch>
       </div>
-      <MbuttonGroup animation={animation}>
+      <MButtonGroup animation={animation}>
         {Array.from({ length: 3 }).map((_, index) => (
-          <Mbutton
+          <MButton
             key={index}
             onClick={() => {
               setActiveItems([index]);
@@ -27,15 +27,15 @@ export default function ButtonsGroup() {
             selected={activeItems.includes(index)}
           >
             按钮{index + 1}
-          </Mbutton>
+          </MButton>
         ))}
-      </MbuttonGroup>
-      <MbuttonGroup
+      </MButtonGroup>
+      <MButtonGroup
         orientation="vertical"
         animation={animation}
       >
         {Array.from({ length: 3 }).map((_, index) => (
-          <Mbutton
+          <MButton
             key={index}
             onClick={() => {
               setActiveItems([index]);
@@ -44,16 +44,16 @@ export default function ButtonsGroup() {
             selected={activeItems.includes(index)}
           >
             按钮{index + 1}
-          </Mbutton>
+          </MButton>
         ))}
-      </MbuttonGroup>
+      </MButtonGroup>
       <div>标准按钮</div>
-      <MbuttonGroup
+      <MButtonGroup
         variant="standard"
         animation={animation}
       >
         {Array.from({ length: 3 }).map((_, index) => (
-          <Mbutton
+          <MButton
             key={index}
             onClick={() => {
               setActiveItems([index]);
@@ -62,16 +62,16 @@ export default function ButtonsGroup() {
             selected={activeItems.includes(index)}
           >
             按钮{index + 1}
-          </Mbutton>
+          </MButton>
         ))}
-      </MbuttonGroup>
+      </MButtonGroup>
       <div>连接按钮</div>
-      <MbuttonGroup
+      <MButtonGroup
         animation={false}
         variant="connected"
       >
         {Array.from({ length: 3 }).map((_, index) => (
-          <Mbutton
+          <MButton
             key={index}
             outline={false}
             variant="filled"
@@ -79,9 +79,9 @@ export default function ButtonsGroup() {
             className="outline-offset-0!"
           >
             按钮{index + 1}
-          </Mbutton>
+          </MButton>
         ))}
-      </MbuttonGroup>
+      </MButtonGroup>
     </div>
   );
 }

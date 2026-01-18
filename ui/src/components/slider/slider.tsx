@@ -4,7 +4,7 @@ import { handleSliderCustomStyle } from "./slider-curtom";
 import useDraggable from "../../hooks/useDraggale";
 
 export interface MSliderProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "Standard" | "Centered";
+  variant?: "standard" | "centered";
   orientation?: TOrientation;
   size?: TSize;
   value?: number;
@@ -13,7 +13,7 @@ export interface MSliderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function MSlider(props: MSliderProps) {
   const {
-    variant = "Standard",
+    variant = "standard",
     orientation = "horizontal",
     style,
     size,
@@ -40,7 +40,7 @@ export default function MSlider(props: MSliderProps) {
     onContainerPointerDown,
   } = useDraggable(
     containerRef,
-    variant === "Centered"
+    variant === "centered"
       ? {
           x: 50,
           y: 50,
@@ -49,7 +49,7 @@ export default function MSlider(props: MSliderProps) {
   );
   const range = useMemo(() => {
     const key = orientation === "horizontal" ? "x" : "y";
-    if (variant === "Standard") {
+    if (variant === "standard") {
       return [0, rightPosition[key]];
     }
     const min = Math.min(leftPosition[key], rightPosition[key]);
@@ -75,15 +75,15 @@ export default function MSlider(props: MSliderProps) {
         ...style,
       }}
       onPointerDown={(e) => {
-        if (variant === "Standard") {
+        if (variant === "standard") {
           onContainerPointerDown(e);
-        } else if (variant === "Centered") {
+        } else if (variant === "centered") {
           onContainerLeftPointerDown(e);
         }
       }}
       {...rest}
     >
-      {variant !== "Standard" ? (
+      {variant !== "standard" ? (
         <>
           <div
             className="track-container"
@@ -110,7 +110,7 @@ export default function MSlider(props: MSliderProps) {
         style={sliderStyle.strackStyle}
       >
         <div className={sliderStyle.strackcs}>
-          {variant === "Standard" && orientation === "horizontal" && (
+          {variant === "standard" && orientation === "horizontal" && (
             <div className="icon">{icon}</div>
           )}
           <div
@@ -124,15 +124,15 @@ export default function MSlider(props: MSliderProps) {
       <div
         className={sliderStyle.rtcs}
         style={sliderStyle.rtStyle}
-        ref={variant !== "Centered" ? targetRightRef : undefined}
-        onPointerDown={variant !== "Centered" ? onRightPointerDown : undefined}
+        ref={variant !== "centered" ? targetRightRef : undefined}
+        onPointerDown={variant !== "centered" ? onRightPointerDown : undefined}
       ></div>
       <div
         style={sliderStyle.ttrackStyle}
         className="track-container"
       >
         <div className={sliderStyle.ttrackcs}>
-          {variant === "Standard" && orientation === "vertical" && (
+          {variant === "standard" && orientation === "vertical" && (
             <div className="icon">{icon}</div>
           )}
           <div

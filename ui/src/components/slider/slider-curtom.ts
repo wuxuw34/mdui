@@ -54,14 +54,14 @@ export function handleSliderCustomStyle(props: MSliderProps & {
     ftrackcs.push('inactive')
     strackcs.push('active')
     ttrackcs.push('inactive')
-    if (variant === 'Standard') {
+    if (variant === 'standard') {
       strackStyle['--padding-end'] = `${halfThumbWidth}px`
       strackStyle['--padding-start'] = 0
       ttrackStyle['--padding-start'] = `${halfThumbWidth}px`
       if (range[1] === 0) {
         strackStyle['--padding-end'] = 0
       }
-    } else if (variant === 'Centered') {
+    } else if (variant === 'centered') {
       if (range[0] < 50) {
         rtcs.push('hidden')
       } else {
@@ -81,7 +81,7 @@ export function handleSliderCustomStyle(props: MSliderProps & {
     strackStyle.height = `${range[1] - range[0]}%`
     ttrackStyle.height = `${(100 - range[1])}%`
 
-    if (variant === 'Standard') {
+    if (variant === 'standard') {
       ftrackcs.push('inactive')
       strackcs.push('inactive')
       ttrackcs.push('active')
@@ -91,7 +91,7 @@ export function handleSliderCustomStyle(props: MSliderProps & {
       if (range[1] === 0) {
         strackStyle['--padding-end'] = 0
       }
-    } else if (variant === 'Centered') {
+    } else if (variant === 'centered') {
       ftrackcs.push('inactive')
       strackcs.push('active')
       ttrackcs.push('inactive')

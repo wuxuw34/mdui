@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "playground": "pnpm -F playground dev --force",
-    "ui": "pnpm -F mdui build"
+    "ui": "pnpm -F mdui build",
+    "web": "pnpm -F website start"
   },
   "author": "",
   "license": "ISC",

@@ -27,7 +27,7 @@ export default function Slider() {
       <Row className={`${vertical ? "min-h-[150px]" : ""}`}>
         居中滑块
         <MSlider
-          variant="Centered"
+          variant="centered"
           orientation={vertical ? "vertical" : "horizontal"}
         />
       </Row>
