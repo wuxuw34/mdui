@@ -1,4 +1,4 @@
-import {
+import React, {
   useCallback,
   useEffect,
   useRef,
@@ -13,7 +13,10 @@ interface Position {
 
 export default function useDraggable<T = HTMLDivElement>(
   containerRef: RefObject<HTMLElement | null>,
-  callback?: (p: Position) => void,
+  initPos?: Position = {
+    x: 0,
+    y: 0,
+  },
 ) {
   const targetRef = useRef<T>(null);
   const isDragging = useRef(false); // 是否处于拖动状态
@@ -21,34 +24,37 @@ export default function useDraggable<T = HTMLDivElement>(
     x: 0,
     y: 0,
   });
-  const [position, setPosition] = useState<Position>({
-    x: 0,
-    y: 0,
-  });
-  const pos = useRef<Position>({
-    x: 0,
-    y: 0,
-  });
+  const [position, setPosition] = useState<Position>(initPos);
   const onPointerUpRef = useRef<(e: PointerEvent) => void>(null);
 
-  const onPointerMove = useCallback(
-    (e: PointerEvent) => {
-      if (!isDragging.current || !targetRef.current) return;
+  const updatePosition = useCallback(
+    (x: number, y: number) => {
       window.requestAnimationFrame(() => {
         const container = containerRef.current;
         if (!container) return;
         const containerRect = container.getBoundingClientRect();
-        const newX = e.clientX - containerRect.left;
-        const newY = e.clientY - containerRect.top;
+        const newX = x - containerRect.left;
+        const newY = y - containerRect.top;
         const _x = (newX / containerRect.width) * 100;
         const _y = (newY / containerRect.height) * 100;
+        const resetValue = (v: number) => {
+          return Math.max(0, Math.min(100, v));
+        };
         setPosition({
-          x: _x,
-          y: _y,
+          x: resetValue(_x),
+          y: resetValue(_y),
         });
       });
     },
     [containerRef],
+  );
+
+  const onPointerMove = useCallback(
+    (e: PointerEvent) => {
+      if (!isDragging.current || !targetRef.current) return;
+      updatePosition(e.clientX, e.clientY);
+    },
+    [updatePosition],
   );
 
   const onPointerUp = useCallback(
@@ -81,7 +87,9 @@ export default function useDraggable<T = HTMLDivElement>(
         x: e.clientX,
         y: e.clientY,
       };
-      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointermove", onPointerMove, {
+        passive: false,
+      });
       if (onPointerUpRef.current) {
         window.addEventListener("pointerup", onPointerUpRef.current);
       }
@@ -89,9 +97,20 @@ export default function useDraggable<T = HTMLDivElement>(
     [onPointerMove],
   );
 
+  const onContainerPointerDown = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      updatePosition(e.clientX, e.clientY);
+      // e.stopPropagation();
+      // 按下后，可以继续拖动
+      onPointerDown(e);
+    },
+    [onPointerDown, updatePosition],
+  );
+
   return {
     targetRef,
     onPointerDown,
     position,
+    onContainerPointerDown,
   };
 }
