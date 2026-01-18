@@ -11,6 +11,7 @@ import { nanoid } from "nanoid";
 import useRipple from "../../hooks/useRipple";
 import mButtonGroupContext from "../buttonGroup/context";
 import handleButtonCustomClassNames from "./button-custom";
+import type { TSize } from "../../types";
 
 export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   ripple?: boolean;
@@ -20,7 +21,7 @@ export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   selected?: boolean | undefined;
   shape?: "rounded" | "square";
-  size?: "sm" | "xs" | "md" | "lg" | "xl";
+  size?: TSize;
   radiusInverse?: boolean;
 }
 

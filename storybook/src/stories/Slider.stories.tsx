@@ -3,6 +3,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta = {
   component: MSlider,
+  parameters:{
+    size:['ms' , 'sm']
+  }
 } satisfies Meta<typeof MSlider>;
 
 export default meta;
@@ -15,5 +18,6 @@ export const Default: Story = {
 export const Centered: Story = {
   args: {
     variant: "centered",
+    orientation: "horizontal",
   },
 };

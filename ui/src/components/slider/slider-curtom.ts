@@ -1,8 +1,9 @@
+import type { TSize } from "../../types";
 import type { MSliderProps } from "./slider";
 
 const setSliderStyle = (style: React.CSSProperties, size: TSize) => {
   const obj: React.CSSProperties & Record<string, string> = {
-    "--size": `var(--size-${size})`,
+    "--size": `var(--size-slider-${size})`,
     "--radius": `var(--radius-pressed-${size})`,
     "--radius-min": `calc(var(--radius-connected-${size}) / 2)`,
     "--color-active": `var(--color-primary)`,

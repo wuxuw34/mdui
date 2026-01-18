@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import {  useMemo, useRef } from "react";
 import "./index.css";
 import { handleSliderCustomStyle } from "./slider-curtom";
 import useDraggable from "../../hooks/useDraggale";
+import type { TOrientation, TSize } from "../../types";
 
 export interface MSliderProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "standard" | "centered";

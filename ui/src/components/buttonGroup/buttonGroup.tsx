@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./index.css";
 import mButtonGroupContext from "./context";
 import { handleButtonGroupCustomStyle } from "./buttonGroup-custom";
+import type { TSize } from "../../types";
 
 export interface MButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;

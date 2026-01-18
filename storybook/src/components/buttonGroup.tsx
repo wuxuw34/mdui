@@ -11,10 +11,9 @@ export default function ButtonGroup(props: MButtonGroupProps) {
           onClick={() => {
             setActiveItems([index]);
           }}
-          outline={false}
           selected={activeItems.includes(index)}
         >
-          按钮{index + 1}
+          button {index + 1}
         </MButton>
       ))}
     </MButtonGroup>

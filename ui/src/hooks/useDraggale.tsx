@@ -13,7 +13,7 @@ interface Position {
 
 export default function useDraggable<T = HTMLDivElement>(
   containerRef: RefObject<HTMLElement | null>,
-  initPos?: Position = {
+  initPos: Position = {
     x: 0,
     y: 0,
   },
