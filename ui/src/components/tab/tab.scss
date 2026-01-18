@@ -1,0 +1,21 @@
+.mdui-tabs-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--color-on-surface-variant);
+  &.active {
+    color: var(--color-primary);
+  }
+  & > .label {
+    height: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    word-spacing: 0.1rem;
+  }
+  & > .icon {
+    width: 24px;
+    height: 24px;
+  }
+}

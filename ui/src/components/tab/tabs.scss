@@ -1,0 +1,27 @@
+.mdui-tabs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: auto;
+  position: relative;
+  background-color: var(--color-surface);
+
+  &.primary {
+    height: 64px;
+  }
+  &.secondary {
+    height: 48px;
+  }
+  & > * {
+    flex: 1;
+  }
+}
+.mdui-tabs-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background-color: var(--color-primary);
+  transition: all var(--easing);
+  min-width: 24px;
+}

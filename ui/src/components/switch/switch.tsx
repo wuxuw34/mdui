@@ -12,7 +12,16 @@ export interface MSwitchProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function MSwitch(props: MSwitchProps) {
-  const { onText, offText, onIcon, offIcon, style, onCheckedChange } = props;
+  const {
+    onText,
+    offText,
+    onIcon,
+    offIcon,
+    style,
+    onCheckedChange,
+    className,
+    ...rest
+  } = props;
   const [checked, setChecked] = useState(props.checked || false);
   const switchStyle = useMemo(() => {
     return handleSwitchStyle({ checked });
@@ -23,7 +32,7 @@ export default function MSwitch(props: MSwitchProps) {
 
   return (
     <div
-      className={switchStyle.cs}
+      className={switchStyle.cs + " " + className}
       style={{
         ...switchStyle.style,
         ...style,
@@ -33,6 +42,7 @@ export default function MSwitch(props: MSwitchProps) {
       }}
       role="switch"
       tabIndex={0}
+      {...rest}
     >
       <div className="on-text">{onText}</div>
       <div className="off-text">{offText}</div>

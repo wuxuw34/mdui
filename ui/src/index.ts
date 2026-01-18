@@ -7,3 +7,4 @@ export type { MButtonProps } from "./components/button";
 export type { MButtonGroupProps } from "./components/buttonGroup";
 export type { MSliderProps } from "./components/slider";
 export { MSwitch, type MSwitchProps } from "./components/switch";
+export * from './components/tab'
