@@ -110,15 +110,15 @@ export default function MSlider(props: MSliderProps) {
         style={sliderStyle.strackStyle}
       >
         <div className={sliderStyle.strackcs}>
+          {variant === "Standard" && orientation === "horizontal" && (
+            <div className="icon">{icon}</div>
+          )}
           <div
             className={`dot ${orientation === "horizontal" ? "right" : "top"}`}
             style={{
               opacity: !icon ? 0 : 1,
             }}
           ></div>
-          {variant === "Standard" && orientation === "horizontal" && (
-            <div className="icon">{icon}</div>
-          )}
         </div>
       </div>
       <div

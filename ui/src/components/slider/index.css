@@ -135,15 +135,18 @@
       margin-right: 12px;
     }
     &.top {
-      margin-top: 12px;
       margin-bottom: auto;
+      margin-top: 12px;
     }
     &.bottom {
-      margin-top: auto;
-      margin-bottom: 12px;
+      /* margin-top: auto;
+      margin-bottom: 12px; */
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-top: 12px;
     }
     &.left {
-      margin-right: auto;
+      justify-content: flex-start;
       margin-left: 12px;
     }
   }
@@ -151,5 +154,6 @@
     padding: 12px;
     color: var(--color-inactive);
     z-index: 0;
+    margin-right: auto;
   }
 }
