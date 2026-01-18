@@ -15,7 +15,7 @@ export default function Button() {
           defaultChecked={disabled}
           onChange={(e) => setDisabled(e.target.checked)}
         />
-        <switch>禁用</switch>
+        <span>禁用</span>
       </div>
       <div>
         <input
@@ -23,7 +23,7 @@ export default function Button() {
           defaultChecked={selected}
           onChange={(e) => setSelected(e.target.checked)}
         />
-        <switch>选中</switch>
+        <span>选中</span>
       </div>
       <div>
         <input
@@ -33,7 +33,7 @@ export default function Button() {
             setSelected(typeof selected === "undefined" ? true : undefined)
           }
         />
-        <switch>设置为undefined</switch>
+        <span>设置为undefined</span>
       </div>
       <div className="flex flex-col gap-2 w-[120px]">
         <div>

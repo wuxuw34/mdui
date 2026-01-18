@@ -14,7 +14,7 @@ export default function ButtonsGroup() {
           defaultChecked={animation}
           onChange={() => setAnimation(!animation)}
         />
-        <switch>启用动画</switch>
+        <span>启用动画</span>
       </div>
       <MButtonGroup animation={animation}>
         {Array.from({ length: 3 }).map((_, index) => (
@@ -23,7 +23,6 @@ export default function ButtonsGroup() {
             onClick={() => {
               setActiveItems([index]);
             }}
-            outline={false}
             selected={activeItems.includes(index)}
           >
             按钮{index + 1}
@@ -40,7 +39,6 @@ export default function ButtonsGroup() {
             onClick={() => {
               setActiveItems([index]);
             }}
-            outline={false}
             selected={activeItems.includes(index)}
           >
             按钮{index + 1}
@@ -58,7 +56,6 @@ export default function ButtonsGroup() {
             onClick={() => {
               setActiveItems([index]);
             }}
-            outline={false}
             selected={activeItems.includes(index)}
           >
             按钮{index + 1}
@@ -73,7 +70,6 @@ export default function ButtonsGroup() {
         {Array.from({ length: 3 }).map((_, index) => (
           <MButton
             key={index}
-            outline={false}
             variant="filled"
             selected={activeItems.includes(index)}
             className="outline-offset-0!"

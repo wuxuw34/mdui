@@ -24,6 +24,7 @@
   "scripts": {
     "dev": "vite --config vite.playground.config.ts",
     "build": "tsc -b && vite build",
+    "build:ui": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

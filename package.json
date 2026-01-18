@@ -6,6 +6,7 @@
   "scripts": {
     "playground": "pnpm -F playground dev --force",
     "ui": "pnpm -F mdui build",
+    "b": "pnpm -F mdui build:ui",
     "web": "pnpm -F website start"
   },
   "author": "",

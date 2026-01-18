@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "../area/button";
 import ButtonGroup from "../area/buttonGroup";
 import Slider from "../area/slider";
+import Switch from "../area/switch";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -27,6 +28,7 @@ export default function App() {
       <Button />
       <ButtonGroup />
       <Slider />
+      <Switch />
     </div>
   );
 }

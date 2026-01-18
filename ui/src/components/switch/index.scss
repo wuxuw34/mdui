@@ -1,0 +1,88 @@
+.mdui-switch {
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+  border-radius: calc(var(--height) / 2);
+  outline: var(--outline-width) solid var(--color-outline);
+  transition: background-color var(--easing);
+  background-color: var(--color-surface-container-highest);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  cursor: pointer;
+
+  & > .thumb {
+    position: absolute;
+    width: var(--size);
+    aspect-ratio: 1/1;
+    color: var(--color-on-primary);
+    background-color: var(--color-outline);
+    border-radius: 50%;
+    top: 50%;
+    transition: all var(--easing);
+    transform-origin: center center;
+    transform: translate(-50%, -50%);
+    left: calc(var(--height) / 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:has(*) {
+      width: var(--size-has-icon);
+      min-width: var(--size-has-icon);
+      aspect-ratio: 1/1;
+      font-size: var(--size-icon);
+    }
+    &:active {
+      scale: 1.1 1;
+    }
+    & > * {
+      width: var(--size-icon);
+      height: var(--size-icon);
+    }
+  }
+  & > .on-text,
+  & > .off-text {
+    flex: 1;
+    font-size: 12px;
+    text-align: center;
+  }
+  & > .off-text {
+    opacity: 1;
+  }
+  & > .on-text {
+    opacity: 0;
+  }
+  &.checked {
+    color: var(--color-on-primary);
+    & > .on-text {
+      opacity: 1;
+    }
+    & > .off-text {
+      opacity: 0;
+    }
+    background-color: var(--color-primary);
+    & > .thumb {
+      background-color: var(--color-on-primary);
+      width: var(--size-hover);
+      color: var(--color-on-primary-container);
+      left: calc(100% - var(--height) / 2) !important;
+      &:has(*) {
+        width: var(--size-has-icon);
+        font-size: var(--size-icon);
+        color: var(--color-primary);
+      }
+      &:hover {
+        width: var(--size-active-hover);
+      }
+    }
+  }
+  &:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+  &:not(.checked) > .thumb:hover {
+    width: var(--height);
+  }
+}
