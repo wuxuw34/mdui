@@ -83,45 +83,62 @@ export default function MSlider(props: MSliderProps) {
       }}
       {...rest}
     >
-      {variant !== "Standard" && (
-        <div
-          style={sliderStyle.fstyle}
-          className={sliderStyle.lccs}
-        >
-          <div className={sliderStyle.fcs}></div>
+      {variant !== "Standard" ? (
+        <>
           <div
+            className="track-container"
+            style={sliderStyle.ftrackStyle}
             ref={targetLeftRef}
             onPointerDown={onLeftPointerDown}
-            className={sliderStyle.lcs}
-          ></div>
-        </div>
-      )}
-      <div
-        style={sliderStyle.sstyle}
-        className={sliderStyle.rccs}
-      >
-        <div className={sliderStyle.ccs}>
-          <div
-            style={{
-              marginLeft: 12,
-            }}
           >
-            {icon}
+            <div className={sliderStyle.ftrackcs}>
+              <div
+                className={`dot ${orientation === "horizontal" ? "left" : "top"}`}
+              ></div>
+            </div>
           </div>
+          <div
+            className={sliderStyle.ltcs}
+            style={sliderStyle.ltStyle}
+            ref={targetLeftRef}
+            onPointerDown={onLeftPointerDown}
+          ></div>
+        </>
+      ) : null}
+      <div
+        className="track-container"
+        style={sliderStyle.strackStyle}
+      >
+        <div className={sliderStyle.strackcs}>
+          <div
+            className={`dot ${orientation === "horizontal" ? "right" : "top"}`}
+            style={{
+              opacity: !icon ? 0 : 1,
+            }}
+          ></div>
+          {variant === "Standard" && orientation === "horizontal" && (
+            <div className="icon">{icon}</div>
+          )}
         </div>
-        <div
-          ref={variant !== "Centered" ? targetRightRef : undefined}
-          onPointerDown={
-            variant !== "Centered" ? onRightPointerDown : undefined
-          }
-          className={sliderStyle.rcs}
-        ></div>
       </div>
       <div
-        className="container"
-        style={sliderStyle.tstyle}
+        className={sliderStyle.rtcs}
+        style={sliderStyle.rtStyle}
+        ref={variant !== "Centered" ? targetRightRef : undefined}
+        onPointerDown={variant !== "Centered" ? onRightPointerDown : undefined}
+      ></div>
+      <div
+        style={sliderStyle.ttrackStyle}
+        className="track-container"
       >
-        <div className={sliderStyle.tcs}></div>
+        <div className={sliderStyle.ttrackcs}>
+          {variant === "Standard" && orientation === "vertical" && (
+            <div className="icon">{icon}</div>
+          )}
+          <div
+            className={`dot ${orientation === "horizontal" ? "right" : "bottom"}`}
+          ></div>
+        </div>
       </div>
     </div>
   );
