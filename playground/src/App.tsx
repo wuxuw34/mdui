@@ -15,6 +15,7 @@ import {
   MButton,
 } from "mdui";
 import Card from "../area/card";
+import Checkbox from "../area/checkbox";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -98,6 +99,14 @@ export default function App() {
           开关
         </MTab>
         <MTab
+          value="checkbox"
+          onClick={() => {
+            setActive("checkbox");
+          }}
+        >
+          复选框
+        </MTab>
+        <MTab
           value="slider"
           onClick={() => {
             setActive("slider");
@@ -133,6 +142,9 @@ export default function App() {
         </LateralTransition>
         <LateralTransition value="switch">
           <Switch />
+        </LateralTransition>
+        <LateralTransition value="checkbox">
+          <Checkbox />
         </LateralTransition>
         <LateralTransition value="slider">
           <Slider />
