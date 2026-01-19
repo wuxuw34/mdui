@@ -70,72 +70,72 @@
   &.selected {
     border-radius: var(--radius-pressed);
   }
-}
 
-.default {
-  color: var(--color-primary);
-  &:hover::before {
-    background-color: var(--color-primary-container);
+  .default {
+    color: var(--color-primary);
+    &:hover::before {
+      background-color: var(--color-primary-container);
+    }
+    &.selected {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+    }
   }
-  &.selected {
+
+  .filled {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+    }
+    &:focus {
+      background-color: var(--color-primary);
+    }
+    &.unselected {
+      background-color: var(--color-surface-container);
+      color: var(--color-on-surface-variant);
+    }
+    &:selected {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+    }
   }
-}
 
-.filled {
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
-  &:hover {
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
+  &.tonal {
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    &.selected {
+      background-color: var(--color-secondary);
+      color: var(--color-on-secondary);
+    }
   }
-  &:focus {
-    background-color: var(--color-primary);
-  }
-  &.unselected {
-    background-color: var(--color-surface-container);
+  &.outline {
     color: var(--color-on-surface-variant);
+    outline: 1px solid var(--color-outline-variant);
+    &.selected {
+      background-color: var(--color-inverse-surface);
+      color: var(--color-inverse-on-surface);
+    }
   }
-  &:selected {
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
-}
-
-.tonal {
-  background-color: var(--color-secondary-container);
-  color: var(--color-on-secondary-container);
-  &.selected {
-    background-color: var(--color-secondary);
-    color: var(--color-on-secondary);
-  }
-}
-.outline {
-  color: var(--color-on-surface-variant);
-  outline: 1px solid var(--color-outline-variant);
-  &.selected {
-    background-color: var(--color-inverse-surface);
-    color: var(--color-inverse-on-surface);
-  }
-}
-.text {
-  color: var(--color-primary);
-  box-shadow: none;
-  &:hover {
+  &.text {
+    color: var(--color-primary);
     box-shadow: none;
+    &:hover {
+      box-shadow: none;
+    }
+    &:focus {
+      outline: 0;
+    }
   }
-  &:focus {
-    outline: 0;
+  &.inverse-radius {
+    border-radius: var(--rounded) !important;
   }
-}
-.inverse-radius {
-  border-radius: var(--rounded) !important;
-}
-.ripple-active-default {
-  background-color: rgba(255, 255, 255, 0.6);
-}
-.ripple-active {
-  background-color: var(--color-primary);
-  opacity: 0.1;
+  &.ripple-active-default {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+  .ripple-active {
+    background-color: var(--color-primary);
+    opacity: 0.1;
+  }
 }

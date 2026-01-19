@@ -90,6 +90,14 @@ export default function App() {
           徽标
         </MTab>
         <MTab
+          value="switch"
+          onClick={() => {
+            setActive("switch");
+          }}
+        >
+          开关
+        </MTab>
+        <MTab
           value="slider"
           onClick={() => {
             setActive("slider");
@@ -119,8 +127,12 @@ export default function App() {
         <LateralTransition value="buttonGroup">
           <ButtonGroup />
         </LateralTransition>
+
         <LateralTransition value="badge">
           <Badge />
+        </LateralTransition>
+        <LateralTransition value="switch">
+          <Switch />
         </LateralTransition>
         <LateralTransition value="slider">
           <Slider />
@@ -129,7 +141,6 @@ export default function App() {
           <Card />
         </LateralTransition>
       </LateralTransitions>
-      <Switch />
     </div>
   );
 }

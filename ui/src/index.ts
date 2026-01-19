@@ -1,4 +1,4 @@
-import "./index.css"
+import "./index.scss"
 export { MSlider } from "./components/slider";
 export { default as MButton } from "./components/button";
 export { default as MButtonGroup } from "./components/buttonGroup";

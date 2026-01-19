@@ -85,7 +85,6 @@ const LateralTransitions = forwardRef<
   const updatePage = useCallback(
     (value: string | number) => {
       if (!pageContainerRef.current) return;
-      console.log("updatePage", value);
       const index =
         typeof value === "number"
           ? value
@@ -98,7 +97,6 @@ const LateralTransitions = forwardRef<
   );
 
   useEffect(() => {
-    console.log("初始化", value, active);
     if (value !== active && value) {
       const set = (v: string) => {
         setActive(v);
