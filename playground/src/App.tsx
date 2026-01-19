@@ -14,11 +14,26 @@ import {
   type MLateralTransitionsRef,
   MButton,
 } from "mdui";
+import Card from "../area/card";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
   const lateralTransitionsRef = useRef<MLateralTransitionsRef>(null);
   const [active, setActive] = useState("button");
+
+  useEffect(() => {
+    // 读取
+    const set = (v: string) => {
+      setActive(v);
+    };
+    const v = localStorage.getItem("tab");
+    set(v || "button");
+  }, []);
+
+  useEffect(() => {
+    // 缓存到本地
+    localStorage.setItem("tab", active);
+  }, [active]);
 
   useEffect(() => {
     if (isDark) {
@@ -82,6 +97,14 @@ export default function App() {
         >
           滑块
         </MTab>
+        <MTab
+          value="card"
+          onClick={() => {
+            setActive("card");
+          }}
+        >
+          卡片
+        </MTab>
       </MTabs>
       <LateralTransitions
         ref={lateralTransitionsRef}
@@ -101,6 +124,9 @@ export default function App() {
         </LateralTransition>
         <LateralTransition value="slider">
           <Slider />
+        </LateralTransition>
+        <LateralTransition value="card">
+          <Card />
         </LateralTransition>
       </LateralTransitions>
       <Switch />

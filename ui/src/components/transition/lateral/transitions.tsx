@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -81,19 +82,23 @@ const LateralTransitions = forwardRef<
     setPages((prev) => [...prev, page]);
   }
 
-  function updatePage(value: string | number) {
-    if (!pageContainerRef.current) return;
-    const index =
-      typeof value === "number"
-        ? value
-        : pages.findIndex((p) => p.value === value);
-
-    if (index >= 0) {
-      pageContainerRef.current.style.transform = `translate(${-100 * index}%,0)`;
-    }
-  }
+  const updatePage = useCallback(
+    (value: string | number) => {
+      if (!pageContainerRef.current) return;
+      console.log("updatePage", value);
+      const index =
+        typeof value === "number"
+          ? value
+          : pages.findIndex((p) => p.value === value);
+      if (index >= 0) {
+        pageContainerRef.current.style.transform = `translate(${-100 * index}%,0)`;
+      }
+    },
+    [pages],
+  );
 
   useEffect(() => {
+    console.log("初始化", value, active);
     if (value !== active && value) {
       const set = (v: string) => {
         setActive(v);
@@ -101,21 +106,25 @@ const LateralTransitions = forwardRef<
       set(value);
       updatePage(value);
     }
-  }, [value]);
+  }, [value, updatePage]);
 
-  useEffect(() => {
-    if (pages.length <= 0) return;
-    const index = pages.findIndex((page) => page.value === active);
-    if (index >= 0) {
-      updatePage(index);
-    } else {
-      updatePage(0);
-      const set = (v: string) => {
-        setActive(v);
-      };
-      set(pages[0].value);
-    }
-  }, [pages]);
+  /**
+   * @deprecated
+   * 这段代码和上面的value冲突
+   */
+  // useEffect(() => {
+  //   if (pages.length <= 0) return;
+  //   const index = pages.findIndex((page) => page.value === active);
+  //   if (index >= 0) {
+  //     updatePage(index);
+  //   } else {
+  //     updatePage(0);
+  //     const set = (v: string) => {
+  //       setActive(v);
+  //     };
+  //     set(pages[0].value);
+  //   }
+  // }, [pages]);
 
   useEffect(() => {
     onValueChange?.(active);

@@ -10,3 +10,4 @@ export { MSwitch, type MSwitchProps } from "./components/switch";
 export * from './components/tab'
 export * from './components/badge'
 export * from './components/transition'
+export * from './components/card'
