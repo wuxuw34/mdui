@@ -4,6 +4,7 @@ export interface MTabsContextProps {
   active?: string;
   index?: number;
   toggle?: (value: string, width: number, el: HTMLElement, init?: boolean) => void;
-  isInit?: boolean
+  isInit?: boolean,
+  variant?: "primary" | "secondary"
 }
 export const MTabsContext = createContext<MTabsContextProps>({});

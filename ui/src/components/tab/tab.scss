@@ -1,4 +1,6 @@
 .mdui-tabs-tab {
+  flex: 1;
+  min-width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,6 +8,28 @@
   gap: 4px;
   color: var(--color-on-surface-variant);
   user-select: none;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  &:hover {
+    background-color: var(--color-surface-container);
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100% - 2px);
+    border-radius: var(--radius-xs);
+    box-sizing: border-box;
+  }
+  &:focus-visible:before {
+    border: 3px solid var(--color-outline);
+  }
+  &:focus {
+    outline: none;
+  }
   &.active {
     color: var(--color-primary);
   }
@@ -18,5 +42,18 @@
   & > .icon {
     width: 24px;
     height: 24px;
+  }
+
+  &.secondary {
+    height: 48px;
+    flex-direction: row;
+    gap: 8px;
+
+    & > .icon {
+      font-size: 24px;
+      &:not(:has(*)) {
+        display: none;
+      }
+    }
   }
 }

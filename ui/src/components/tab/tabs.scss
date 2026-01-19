@@ -1,11 +1,21 @@
 .mdui-tabs {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
   overflow: auto;
   position: relative;
   background-color: var(--color-surface);
-
+  overflow-x: scroll;
+  overscroll-behavior-x: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  & > .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    &.is-scrolling > * {
+      pointer-events: none !important;
+    }
+  }
   &.primary {
     height: 64px;
   }
@@ -17,10 +27,19 @@
   }
 }
 .mdui-tabs-indicator {
+  z-index: 1;
   position: absolute;
   bottom: 0;
-  height: 3px;
+  height: 2px;
   border-radius: 3px 3px 0 0;
-  background-color: var(--color-primary);
   min-width: 24px;
+  left: 0;
+  background-color: var(--color-outline-variant);
+  &.active {
+    height: 3px;
+    background-color: var(--color-primary);
+  }
+  &.bg {
+    width: 100%;
+  }
 }
