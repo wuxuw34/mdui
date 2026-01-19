@@ -11,14 +11,15 @@ interface RippleOptions {
   auto?: boolean;
   className?: string;
   callback?: (ripple: Ripple) => void;
+  container?: RefObject<HTMLElement | null>;
 }
 
 export default function useRipple(
   ref: RefObject<HTMLElement | null>,
-  options: RippleOptions
+  options: RippleOptions,
 ) {
   const [enabled, setEnabled] = useState(true); // 是否启用
-  const { auto = true, className, callback } = options;
+  const { auto = true, className, callback, container } = options;
 
   useEffect(() => {
     const el = ref.current;
@@ -50,7 +51,8 @@ export default function useRipple(
         rippleElement.style.width = `${rippleSize}px`;
         rippleElement.style.height = `${rippleSize}px`;
         rippleElement.classList.add(...(className?.split(" ") || []));
-        el.insertBefore(rippleElement, el.firstChild);
+        const c = container?.current || el;
+        c.insertBefore(rippleElement, c.firstChild);
         rippleElement.addEventListener("animationend", () => {
           rippleElement.remove();
         });

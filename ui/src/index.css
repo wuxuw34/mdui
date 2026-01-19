@@ -1,4 +1,4 @@
-@import './styles/easing-function.scss';
+@import "./styles/easing-function.scss";
 :root {
   --radius-radius: 1.5rem;
   --radius-square: 0.75rem;
@@ -23,6 +23,10 @@
   --color-inverse-on-surface: #f5eff7;
   --color-inverse-primary: #d0bcfe;
   --color-shadow: #000000;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #7d2b25;
   --size-xl: 136px;
   --size-lg: 96px;
   --size-md: 56px;

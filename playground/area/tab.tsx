@@ -1,4 +1,4 @@
-import { Home } from "lucide-react";
+import { AudioLines, Image, Video } from "lucide-react";
 import { MTabs, MTab } from "mdui";
 
 export default function Tab() {
@@ -6,21 +6,21 @@ export default function Tab() {
     <MTabs>
       <MTab
         value="1"
-        icon={<Home />}
+        icon={<Video />}
       >
-        Tab 1
+        Video
       </MTab>
       <MTab
         value="2"
-        icon={<Home />}
+        icon={<Image />}
       >
-        Tab 2
+        Photos
       </MTab>
       <MTab
         value="3"
-        icon={<Home />}
+        icon={<AudioLines />}
       >
-        Tab 3
+        Audio
       </MTab>
     </MTabs>
   );

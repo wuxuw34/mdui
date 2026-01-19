@@ -49,8 +49,10 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   let { radiusInverse = false } = props;
   radiusInverse = groupContext.variant === "connected";
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const rippleContainerRef = useRef<HTMLDivElement>(null);
   const { setEnabled: setRippleEnabled } = useRipple(buttonRef, {
     className: getRippleBackgroundColor(),
+    container: rippleContainerRef,
   });
 
   const [id] = useState(nanoid()); // 按钮的唯一标识
@@ -60,6 +62,7 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   });
   const initialPadding = useRef<boolean>(false); // 是否初始化了
   const targetPaddingRef = useRef<number[]>([]); // 目标padding值
+
   const buttonStyle = useMemo<{
     className: string;
     style: React.CSSProperties;
@@ -200,6 +203,10 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
         } as React.CSSProperties
       }
     >
+      <div
+        className="ripple-container"
+        ref={rippleContainerRef}
+      ></div>
       {startIcon}
       {props.children}
       {endIcon}

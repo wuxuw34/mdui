@@ -4,6 +4,7 @@ import ButtonGroup from "../area/buttonGroup";
 import Slider from "../area/slider";
 import Switch from "../area/switch";
 import Tab from "../area/tab";
+import Badge from "../area/badge";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -26,6 +27,7 @@ export default function App() {
         />
         <switch>黑暗模式</switch>
       </div>
+      <Badge />
       <Tab />
       <Button />
       <ButtonGroup />

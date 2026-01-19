@@ -1,4 +1,11 @@
-import { useContext, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { MTabsContext } from "./context";
 import "./tab.scss";
 import { handleTabStyle } from "./tab-custom";
@@ -17,14 +24,24 @@ export function MTab(props: MTabProps) {
   const tabStyle = useMemo(() => {
     return handleTabStyle({ active: context.active === value, value });
   }, [context, value]);
+  const toggle = useCallback(
+    (i: boolean = false) => {
+      if (tabRef.current && textRef.current) {
+        context.toggle?.(value, textRef.current.offsetWidth, tabRef.current, i);
+      }
+    },
+    [tabRef, textRef, context, value],
+  );
+
+  useEffect(() => {
+    toggle(true);
+  }, []);
 
   return (
     <div
       ref={tabRef}
       onClick={() => {
-        if (tabRef.current && textRef.current) {
-          context.toggle?.(value, textRef.current.offsetWidth, tabRef.current);
-        }
+        toggle();
       }}
       className={tabStyle.className}
     >

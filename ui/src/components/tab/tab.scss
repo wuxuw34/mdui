@@ -5,6 +5,7 @@
   justify-content: center;
   gap: 4px;
   color: var(--color-on-surface-variant);
+  user-select: none;
   &.active {
     color: var(--color-primary);
   }

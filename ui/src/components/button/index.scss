@@ -1,6 +1,6 @@
 .mdui-button {
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
   flex-direction: row;
   gap: 0.25rem;
@@ -20,6 +20,18 @@
   padding: var(--padding);
   gap: var(--gap);
   // margin: 4px;
+  & > .ripple-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius);
+    &:hover {
+      border-radius: var(--radius-pressed);
+    }
+  }
 
   &:hover {
     box-shadow: var(--shadow-hover-button);
