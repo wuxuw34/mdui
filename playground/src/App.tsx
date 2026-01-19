@@ -18,6 +18,7 @@ import {
 export default function App() {
   const [isDark, setIsDark] = useState(false);
   const lateralTransitionsRef = useRef<MLateralTransitionsRef>(null);
+  const [active, setActive] = useState("button");
 
   useEffect(() => {
     if (isDark) {
@@ -37,7 +38,10 @@ export default function App() {
         />
         <switch>黑暗模式</switch>
       </div>
-      <MButtonGroup animation={false}>
+      <MButtonGroup
+        animation={false}
+        value={active}
+      >
         <MButton onClick={() => lateralTransitionsRef.current?.toPrev()}>
           上一页
         </MButton>
@@ -45,11 +49,11 @@ export default function App() {
           下一页
         </MButton>
       </MButtonGroup>
-      <MTabs>
+      <MTabs value={active}>
         <MTab
           value="button"
           onClick={() => {
-            lateralTransitionsRef.current?.update("button");
+            setActive("button");
           }}
         >
           按钮
@@ -57,7 +61,7 @@ export default function App() {
         <MTab
           value="buttonGroup"
           onClick={() => {
-            lateralTransitionsRef.current?.update("buttonGroup");
+            setActive("buttonGroup");
           }}
         >
           按钮组
@@ -65,7 +69,7 @@ export default function App() {
         <MTab
           value="badge"
           onClick={() => {
-            lateralTransitionsRef.current?.update("badge");
+            setActive("badge");
           }}
         >
           徽标
@@ -73,13 +77,19 @@ export default function App() {
         <MTab
           value="slider"
           onClick={() => {
-            lateralTransitionsRef.current?.update("slider");
+            setActive("slider");
           }}
         >
           滑块
         </MTab>
       </MTabs>
-      <LateralTransitions ref={lateralTransitionsRef}>
+      <LateralTransitions
+        ref={lateralTransitionsRef}
+        value={active}
+        onValueChange={(v) => {
+          setActive(v);
+        }}
+      >
         <LateralTransition value="button">
           <Button />
         </LateralTransition>

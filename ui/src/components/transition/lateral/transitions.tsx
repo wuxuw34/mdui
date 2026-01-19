@@ -94,6 +94,16 @@ const LateralTransitions = forwardRef<
   }
 
   useEffect(() => {
+    if (value !== active && value) {
+      const set = (v: string) => {
+        setActive(v);
+      };
+      set(value);
+      updatePage(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
     if (pages.length <= 0) return;
     const index = pages.findIndex((page) => page.value === active);
     if (index >= 0) {

@@ -53,6 +53,7 @@ export default function useDraggable<T = HTMLDivElement>(
     (e: PointerEvent) => {
       if (!isDragging.current || !targetRef.current) return;
       updatePosition(e.clientX, e.clientY);
+      e.stopPropagation();
     },
     [updatePosition],
   );
@@ -93,6 +94,7 @@ export default function useDraggable<T = HTMLDivElement>(
       if (onPointerUpRef.current) {
         window.addEventListener("pointerup", onPointerUpRef.current);
       }
+      e.stopPropagation();
     },
     [onPointerMove],
   );

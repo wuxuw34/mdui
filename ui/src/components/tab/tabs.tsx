@@ -18,6 +18,7 @@ export function MTabs(props: MTabsProps) {
     variant = "primary",
     className,
     onValueChange,
+    value,
     ...rest
   } = props;
   const [indicator, setIndicator] = useState<{
@@ -99,6 +100,60 @@ export function MTabs(props: MTabsProps) {
     }
   }, []);
 
+  function updateIndicator(value: string, needScroll: boolean = false) {
+    if (!tabsRef.current) return;
+    const { width, el } =
+      cacheTabRef.current.find((item) => item.value === value) || {};
+    if (!el || !width) return;
+    // 计算指示器的位置
+    const rect = el.getBoundingClientRect(); // tab的尺寸数据
+    // 容器的尺寸
+    const tabsWidth = tabsRef.current?.offsetWidth || 0;
+    const left =
+      rect.left +
+      rect.width / 2 -
+      width / 2 -
+      (tabsRef.current?.offsetLeft || 0) +
+      tabsRef.current.scrollLeft; // left的偏移量
+    const right = tabsWidth - left - width;
+    let direction: "next" | "prev";
+    if (indicator.left > left) {
+      direction = "prev";
+    } else {
+      direction = "next";
+    }
+    // 设置样式
+    if (isInitRef.current) {
+      updateIndicatorStyle(direction);
+    }
+    isInitRef.current = true;
+    setIndicator({
+      right: right + 2,
+      left: left + 2,
+      direction,
+    });
+    setActive(value);
+    onValueChange?.(value);
+    // 最好滚动一下子
+    if (needScroll) {
+      tabsRef.current.scrollTo({
+        left: left - rect.width,
+        behavior: "smooth",
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (value !== active && value) {
+      const set = (v: string) => {
+        setActive(v);
+      };
+      set(value);
+      console.log('更新',value)
+      updateIndicator(value, true);
+    }
+  }, [value]);
+
   useEffect(() => {
     if (!tabsRef.current) return;
     // 监听容器宽度
@@ -167,49 +222,6 @@ export function MTabs(props: MTabsProps) {
     springTimerRef.current = window.setTimeout(() => {
       setSpringOffset(0);
     }, 300);
-  }
-
-  function updateIndicator(value: string, needScroll: boolean = false) {
-    if (!tabsRef.current) return;
-    const { width, el } =
-      cacheTabRef.current.find((item) => item.value === value) || {};
-    if (!el || !width) return;
-    // 计算指示器的位置
-    const rect = el.getBoundingClientRect(); // tab的尺寸数据
-    // 容器的尺寸
-    const tabsWidth = tabsRef.current?.offsetWidth || 0;
-    const left =
-      rect.left +
-      rect.width / 2 -
-      width / 2 -
-      (tabsRef.current?.offsetLeft || 0) +
-      tabsRef.current.scrollLeft; // left的偏移量
-    const right = tabsWidth - left - width;
-    let direction: "next" | "prev";
-    if (indicator.left > left) {
-      direction = "prev";
-    } else {
-      direction = "next";
-    }
-    // 设置样式
-    if (isInitRef.current) {
-      updateIndicatorStyle(direction);
-    }
-    isInitRef.current = true;
-    setIndicator({
-      right: right + 2,
-      left: left + 2,
-      direction,
-    });
-    setActive(value);
-    onValueChange?.(value);
-    // 最好滚动一下子
-    if (needScroll) {
-      tabsRef.current.scrollTo({
-        left: left - rect.width,
-        behavior: "smooth",
-      });
-    }
   }
 
   function updateIndicatorStyle(direction: "next" | "prev") {
