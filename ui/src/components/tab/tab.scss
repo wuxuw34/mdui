@@ -42,6 +42,10 @@
   & > .icon {
     width: 24px;
     height: 24px;
+
+    &:not(:has(*)) {
+      display: none;
+    }
   }
 
   &.secondary {

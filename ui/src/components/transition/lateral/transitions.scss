@@ -1,0 +1,12 @@
+.mdui-lateral-transitions {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  & > .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: transform var(--easing);
+  }
+}

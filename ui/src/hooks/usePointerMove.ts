@@ -3,31 +3,33 @@ import type { Position } from "../types";
 
 
 export default function usePointerMove<T extends HTMLElement = HTMLDivElement>(options?: {
-  callback?: (position: Position, prevPos: Position) => void,
+  callback?: (position: Position, prevPos: Position, initPos: Position) => void,
   onPointerUp?: (e: PointerEvent) => void,
   onPointerDown?: (e: PointerEvent) => void,
 }) {
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [initPos, setInitPos] = useState<Position>({ x: 0, y: 0 });
   const initPosRef = useRef<Position>({ x: 0, y: 0 });
+  const prevPosRef = useRef<Position>({ x: 0, y: 0 });
   const isMovingRef = useRef<boolean>(false); // 是否正在移动
   const ref = useRef<T | null>(null)
   const onPointerUpRef = useRef<(e: PointerEvent) => void>(null)
 
   const onPointerMove = useCallback((e: PointerEvent) => {
     if (!isMovingRef.current) return
-    const x = e.clientX - initPosRef.current.x
-    const y = e.clientY - initPosRef.current.y
-    initPosRef.current = {
+    const x = e.clientX - prevPosRef.current.x
+    const y = e.clientY - prevPosRef.current.y
+    const o = {
       x: e.clientX,
       y: e.clientY,
     }
+    prevPosRef.current = o
     const p = {
       x,
       y,
     }
     setPosition(p)
-    options?.callback?.(p, initPosRef.current)
+    options?.callback?.(p, prevPosRef.current, initPosRef.current)
   }, [options])
 
   const onPointerUp = useCallback((e: PointerEvent) => {
@@ -53,6 +55,7 @@ export default function usePointerMove<T extends HTMLElement = HTMLDivElement>(o
     }
     options?.onPointerDown?.(e as unknown as PointerEvent)
     setInitPos(p)
+    prevPosRef.current = p
     initPosRef.current = p
     ref.current?.addEventListener("pointermove", onPointerMove)
     onPointerUpRef.current = onPointerUp

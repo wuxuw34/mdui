@@ -18,7 +18,7 @@ export interface MTabProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function MTab(props: MTabProps) {
-  const { children, value, icon, className, style, ...rest } = props;
+  const { children, value, icon, className, onClick, style, ...rest } = props;
   const context = useContext(MTabsContext);
   const tabRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ export function MTab(props: MTabProps) {
     [tabRef, textRef, context, value, variant],
   );
   useRipple(tabRef, {
-    container: tabRef
+    container: tabRef,
   });
 
   useEffect(() => {
@@ -62,12 +62,14 @@ export function MTab(props: MTabProps) {
   return (
     <div
       ref={tabRef}
-      onClick={() => {
+      onClick={(e) => {
         toggle();
+        onClick?.(e);
       }}
       className={tabStyle.className}
       role="tab"
       tabIndex={0}
+      {...rest}
     >
       <div className="icon">{icon}</div>
       <div

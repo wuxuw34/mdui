@@ -143,7 +143,7 @@ export function MTabs(props: MTabsProps) {
       return;
     }
     const prev = cacheTabRef.current[index - 1];
-    updateIndicator(prev.value);
+    updateIndicator(prev.value, true);
   }
 
   function toNext() {
@@ -155,7 +155,7 @@ export function MTabs(props: MTabsProps) {
       return;
     }
     const next = cacheTabRef.current[index + 1];
-    updateIndicator(next.value);
+    updateIndicator(next.value, true);
   }
 
   function updateSpringOffset(offset: number) {
@@ -169,7 +169,7 @@ export function MTabs(props: MTabsProps) {
     }, 300);
   }
 
-  function updateIndicator(value: string) {
+  function updateIndicator(value: string, needScroll: boolean = false) {
     if (!tabsRef.current) return;
     const { width, el } =
       cacheTabRef.current.find((item) => item.value === value) || {};
@@ -204,10 +204,12 @@ export function MTabs(props: MTabsProps) {
     setActive(value);
     onValueChange?.(value);
     // 最好滚动一下子
-    tabsRef.current.scrollTo({
-      left: left - rect.width,
-      behavior: "smooth",
-    });
+    if (needScroll) {
+      tabsRef.current.scrollTo({
+        left: left - rect.width,
+        behavior: "smooth",
+      });
+    }
   }
 
   function updateIndicatorStyle(direction: "next" | "prev") {
