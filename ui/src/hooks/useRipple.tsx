@@ -12,7 +12,7 @@ interface RippleOptions {
   className?: string;
   callback?: (ripple: Ripple) => void;
   container?: RefObject<HTMLElement | null>;
-  color?:string
+  color?: string;
 }
 
 export default function useRipple(
@@ -52,7 +52,8 @@ export default function useRipple(
         rippleElement.style.width = `${rippleSize}px`;
         rippleElement.style.height = `${rippleSize}px`;
         rippleElement.classList.add(...(className?.split(" ") || []));
-        rippleElement.style.backgroundColor = options.color || 'rgb(0, 0, 0, 0.12)';
+        rippleElement.style.backgroundColor =
+          options.color || "rgb(0, 0, 0, 0.12)";
         const c = container?.current || el;
         c.insertBefore(rippleElement, c.firstChild);
         rippleElement.addEventListener("animationend", () => {

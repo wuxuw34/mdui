@@ -1,10 +1,10 @@
-@import "tailwindcss";
 
 .ripple {
   position: absolute;
   border-radius: 50%;
   animation: ripple 600ms ease-out;
   pointer-events: none;
+  z-index: 3;
 }
 
 @keyframes ripple {

@@ -1,6 +1,8 @@
 .mdui-button {
+  background-color: transparent;
   position: relative;
   // overflow: hidden;
+  border: none;
   display: flex;
   flex-direction: row;
   gap: 0.25rem;
@@ -71,7 +73,7 @@
     border-radius: var(--radius-pressed);
   }
 
-  .default {
+  &.default {
     color: var(--color-primary);
     &:hover::before {
       background-color: var(--color-primary-container);
@@ -82,7 +84,7 @@
     }
   }
 
-  .filled {
+  &.filled {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
     &:hover {

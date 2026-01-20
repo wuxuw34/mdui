@@ -1,19 +1,63 @@
 .mdui-checkbox {
-  margin: 48px;
+  margin: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 18px;
   height: 18px;
   border-radius: 2px;
-  background-color: var(--color-primary);
-  & > .icon {
-    height: 18px;
-    width: 18px;
-    color: var(--color-on-primary);
-    font-size: 18px;
+  background-color: var(--color);
+  cursor: pointer;
+  &.unchecked {
+    background-color: transparent;
+    outline: 3px solid var(--color-outline);
+    outline-offset: -3px;
+    &:hover {
+      outline: 3px solid var(--color);
+    }
+  }
+  &.disabled {
+    background-color: var(--color-disabled);
+    outline: none;
+    &:active {
+      pointer-events: none;
+    }
+  }
+  & > .container {
+    width: calc(100% + 24px);
+    height: calc(100% + 24px);
+    position: absolute;
+    overflow: hidden;
+    border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    & > .icon {
+      height: 18px;
+      width: 18px;
+      color: white;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    & > .bg {
+      width: 100%;
+      position: absolute;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    &:focus-visible > .bg::before {
+      border: 12px solid var(--bg) inset;
+    }
+  }
+  &:hover > .container > .bg {
+    border: 12px solid var(--bg);
   }
 }
