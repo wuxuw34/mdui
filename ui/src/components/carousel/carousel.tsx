@@ -5,6 +5,8 @@ import {
   handleCarouselContentClassName,
   updateMultiBrowseItemWidth,
 } from "./utils";
+import { useMouseWheel } from "../../hooks/useMouseWheel";
+import { MCarouselContext } from "./context";
 
 export default function MCarousel({
   variant = "multi-browse",
@@ -20,12 +22,44 @@ export default function MCarousel({
       size: 0,
     });
   }, [variant]);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  useMouseWheel({
+    el: carouselRef,
+    callback: (x, y, e) => {
+      if (y > 0) {
+        toNext();
+      } else if (y < 0) {
+        toPrev();
+      }
+      e.preventDefault();
+    },
+  });
 
   useEffect(() => {
-    if (contentRef.current) {
-      updateMultiBrowseItemWidth(contentRef.current, active, showNumber);
+    if (contentRef.current && variant === "multi-browse") {
+      updateMultiBrowseItemWidth(
+        variant,
+        contentRef.current,
+        active,
+        showNumber,
+      );
     }
-  }, [active, showNumber]);
+  }, [active, showNumber, variant]);
+
+  function toPrev() {
+    if (active === 0) {
+      return;
+    }
+    setActive(active - 1);
+  }
+
+  function toNext() {
+    if (active === React.Children.count(children) - showNumber) {
+      return;
+    }
+    setActive(active + 1);
+  }
 
   useEffect(() => {
     if (value !== active) {
@@ -37,22 +71,25 @@ export default function MCarousel({
   }, [value]);
 
   return (
-    <div
-      className="mdui-carousel"
-      onPointerDown={(e) => {
-        e.stopPropagation();
+    <MCarouselContext.Provider
+      value={{
+        variant,
       }}
     >
       <div
-        className={contentClassName}
-        ref={contentRef}
+        className="mdui-carousel"
+        onPointerDown={(e) => {
+          e.stopPropagation();
+        }}
+        ref={carouselRef}
       >
-        {React.Children.map(children, (child) => (
-          <div className={"mdui-carousel-item "}>
-            <div className="container">{child}</div>
-          </div>
-        ))}
+        <div
+          className={contentClassName}
+          ref={contentRef}
+        >
+          {children}
+        </div>
       </div>
-    </div>
+    </MCarouselContext.Provider>
   );
 }

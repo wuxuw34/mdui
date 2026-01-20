@@ -1,6 +1,5 @@
 import { MCheckbox } from "mdui";
 import Col from "./col";
-import { Check } from "lucide-react";
 import { useState } from "react";
 
 export default function Checkbox() {

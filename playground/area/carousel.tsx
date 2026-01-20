@@ -1,4 +1,4 @@
-import { MButton, MButtonGroup, MCarousel } from "mdui";
+import { MButton, MButtonGroup, MCarousel, MCarouselItem } from "mdui";
 import Col from "./col";
 import { useState } from "react";
 
@@ -54,14 +54,36 @@ export default function Carousel() {
         value={activeIndex}
       >
         {testImgs.map((item, index) => (
-          <img
-            src={item}
-            alt=""
-            key={index}
-            className="h-[400px] w-full"
-          />
+          <MCarouselItem key={index}>
+            <img
+              src={item}
+              alt=""
+              key={index}
+              className="h-[400px] w-full"
+            />
+          </MCarouselItem>
         ))}
       </MCarousel>
+      <div className="h-[300px]">
+        <MCarousel
+          variant="uncontained"
+          value={activeIndex}
+        >
+          {testImgs.map((item, index) => (
+            <MCarouselItem
+              key={index}
+              aspectRatio={index % 2 === 0 ? "1:1" : "9:16"}
+            >
+              <img
+                src={item}
+                alt=""
+                key={index}
+                className="h-[400px] w-full"
+              />
+            </MCarouselItem>
+          ))}
+        </MCarousel>
+      </div>
     </Col>
   );
 }

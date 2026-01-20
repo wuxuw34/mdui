@@ -1,4 +1,4 @@
-import type { MCarouselProps } from "./interface";
+import type { MCarouselProps, MCarouselVariant } from "./interface";
 
 export function handleCarouselContentClassName({
   variant = 'multi-browse'
@@ -10,10 +10,12 @@ export function handleCarouselContentClassName({
   return cs.join(' ')
 }
 
-export function updateMultiBrowseItemWidth(content: HTMLDivElement, active: number, showNumber: number = 4) {
+export function updateMultiBrowseItemWidth(variant: MCarouselVariant, content: HTMLDivElement, active: number, showNumber: number = 4) {
   const children = Array.from(content.children) as HTMLElement[]
   const offsetWidth = content.offsetWidth - 32 // 容器宽度
   const items: ('default' | 'wide' | 'thin')[] = Array.from({ length: children.length }, () => 'thin')
+  const offsetIndex = active + showNumber - 1 >= children.length ? active - (active + showNumber - 1 - (children.length - 1)) : active // 记录偏移位置
+
   for (let i = 0; i < showNumber - 1; i++) {
     const index = i + active
     if (index === active) {
@@ -26,6 +28,7 @@ export function updateMultiBrowseItemWidth(content: HTMLDivElement, active: numb
       }
     }
   }
+  // console.log(items, offsetIndex, '偏移位置', active)
   items.forEach((item, index) => {
     const el = children[index]
     if (item === 'wide') {
@@ -43,6 +46,6 @@ export function updateMultiBrowseItemWidth(content: HTMLDivElement, active: numb
     //   left: active * 40 + 16 + 8 * (active - 1),
     //   behavior: 'smooth'
     // })
-    content.style.transform = `translateX(${-active * 40 - 16 - 8 * (active - 1)}px)`
+    content.style.transform = `translateX(${-offsetIndex * 40 - 16 - 8 * (offsetIndex - (showNumber - 2))}px)`
   }, 0)
 }
