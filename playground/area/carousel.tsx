@@ -64,6 +64,21 @@ export default function Carousel() {
           </MCarouselItem>
         ))}
       </MCarousel>
+      <MCarousel
+        variant="hero"
+        value={activeIndex}
+      >
+        {testImgs.map((item, index) => (
+          <MCarouselItem key={index}>
+            <img
+              src={item}
+              alt=""
+              key={index}
+              className="h-[400px] w-full"
+            />
+          </MCarouselItem>
+        ))}
+      </MCarousel>
       <div className="h-[300px]">
         <MCarousel
           variant="uncontained"

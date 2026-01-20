@@ -4,6 +4,7 @@ import type { MCarouselProps } from "./interface";
 import {
   handleCarouselContentClassName,
   updateMultiBrowseItemWidth,
+  updateUncontainedOffset,
 } from "./utils";
 import { useMouseWheel } from "../../hooks/useMouseWheel";
 import { MCarouselContext } from "./context";
@@ -16,6 +17,10 @@ export default function MCarousel({
 }: MCarouselProps) {
   const [active, setActive] = useState(value); // 当前激活的索引
   const contentRef = useRef<HTMLDivElement>(null);
+  if (variant === "hero") {
+    variant = "multi-browse";
+    showNumber = 2;
+  }
   const contentClassName = useMemo(() => {
     return handleCarouselContentClassName({
       variant,
@@ -23,6 +28,9 @@ export default function MCarousel({
     });
   }, [variant]);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [isScrolling, setIsScrolling] = useState<
+    "left" | "right" | undefined
+  >();
 
   useMouseWheel({
     el: carouselRef,
@@ -37,13 +45,16 @@ export default function MCarousel({
   });
 
   useEffect(() => {
-    if (contentRef.current && variant === "multi-browse") {
-      updateMultiBrowseItemWidth(
-        variant,
-        contentRef.current,
-        active,
-        showNumber,
-      );
+    if (contentRef.current) {
+      if (variant === "multi-browse") {
+        updateMultiBrowseItemWidth(contentRef.current, active, showNumber);
+      } else if (variant === "uncontained" && carouselRef.current) {
+        updateUncontainedOffset(
+          carouselRef.current,
+          contentRef.current,
+          active,
+        );
+      }
     }
   }, [active, showNumber, variant]);
 
@@ -51,13 +62,19 @@ export default function MCarousel({
     if (active === 0) {
       return;
     }
+    setIsScrolling("left");
     setActive(active - 1);
   }
 
   function toNext() {
-    if (active === React.Children.count(children) - showNumber) {
+    const limit =
+      variant === "multi-browse"
+        ? React.Children.count(children) - showNumber
+        : React.Children.count(children);
+    if (active + 1 >= limit) {
       return;
     }
+    setIsScrolling("right");
     setActive(active + 1);
   }
 
@@ -74,6 +91,7 @@ export default function MCarousel({
     <MCarouselContext.Provider
       value={{
         variant,
+        scroll: isScrolling,
       }}
     >
       <div

@@ -1,6 +1,7 @@
 
 export interface MCarouselContextValue {
-  variant?: MCarouselVariant
+  variant?: MCarouselVariant,
+  scroll?: 'left' | 'right'
 }
 export interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
@@ -27,4 +28,8 @@ interface Uncontained extends Props {
   variant: 'uncontained'
 }
 
-export type MCarouselProps = MultiBrose | Uncontained
+interface Hero extends Props {
+  variant: 'hero'
+}
+
+export type MCarouselProps = MultiBrose | Uncontained | Hero

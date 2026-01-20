@@ -10,7 +10,20 @@ export function handleCarouselContentClassName({
   return cs.join(' ')
 }
 
-export function updateMultiBrowseItemWidth(variant: MCarouselVariant, content: HTMLDivElement, active: number, showNumber: number = 4) {
+export function updateUncontainedOffset(carousel: HTMLDivElement, content: HTMLDivElement, active: number) {
+  const children = Array.from(content.children) as HTMLElement[]
+  const activeItem = children[active]
+  const lastItem = children[children.length - 1]
+  const contentWidth = lastItem.offsetLeft + lastItem.offsetWidth
+  const width = carousel.offsetWidth
+  let offset = activeItem.offsetLeft
+  if (contentWidth - offset < width) {
+    offset = contentWidth - width
+  }
+  content.style.transform = `translateX(${-offset}px)`
+}
+
+export function updateMultiBrowseItemWidth(content: HTMLDivElement, active: number, showNumber: number = 4) {
   const children = Array.from(content.children) as HTMLElement[]
   const offsetWidth = content.offsetWidth - 32 // 容器宽度
   const items: ('default' | 'wide' | 'thin')[] = Array.from({ length: children.length }, () => 'thin')
@@ -29,10 +42,11 @@ export function updateMultiBrowseItemWidth(variant: MCarouselVariant, content: H
     }
   }
   // console.log(items, offsetIndex, '偏移位置', active)
+  const activeWidth = showNumber > 2 ? offsetWidth / 2 : offsetWidth - 40
   items.forEach((item, index) => {
     const el = children[index]
     if (item === 'wide') {
-      el.style.minWidth = `${offsetWidth / 2}px`
+      el.style.minWidth = `${activeWidth}px`
     } else if (item === 'default') {
       el.style.minWidth = `${(offsetWidth / 2 - 40) / (showNumber - 2)}px`
     } else {
@@ -46,6 +60,6 @@ export function updateMultiBrowseItemWidth(variant: MCarouselVariant, content: H
     //   left: active * 40 + 16 + 8 * (active - 1),
     //   behavior: 'smooth'
     // })
-    content.style.transform = `translateX(${-offsetIndex * 40 - 16 - 8 * (offsetIndex - (showNumber - 2))}px)`
+    content.style.transform = `translateX(${-offsetIndex * 40 - 16 - 8 * (offsetIndex - (showNumber - 1))}px)`
   }, 0)
 }

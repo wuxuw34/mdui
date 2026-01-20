@@ -43,6 +43,7 @@
       & > .container {
         display: flex;
         flex-shrink: 0;
+        transition: transform var(--easing-standard-slow-effects);
       }
       &:hover {
         box-shadow:
