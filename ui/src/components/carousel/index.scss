@@ -1,0 +1,34 @@
+.mdui-carousel {
+  width: 100%;
+  user-select: none;
+  overflow: hidden;
+  & > .mdui-carousel-content {
+    transition: transform 0.2s var(--easing-expressive-fast-effects);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 8px;
+    &.multi-browse {
+      padding: 8px 16px;
+      overflow-x: auto;
+      // &::-webkit-scrollbar {
+      //   display: none;
+      // }
+    }
+    & > .mdui-carousel-item {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      transition: min-width var(--easing-expressive-fast-effects);
+      & > .container {
+        display: flex;
+        flex-shrink: 0;
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@ import {
 } from "mdui";
 import Card from "../area/card";
 import Checkbox from "../area/checkbox";
+import Carousel from "../area/carousel";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -122,6 +123,14 @@ export default function App() {
         >
           卡片
         </MTab>
+        <MTab
+          value="carousel"
+          onClick={() => {
+            setActive("carousel");
+          }}
+        >
+          走马灯
+        </MTab>
       </MTabs>
       <LateralTransitions
         ref={lateralTransitionsRef}
@@ -151,6 +160,9 @@ export default function App() {
         </LateralTransition>
         <LateralTransition value="card">
           <Card />
+        </LateralTransition>
+        <LateralTransition value="carousel">
+          <Carousel />
         </LateralTransition>
       </LateralTransitions>
     </div>
