@@ -9,8 +9,7 @@ export function handleMChipStyle({
 }: MChipProps) {
 
   const cs: string[] = [
-    "mdui-chip",
-    "mdui-shadow",
+    "mdui-chip"
   ]
 
   cs.push(variant || "assist")

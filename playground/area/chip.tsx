@@ -11,13 +11,13 @@ export default function Chip() {
       <MChip
         icon={<Image />}
         variant="assist"
-        
       >
         图片
       </MChip>
       <MChip
         variant="filter"
         checked={checked}
+        elevated
         onClick={() => {
           setChecked(!checked);
         }}
@@ -27,6 +27,7 @@ export default function Chip() {
       <MChip
         icon={<Image />}
         variant="input"
+        checked={checked}
       >
         输入
       </MChip>
