@@ -14,8 +14,9 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  transition: all var(--easing-expressive-default-effects);
 
-  &:hover {
+  &:hover:not(:has(.mdui-chip-end-icon:hover)) {
     background-color: var(--color-surface-container-highest);
   }
 
@@ -34,11 +35,15 @@
   & > .mdui-chip-icon,
   & > .mdui-chip-end-icon {
     color: var(--color-primary);
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    padding: 4px;
   }
 
   &.input {
@@ -47,11 +52,26 @@
     &:has(.mdui-chip-icon) {
       padding-left: 4px;
     }
+
     & > .mdui-chip-icon {
       color: var(--color-on-surface-variant);
     }
     & > .mdui-chip-end-icon {
       color: var(--color-on-surface-variant);
+    }
+  }
+
+  &.filter {
+    background-color: transparent;
+    &.checked {
+      background-color: var(--color-surface-container-low);
+      color: var(--color-on-surface-variant);
+    }
+    &:has(.mdui-chip-icon) {
+      padding-right: 8px !important;
+    }
+    &:has(.mdui-chip-end-icon) {
+      padding-left: 8px;
     }
   }
 }

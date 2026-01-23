@@ -4,6 +4,7 @@ import type { MChipProps } from "./interface";
 export function handleMChipStyle({
   className,
   variant,
+  checked,
 }: MChipProps) {
 
   const cs: string[] = [
@@ -12,6 +13,10 @@ export function handleMChipStyle({
   ]
 
   cs.push(variant || "assist")
+
+  if(checked){
+    cs.push("checked")
+  }
 
   cs.push(className || "")
   return {
