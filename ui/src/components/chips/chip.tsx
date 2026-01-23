@@ -8,9 +8,10 @@ export default function MChip({
   children,
   icon,
   className,
-  variant,
+  variant = "suggestion",
   endIcon,
   checked,
+  elevated,
   ...rest
 }: MChipProps) {
   const chipRef = useRef<HTMLDivElement>(null);
@@ -19,9 +20,10 @@ export default function MChip({
     return handleMChipStyle({
       className,
       variant,
-      checked
+      checked,
+      elevated,
     });
-  }, [className, variant,checked]);
+  }, [className, variant, checked, elevated]);
   useRipple(chipRef, {
     container: chipRef,
   });
@@ -35,23 +37,23 @@ export default function MChip({
     if (variant === "filter") {
       if (checked) {
         return (
-          <div className="mdui-chip-icon">
-            {icon || (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="#1f1f1f"
-              >
-                <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
-              </svg>
-            )}
-          </div>
+          icon || (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#1f1f1f"
+            >
+              <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+            </svg>
+          )
         );
       }
+    } else if (variant === "suggestion") {
+      return "";
     } else {
-      return <div className="mdui-chip-icon">{icon}</div>;
+      return icon;
     }
     return "";
   }
@@ -63,29 +65,23 @@ export default function MChip({
       tabIndex={0}
       {...rest}
     >
-      {getStartIcon()}
+      <div className="mdui-chip-icon">{getStartIcon()}</div>
       {children}
-      {variant === "input" && (
-        <div
-          className="mdui-chip-end-icon"
-          ref={closeRef}
-          tabIndex={0}
-        >
-          {endIcon ? (
-            endIcon
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="currentColor"
-            >
-              <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-            </svg>
-          )}
-        </div>
-      )}
+      <div className="mdui-chip-end-icon">
+        {endIcon
+          ? endIcon
+          : variant === "input" && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="currentColor"
+              >
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+              </svg>
+            )}
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ export function handleMChipStyle({
   className,
   variant,
   checked,
+  elevated
 }: MChipProps) {
 
   const cs: string[] = [
@@ -14,8 +15,11 @@ export function handleMChipStyle({
 
   cs.push(variant || "assist")
 
-  if(checked){
+  if (checked) {
     cs.push("checked")
+  }
+  if (elevated) {
+    cs.push("elevated")
   }
 
   cs.push(className || "")

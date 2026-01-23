@@ -8,7 +8,13 @@ export default function Chip() {
 
   return (
     <Col>
-      <MChip icon={<Image />}>图片</MChip>
+      <MChip
+        icon={<Image />}
+        variant="assist"
+        
+      >
+        图片
+      </MChip>
       <MChip
         variant="filter"
         checked={checked}
@@ -23,6 +29,12 @@ export default function Chip() {
         variant="input"
       >
         输入
+      </MChip>
+      <MChip
+        icon={<Image />}
+        variant="suggestion"
+      >
+        建议
       </MChip>
     </Col>
   );
