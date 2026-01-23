@@ -1,6 +1,3 @@
-export type { MBadgeProps } from "./badge";
-import MBadge from "./badge";
+export * from "./badge";
 
-export {
-  MBadge
-};
+

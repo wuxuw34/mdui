@@ -1,12 +1,9 @@
 import "./index.scss"
-export { MSlider } from "./components/slider";
-export { default as MButton } from "./components/button";
-export { default as MButtonGroup } from "./components/buttonGroup";
-export { MDivider } from "./components/divider";
-export type { MButtonProps } from "./components/button";
-export type { MButtonGroupProps } from "./components/buttonGroup";
-export type { MSliderProps } from "./components/slider";
-export { MSwitch, type MSwitchProps } from "./components/switch";
+export * from "./components/slider";
+export * from "./components/button";
+export * from "./components/buttonGroup";
+export * from "./components/divider";
+export * from "./components/switch";
 export * from './components/tab'
 export * from './components/badge'
 export * from './components/transition'
