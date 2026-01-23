@@ -17,6 +17,7 @@ import {
 import Card from "../area/card";
 import Checkbox from "../area/checkbox";
 import Carousel from "../area/carousel";
+import Chip from "../area/chip";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -131,6 +132,14 @@ export default function App() {
         >
           走马灯
         </MTab>
+        <MTab
+          value="chip"
+          onClick={() => {
+            setActive("chip");
+          }}
+        >
+          芯片
+        </MTab>
       </MTabs>
       <LateralTransitions
         ref={lateralTransitionsRef}
@@ -163,6 +172,9 @@ export default function App() {
         </LateralTransition>
         <LateralTransition value="carousel">
           <Carousel />
+        </LateralTransition>
+        <LateralTransition value="chip">
+          <Chip />
         </LateralTransition>
       </LateralTransitions>
     </div>

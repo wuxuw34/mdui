@@ -25,7 +25,8 @@ export function updateUncontainedOffset(carousel: HTMLDivElement, content: HTMLD
 
 export function updateMultiBrowseItemWidth(content: HTMLDivElement, active: number, showNumber: number = 4) {
   const children = Array.from(content.children) as HTMLElement[]
-  const offsetWidth = content.offsetWidth - 32 // 容器宽度
+  const offsetWidth = content.offsetWidth -32 // 容器宽度
+  console.log('容器宽度', offsetWidth)
   const items: ('default' | 'wide' | 'thin')[] = Array.from({ length: children.length }, () => 'thin')
   const offsetIndex = active + showNumber - 1 >= children.length ? active - (active + showNumber - 1 - (children.length - 1)) : active // 记录偏移位置
 

@@ -13,6 +13,8 @@ interface RippleOptions {
   callback?: (ripple: Ripple) => void;
   container?: RefObject<HTMLElement | null>;
   color?: string;
+  preventDefault?: boolean;
+  stopPropagation?: boolean;
 }
 
 export default function useRipple(
@@ -43,6 +45,12 @@ export default function useRipple(
       };
       if (callback) {
         callback(ripple);
+      }
+      if (options.preventDefault) {
+        e.preventDefault();
+      }
+      if (options.stopPropagation) {
+        e.stopPropagation();
       }
       if (auto) {
         const rippleElement = document.createElement("div");

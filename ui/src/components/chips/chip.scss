@@ -1,0 +1,57 @@
+.mdui-chip {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+  padding: 0 16px;
+  border: 1px solid var(--color-outline);
+  width: fit-content;
+  border-radius: 8px;
+  color: var(--color-on-surface);
+  background-color: var(--color-surface-container-low);
+  height: 32px;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background-color: var(--color-surface-container-highest);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-outline);
+    outline-offset: 3px;
+  }
+
+  &:has(.mdui-chip-icon) {
+    padding-left: 8px;
+  }
+  &:has(.mdui-chip-end-icon) {
+    padding-right: 8px;
+  }
+
+  & > .mdui-chip-icon,
+  & > .mdui-chip-end-icon {
+    color: var(--color-primary);
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.input {
+    color: var(--color-on-surface-variant);
+    padding: 0 8px 0 12px;
+    &:has(.mdui-chip-icon) {
+      padding-left: 4px;
+    }
+    & > .mdui-chip-icon {
+      color: var(--color-on-surface-variant);
+    }
+    & > .mdui-chip-end-icon {
+      color: var(--color-on-surface-variant);
+    }
+  }
+}
