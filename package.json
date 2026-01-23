@@ -7,7 +7,8 @@
     "playground": "pnpm -F playground dev --force",
     "ui": "pnpm -F mdui build",
     "b": "pnpm -F mdui build:ui",
-    "web": "pnpm -F website start"
+    "web": "pnpm -F website start",
+    "build": "pnpm -F website build"
   },
   "author": "",
   "license": "ISC",
