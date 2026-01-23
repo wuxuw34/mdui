@@ -1,4 +1,10 @@
 .mdui-menu {
   display: flex;
   flex-direction: column;
+
+  &.vertical {
+    background-color: var(--color-surface-container-low);
+    border-radius: 16px;
+    padding: 2px 4px;
+  }
 }

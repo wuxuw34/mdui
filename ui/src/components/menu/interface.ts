@@ -5,5 +5,9 @@ export interface MMenuContextValue {
 }
 
 export interface MMenuProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant: MMenuVariant
+  variant?: MMenuVariant
+}
+
+export interface MMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: MMenuVariant
 }

@@ -1,8 +1,13 @@
+import { MMenu, MMenuItem } from "mdui";
 import Col from "./col";
 
-
-export default function Menu(){
+export default function Menu() {
   return (
-    <Col></Col>
-  )
+    <Col>
+      <MMenu variant="vertical">
+        <MMenuItem>菜单1</MMenuItem>
+        <MMenuItem>菜单2</MMenuItem>
+      </MMenu>
+    </Col>
+  );
 }

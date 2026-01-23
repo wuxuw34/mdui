@@ -1,0 +1,17 @@
+.mdui-menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 2px 12px;
+  height: 48px;
+  gap: 2px;
+  border-radius: 12px;
+  &:hover {
+    background-color: var(--color-surface-variant);
+    // border-radius: 4px;
+  }
+
+  & > .mdui-menu-item-container {
+    
+  }
+}
