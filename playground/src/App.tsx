@@ -18,6 +18,7 @@ import Card from "../area/card";
 import Checkbox from "../area/checkbox";
 import Carousel from "../area/carousel";
 import Chip from "../area/chip";
+import Menu from "../area/menu";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -140,6 +141,14 @@ export default function App() {
         >
           芯片
         </MTab>
+        <MTab
+          value="menu"
+          onClick={() => {
+            setActive("menu");
+          }}
+        >
+          菜单
+        </MTab>
       </MTabs>
       <LateralTransitions
         ref={lateralTransitionsRef}
@@ -175,6 +184,9 @@ export default function App() {
         </LateralTransition>
         <LateralTransition value="chip">
           <Chip />
+        </LateralTransition>
+        <LateralTransition value="menu">
+          <Menu />
         </LateralTransition>
       </LateralTransitions>
     </div>
