@@ -19,6 +19,7 @@ import Checkbox from "../area/checkbox";
 import Carousel from "../area/carousel";
 import Chip from "../area/chip";
 import Menu from "../area/menu";
+import Tooltips from "../area/tooltips";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -149,6 +150,14 @@ export default function App() {
         >
           菜单
         </MTab>
+        <MTab
+          value="tooltips"
+          onClick={() => {
+            setActive("tooltips");
+          }}
+        >
+          提示
+        </MTab>
       </MTabs>
       <LateralTransitions
         ref={lateralTransitionsRef}
@@ -187,6 +196,9 @@ export default function App() {
         </LateralTransition>
         <LateralTransition value="menu">
           <Menu />
+        </LateralTransition>
+        <LateralTransition value="tooltips">
+          <Tooltips />
         </LateralTransition>
       </LateralTransitions>
     </div>

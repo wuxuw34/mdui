@@ -7,5 +7,17 @@
 
   & > .mdui-tooltips-content {
     position: absolute;
+    animation: mdui-tooltips-fade-in 0.2s linear;
+  }
+}
+
+@keyframes mdui-tooltips-fade-in {
+  from {
+    opacity: 0;
+    scale: 0.1;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
   }
 }
