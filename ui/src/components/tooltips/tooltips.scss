@@ -1,0 +1,11 @@
+.mdui-tooltips {
+  position: relative;
+
+  & > .mdui-tooltips-trigger {
+    position: absolute;
+  }
+
+  & > .mdui-tooltips-content {
+    position: absolute;
+  }
+}

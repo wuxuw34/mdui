@@ -1,7 +1,18 @@
-export default function MTooltips() {
+import type { MTooltipsProps } from "./interface";
+
+export default function MTooltips({
+  variant = "plain",
+  children,
+}: MTooltipsProps) {
+
+  function handleTrigger(){
+
+  }
+
   return (
-    <div>
-      <div className="mdui-tooltip">提示</div>
+    <div className="mdui-tooltips">
+      <div className="mdui-tooltips-trigger" onClick={handleTrigger}>提示</div>
+      <div className="mdui-tooltips-content">{children}</div>
     </div>
   );
 }
