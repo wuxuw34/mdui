@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { MTooltipsProps } from "./interface";
-import './tooltips.scss'
+import "./tooltips.scss";
 
 export default function MTooltips({
   variant = "plain",
@@ -8,9 +8,10 @@ export default function MTooltips({
   children,
 }: MTooltipsProps) {
   const [visible, setVisible] = useState(false); // 是否显示提示
+  const referenceRef = useRef<HTMLDivElement>(null);
+  const floatingRef = useRef<HTMLDivElement>(null);
 
   function handleTrigger() {
-    console.log("触发提示");
     setVisible(!visible);
   }
 
@@ -18,11 +19,16 @@ export default function MTooltips({
     <div className="mdui-tooltips">
       <div
         className="mdui-tooltips-trigger"
-        onClick={handleTrigger}
+        ref={referenceRef}
       >
         {trigger}
       </div>
-      {visible && <div className="mdui-tooltips-content">{children}</div>}
+      <div
+        className="mdui-tooltips-content"
+        ref={floatingRef}
+      >
+        {children}
+      </div>
     </div>
   );
 }

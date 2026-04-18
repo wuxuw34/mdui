@@ -6,8 +6,8 @@
   }
 
   & > .mdui-tooltips-content {
-    position: absolute;
-    animation: mdui-tooltips-fade-in 0.2s linear;
+    position: fixed;
+    // animation: mdui-tooltips-fade-in 0.2s linear;
   }
 }
 

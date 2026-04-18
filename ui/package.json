@@ -3,20 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "sideEffects": [
     "**/*.css",
     "**/*.scss"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "import": "./src/index.ts",
       "require": "./dist/index.umd.js"
-    },
-    "./index.css": "./dist/index.css"
+    }
   },
   "files": [
     "dist"
@@ -29,6 +26,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.19",
     "@tailwindcss/vite": "^4.1.18",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

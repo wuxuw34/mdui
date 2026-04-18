@@ -3,7 +3,6 @@ import Button from "../area/button";
 import ButtonGroup from "../area/buttonGroup";
 import Slider from "../area/slider";
 import Switch from "../area/switch";
-import Tab from "../area/tab";
 import Badge from "../area/badge";
 import {
   LateralTransitions,
