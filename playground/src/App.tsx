@@ -4,7 +4,7 @@ import ButtonGroup from "../area/buttonGroup";
 import Slider from "../area/slider";
 import Switch from "../area/switch";
 import Badge from "../area/badge";
-import 'material-icons/iconfont/material-icons.css';
+import "material-icons/iconfont/material-icons.css";
 import {
   LateralTransitions,
   MTab,
@@ -21,6 +21,7 @@ import Chip from "../area/chip";
 import Menu from "../area/menu";
 import Tooltips from "../area/tooltips";
 import TextFields from "../area/textFields";
+import Indicators from "../area/indicators";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -71,6 +72,14 @@ export default function App() {
         </MButton>
       </MButtonGroup>
       <MTabs value={active}>
+        <MTab
+          value="indicators"
+          onClick={() => {
+            setActive("indicators");
+          }}
+        >
+          指示器
+        </MTab>
         <MTab
           value="button"
           onClick={() => {
@@ -175,6 +184,9 @@ export default function App() {
           setActive(v);
         }}
       >
+        <LateralTransition value="indicators">
+          <Indicators />
+        </LateralTransition>
         <LateralTransition value="button">
           <Button />
         </LateralTransition>
