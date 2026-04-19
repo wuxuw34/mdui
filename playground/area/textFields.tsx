@@ -56,7 +56,19 @@ export default function TextFields() {
         multiLine={isMultiLine}
         helperText="辅助文本"
         showCount
-        maxLength={10}
+        maxLength={30}
+      />
+      <MTextField
+        variant="outlined"
+        value={value}
+        onValueChange={(v) => setValue(v)}
+        placeholder="请输入内容"
+        label="标签"
+        multiLine={isMultiLine}
+        helperText="辅助文本"
+        showCount
+        prefixIcon={<span className="material-icons">search</span>}
+        maxLength={30}
       />
     </Col>
   );

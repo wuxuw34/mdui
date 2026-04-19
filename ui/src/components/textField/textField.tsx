@@ -1,7 +1,13 @@
 import type { MTextFieldProps } from "./interface";
 import "./index.scss";
 import clsx from "clsx";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 export default function MTextField({
   prefixIcon,
@@ -22,6 +28,9 @@ export default function MTextField({
   const [uncontrolledValue, setUncontrolledValue] = useState("");
   const inputValue = isControlled ? value : uncontrolledValue;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const labelFloatingRef = useRef<HTMLSpanElement>(null);
 
   const resizeTextarea = useCallback((element: HTMLTextAreaElement) => {
     element.style.height = "auto";
@@ -46,6 +55,22 @@ export default function MTextField({
     [isControlled, onChange, onValueChange, resizeTextarea, maxLength],
   );
 
+  useEffect(() => {
+    const containerRect = containerRef.current?.getBoundingClientRect();
+    const elementRect = inputRef.current?.getBoundingClientRect();
+    const labelEl = labelFloatingRef.current;
+    if (!labelEl) {
+      return;
+    }
+
+    if (containerRect && elementRect) {
+      const offset = elementRect.left - containerRect.left;
+      labelEl.style.setProperty("--offset", `${offset-16}px`);
+    } else {
+      labelEl.style.setProperty("--offset", "0px");
+    }
+  }, []);
+
   useLayoutEffect(() => {
     if (multiLine && textareaRef.current) {
       resizeTextarea(textareaRef.current);
@@ -57,6 +82,7 @@ export default function MTextField({
       className={clsx({
         "mtui-textfield-container": true,
       })}
+      ref={containerRef}
     >
       <div
         className={
@@ -81,9 +107,15 @@ export default function MTextField({
           <div className="mdui-textfield-label-container">
             <span className="md-textfield-label">{label}</span>
             <span
+              ref={labelFloatingRef}
               className={
                 "md-textfield-label-floating" +
                 (multiLine && rows > 1 ? "" : " single-line")
+              }
+              style={
+                {
+                  "--offset": "0px",
+                } as React.CSSProperties
               }
             >
               {label}
@@ -101,6 +133,7 @@ export default function MTextField({
             />
           ) : (
             <input
+              ref={inputRef}
               className="mdui-textfield-input-content "
               value={inputValue ?? ""}
               onChange={handleChange}

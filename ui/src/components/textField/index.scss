@@ -73,32 +73,27 @@
     &.outlined {
       outline: 2px solid var(--color-on-surface);
       border-radius: 4px;
+      position: relative;
 
       .mdui-textfield-input-container {
         flex: 1;
         display: flex;
-        flex-direction: column;
-        position: relative;
+
         gap: 3px;
 
         .mdui-textfield-label-container {
-          position: relative;
           .md-textfield-label {
-            font-size: 12px;
-            opacity: 0;
+            display: none;
           }
           .md-textfield-label-floating {
             line-height: 24px;
             font-size: 16px;
             color: var(--color-on-surface-variant);
             position: absolute;
-            top: 100%;
-            left: 0;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%) translateX(var(--offset));
             transition: all 0.2s linear;
-
-            &.single-line {
-              transform: translateY(calc(-50% + 3px));
-            }
           }
         }
 
@@ -113,18 +108,22 @@
             height: auto;
             overflow: hidden;
             resize: none;
+            padding: 6px 0;
+            box-sizing: border-box;
           }
         }
 
         &:focus-within,
         &.has-value {
-          .mdui-textfield-label-container .md-textfield-label-floating {
+          & .mdui-textfield-label-container .md-textfield-label-floating {
             top: 0;
             font-size: 12px;
+            transform: translateY(-50%);
+            background: transparent;
             color: var(--color-primary);
-            &.single-line {
-              transform: translateY(0%);
-            }
+            background-color: white;
+            background-position: 0 50%;
+            background-size: 100% 3px;
           }
         }
       }
