@@ -45,20 +45,31 @@ const LateralTransitions = forwardRef<
   const transformValue = useRef(0); // 偏移量
   const dragOffset = useRef(0); // 拖动的偏移量百分比
   const [isDragging, setIsDragging] = useState(false); // 是否正在拖动
+  const isAllowDragRef = useRef(false); // 是否允许拖动
   const { ref: moveRef, onPointerDown } = usePointerMove({
     callback: (pos, prevPos, initPos) => {
-      if (!containerRef.current || !pageContainerRef.current) return;
+      if (
+        !containerRef.current ||
+        !pageContainerRef.current ||
+        !isAllowDragRef.current
+      )
+        return;
       const offset =
         ((pos.x + prevPos.x - initPos.x) / containerRef.current?.offsetWidth) *
         100;
       dragOffset.current = offset;
       pageContainerRef.current.style.transform = `translate(${transformValue.current + offset}%,0)`;
     },
-    onPointerDown: () => {
+    onPointerDown: (e: PointerEvent) => {
+      isAllowDragRef.current = false;
       if (!pageContainerRef.current) return;
+      const children = pageContainerRef.current.children;
+      const isChild = Array.from(children).find((child) => child === e.target);
+      if (!isChild) return;
       const transform = pageContainerRef.current.style.transform.split(/[(,]/);
       transformValue.current = parseInt(transform[1].replace("%", ""));
       setIsDragging(true);
+      isAllowDragRef.current = true;
     },
     onPointerUp() {
       setIsDragging(false);
@@ -169,11 +180,11 @@ const LateralTransitions = forwardRef<
         }}
         {...rest}
         className={transitionsStyle.className}
-        onPointerDown={onPointerDown}
       >
         <div
           className="container"
           ref={pageContainerRef}
+          onPointerDown={onPointerDown}
           style={
             {
               "--easing": EasingFunction.ExpressiveDefaultSpatial,

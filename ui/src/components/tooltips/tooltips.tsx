@@ -64,7 +64,7 @@ export default function MTooltips({
     clearCloseTimer();
     closeTimerRef.current = window.setTimeout(() => {
       setVisible(false);
-    }, 80);
+    }, 500);
   }, [clearCloseTimer]);
 
   function handleTriggerClick() {
@@ -164,6 +164,8 @@ export default function MTooltips({
           id={tooltipId}
           ref={floatingRef}
           role="tooltip"
+          onMouseEnter={showTooltip}
+          onMouseLeave={mode === "hover" ? hideTooltip : undefined}
         >
           {children}
           {title && <div className="mdui-tooltips-title">{title}</div>}

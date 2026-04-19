@@ -17,6 +17,7 @@ export interface MTooltipsProps extends React.HTMLAttributes<HTMLDivElement> {
   trigger: React.ReactNode
   mode?: 'hover' | 'focus' | 'click'
   position?: 'top' | 'bottom' | 'left' | 'right'
+  footer?: React.ReactNode
 }
 
 export type MTooltipsPropsWithVariant = (Rich | Plain) & MTooltipsProps

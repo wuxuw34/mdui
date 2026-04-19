@@ -1,0 +1,174 @@
+.mtui-textfield-container {
+  width: fit-content;
+  .mdui-textfield-content {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 56px;
+    width: fit-content;
+
+    transition: border-width 0.2s linear;
+
+    // box-sizing: content-box;
+    &.filled {
+      border-bottom: 2px solid var(--color-on-surface);
+      background-color: var(--color-surface-container-highest);
+
+      .mdui-textfield-input-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        gap: 3px;
+
+        .mdui-textfield-label-container {
+          position: relative;
+          .md-textfield-label {
+            font-size: 12px;
+            opacity: 0;
+          }
+          .md-textfield-label-floating {
+            line-height: 24px;
+            font-size: 16px;
+            color: var(--color-on-surface-variant);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transition: all 0.2s linear;
+
+            &.single-line {
+              transform: translateY(calc(-50% + 3px));
+            }
+          }
+        }
+
+        .mdui-textfield-input-content {
+          color: var(--color-primary);
+          line-height: 24px;
+          font-size: 16px;
+          outline: none;
+          border: none;
+
+          &.multi-line {
+            height: auto;
+            overflow: hidden;
+            resize: none;
+          }
+        }
+
+        &:focus-within,
+        &.has-value {
+          .mdui-textfield-label-container .md-textfield-label-floating {
+            top: 0;
+            font-size: 12px;
+            color: var(--color-primary);
+            &.single-line {
+              transform: translateY(0%);
+            }
+          }
+        }
+      }
+    }
+    &.outlined {
+      outline: 2px solid var(--color-on-surface);
+      border-radius: 4px;
+
+      .mdui-textfield-input-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        gap: 3px;
+
+        .mdui-textfield-label-container {
+          position: relative;
+          .md-textfield-label {
+            font-size: 12px;
+            opacity: 0;
+          }
+          .md-textfield-label-floating {
+            line-height: 24px;
+            font-size: 16px;
+            color: var(--color-on-surface-variant);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transition: all 0.2s linear;
+
+            &.single-line {
+              transform: translateY(calc(-50% + 3px));
+            }
+          }
+        }
+
+        .mdui-textfield-input-content {
+          color: var(--color-primary);
+          line-height: 24px;
+          font-size: 16px;
+          outline: none;
+          border: none;
+
+          &.multi-line {
+            height: auto;
+            overflow: hidden;
+            resize: none;
+          }
+        }
+
+        &:focus-within,
+        &.has-value {
+          .mdui-textfield-label-container .md-textfield-label-floating {
+            top: 0;
+            font-size: 12px;
+            color: var(--color-primary);
+            &.single-line {
+              transform: translateY(0%);
+            }
+          }
+        }
+      }
+    }
+
+    .mdui-icon {
+      height: 24px;
+      width: 24px;
+    }
+
+    .mtui-textfield-prefix-icon {
+      margin-right: 16px;
+    }
+    .mtui-textfield-suffix-icon {
+      margin-left: 16px;
+    }
+
+    &:focus-within {
+      &.filled {
+        border-bottom: 3px solid var(--color-primary);
+      }
+      &.outlined {
+        outline-width: 3px;
+        outline-color: var(--color-primary);
+      }
+    }
+  }
+
+  .mtui-textfield-footer {
+    padding: 0 16px;
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--color-on-surface-variant);
+    .mtui-textfield-helper-text {
+      color: var(--color-on-surface-variant);
+    }
+    .mdui-textfield-character-counter {
+      color: var(--color-on-surface-variant);
+    }
+  }
+}

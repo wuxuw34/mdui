@@ -48,6 +48,7 @@ export default function usePointerMove<T extends HTMLElement = HTMLDivElement>(o
   }, [options, ref, onPointerMove])
 
   const onPointerDown = useCallback((e: React.PointerEvent<T>) => {
+    
     isMovingRef.current = true
     const p = {
       x: e.clientX,

@@ -78,6 +78,12 @@ export default function Button() {
         >
           文本按钮
         </MButton>
+        <MButton
+          selected={selected}
+          disabled={disabled}
+          startIcon={<Home />}
+          variant="icon"
+        ></MButton>
       </div>
     </div>
   );

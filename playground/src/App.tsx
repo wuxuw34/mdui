@@ -4,6 +4,7 @@ import ButtonGroup from "../area/buttonGroup";
 import Slider from "../area/slider";
 import Switch from "../area/switch";
 import Badge from "../area/badge";
+import 'material-icons/iconfont/material-icons.css';
 import {
   LateralTransitions,
   MTab,
@@ -19,6 +20,7 @@ import Carousel from "../area/carousel";
 import Chip from "../area/chip";
 import Menu from "../area/menu";
 import Tooltips from "../area/tooltips";
+import TextFields from "../area/textFields";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -92,6 +94,14 @@ export default function App() {
           }}
         >
           徽标
+        </MTab>
+        <MTab
+          value="textField"
+          onClick={() => {
+            setActive("textField");
+          }}
+        >
+          文本框
         </MTab>
         <MTab
           value="switch"
@@ -171,7 +181,9 @@ export default function App() {
         <LateralTransition value="buttonGroup">
           <ButtonGroup />
         </LateralTransition>
-
+        <LateralTransition value="textField">
+          <TextFields />
+        </LateralTransition>
         <LateralTransition value="badge">
           <Badge />
         </LateralTransition>
