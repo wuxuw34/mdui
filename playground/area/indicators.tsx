@@ -13,7 +13,7 @@ export default function Indicators() {
 
   return (
     <Col>
-      <MProgress progress={progress} />
+      <MProgress progress={progress} amplitude={0.3} />
       <MProgress
         variant="standard"
         progress={progress}

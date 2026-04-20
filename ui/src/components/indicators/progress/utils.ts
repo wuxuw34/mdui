@@ -88,8 +88,12 @@ export class MProgressRenderer {
     ctx.strokeStyle = '#e2e0f9';
     ctx.lineWidth = this.options.barWidth || 4;
     ctx.lineCap = 'round'
-    ctx.moveTo(progressWidth + this.options.barWidth, centerY);
-    ctx.lineTo(width - this.options.barWidth, centerY);
+    const startX = progressWidth + this.options.barWidth;
+    const endX = width - this.options.barWidth;
+    if (startX < endX) {
+      ctx.moveTo(startX, centerY);
+      ctx.lineTo(endX, centerY);
+    }
     ctx.stroke();
     ctx.closePath();
 

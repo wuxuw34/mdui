@@ -7,7 +7,7 @@ const mButtonGroupContext = createContext<{
   next: string;
   amount: number;
   setCurrent: (id: string) => void;
-  variant: MButtonGroupProps["variant"];
+  variant?: MButtonGroupProps["variant"];
   orientation: "horizontal" | "vertical";
   animation: boolean;
 }>({
@@ -16,7 +16,6 @@ const mButtonGroupContext = createContext<{
   next: "",
   setCurrent: () => {},
   amount: 0,
-  variant: "default",
   orientation: "horizontal",
   animation: true,
 });

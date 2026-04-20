@@ -16,17 +16,20 @@ const setButtonSize = (style: React.CSSProperties, size: MButtonProps['size'], s
 }
 
 export default function handleButtonCustomStyle(props: MButtonProps) {
-  const { variant = 'default', radiusInverse = false, size, shape, className, selected } = props;
+  const { variant = 'default', radiusInverse , size, shape, className, selected } = props;
 
   // 设置style属性
   const style: React.CSSProperties = {}
   // 设置尺寸
   setButtonSize(style, size, shape)
 
+
+
   const cs: string[] = ["mdui-button"]
   cs.push(variant)
   if (selected) {
     cs.push('selected')
+    console.log('selected',radiusInverse)
     if (radiusInverse) {
       cs.push('inverse-radius')
     }

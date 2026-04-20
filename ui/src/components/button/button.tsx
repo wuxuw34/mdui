@@ -46,8 +46,12 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
     ...rest
   } = props;
   const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
-  let { radiusInverse = false } = props;
-  radiusInverse = groupContext.variant === "connected";
+  let { radiusInverse = false } = rest;
+  if (groupContext.variant) {
+    console.log("groupContext.variant", groupContext.variant, props.children);
+    radiusInverse = groupContext.variant === "connected";
+  }
+
   const buttonRef = useRef<HTMLButtonElement>(null);
   const rippleContainerRef = useRef<HTMLDivElement>(null);
   const { setEnabled: setRippleEnabled } = useRipple(buttonRef, {

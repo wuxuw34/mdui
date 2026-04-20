@@ -7,6 +7,7 @@ export default function MProgress({
   type = "line",
   radius = 10,
   progress = 0,
+  amplitude,
   ...rest
 }: MProgressProps) {
   const { style } = rest;
@@ -26,9 +27,10 @@ export default function MProgress({
       type,
       variant,
       radius,
+      amplitude,
     });
     rendererRef.current.render();
-  }, [variant, type, radius]);
+  }, [variant, type, radius, amplitude]);
 
   useEffect(() => {
     rendererRef.current?.updateProgress(progress);

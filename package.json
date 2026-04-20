@@ -7,7 +7,7 @@
     "playground": "pnpm -F playground dev --force",
     "ui": "pnpm -F mdui build",
     "b": "pnpm -F mdui build:ui",
-    "web": "pnpm -F website start",
+    "web": "pnpm -F web dev",
     "build": "pnpm -F website build"
   },
   "author": "",
@@ -22,5 +22,8 @@
     "eslint-plugin-react-refresh": "^0.4.26",
     "sass": "^1.97.2",
     "typescript-eslint": "^8.53.0"
+  },
+  "dependencies": {
+    "mdui": "^2.1.4"
   }
 }

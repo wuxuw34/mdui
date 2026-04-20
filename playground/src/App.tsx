@@ -1,9 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import Button from "../area/button";
-import ButtonGroup from "../area/buttonGroup";
-import Slider from "../area/slider";
-import Switch from "../area/switch";
-import Badge from "../area/badge";
+import { useEffect, useRef, useState, Suspense, lazy } from "react";
+
 import "material-icons/iconfont/material-icons.css";
 import {
   LateralTransitions,
@@ -14,14 +10,8 @@ import {
   type MLateralTransitionsRef,
   MButton,
 } from "mdui";
-import Card from "../area/card";
-import Checkbox from "../area/checkbox";
-import Carousel from "../area/carousel";
-import Chip from "../area/chip";
-import Menu from "../area/menu";
-import Tooltips from "../area/tooltips";
-import TextFields from "../area/textFields";
 import Indicators from "../area/indicators";
+import { Apps } from "./apps";
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
@@ -72,110 +62,16 @@ export default function App() {
         </MButton>
       </MButtonGroup>
       <MTabs value={active}>
-        <MTab
-          value="indicators"
-          onClick={() => {
-            setActive("indicators");
-          }}
-        >
-          指示器
-        </MTab>
-        <MTab
-          value="button"
-          onClick={() => {
-            setActive("button");
-          }}
-        >
-          按钮
-        </MTab>
-        <MTab
-          value="buttonGroup"
-          onClick={() => {
-            setActive("buttonGroup");
-          }}
-        >
-          按钮组
-        </MTab>
-        <MTab
-          value="badge"
-          onClick={() => {
-            setActive("badge");
-          }}
-        >
-          徽标
-        </MTab>
-        <MTab
-          value="textField"
-          onClick={() => {
-            setActive("textField");
-          }}
-        >
-          文本框
-        </MTab>
-        <MTab
-          value="switch"
-          onClick={() => {
-            setActive("switch");
-          }}
-        >
-          开关
-        </MTab>
-        <MTab
-          value="checkbox"
-          onClick={() => {
-            setActive("checkbox");
-          }}
-        >
-          复选框
-        </MTab>
-        <MTab
-          value="slider"
-          onClick={() => {
-            setActive("slider");
-          }}
-        >
-          滑块
-        </MTab>
-        <MTab
-          value="card"
-          onClick={() => {
-            setActive("card");
-          }}
-        >
-          卡片
-        </MTab>
-        <MTab
-          value="carousel"
-          onClick={() => {
-            setActive("carousel");
-          }}
-        >
-          走马灯
-        </MTab>
-        <MTab
-          value="chip"
-          onClick={() => {
-            setActive("chip");
-          }}
-        >
-          芯片
-        </MTab>
-        <MTab
-          value="menu"
-          onClick={() => {
-            setActive("menu");
-          }}
-        >
-          菜单
-        </MTab>
-        <MTab
-          value="tooltips"
-          onClick={() => {
-            setActive("tooltips");
-          }}
-        >
-          提示
-        </MTab>
+        {Apps.map((app) => (
+          <MTab
+            value={app.key}
+            onClick={() => {
+              setActive(app.key);
+            }}
+          >
+            {app.name}
+          </MTab>
+        ))}
       </MTabs>
       <LateralTransitions
         ref={lateralTransitionsRef}
@@ -187,42 +83,19 @@ export default function App() {
         <LateralTransition value="indicators">
           <Indicators />
         </LateralTransition>
-        <LateralTransition value="button">
-          <Button />
-        </LateralTransition>
-        <LateralTransition value="buttonGroup">
-          <ButtonGroup />
-        </LateralTransition>
-        <LateralTransition value="textField">
-          <TextFields />
-        </LateralTransition>
-        <LateralTransition value="badge">
-          <Badge />
-        </LateralTransition>
-        <LateralTransition value="switch">
-          <Switch />
-        </LateralTransition>
-        <LateralTransition value="checkbox">
-          <Checkbox />
-        </LateralTransition>
-        <LateralTransition value="slider">
-          <Slider />
-        </LateralTransition>
-        <LateralTransition value="card">
-          <Card />
-        </LateralTransition>
-        <LateralTransition value="carousel">
-          <Carousel />
-        </LateralTransition>
-        <LateralTransition value="chip">
-          <Chip />
-        </LateralTransition>
-        <LateralTransition value="menu">
-          <Menu />
-        </LateralTransition>
-        <LateralTransition value="tooltips">
-          <Tooltips />
-        </LateralTransition>
+        {Apps.map((app) => {
+          const Component = lazy(app.component);
+          return (
+            <LateralTransition
+              key={app.key}
+              value={app.key}
+            >
+              <Suspense fallback={<div>Loading...</div>}>
+                <Component />
+              </Suspense>
+            </LateralTransition>
+          );
+        })}
       </LateralTransitions>
     </div>
   );

@@ -1,0 +1,29 @@
+import { MNavigationBar } from "mdui";
+import Col from "./col";
+
+const menu = [
+  {
+    icon: <span className="material-icons">home</span>,
+    name: "Home",
+  },
+  {
+    icon: <span className="material-icons">search</span>,
+    name: "Search",
+  },
+  {
+    icon: <span className="material-icons">delete</span>,
+    name: "Delete",
+  },
+];
+
+export default function NavigationBar() {
+  return (
+    <Col>
+      <MNavigationBar apps={menu} />
+      <MNavigationBar
+        apps={menu}
+        orientation="horizontal"
+      />
+    </Col>
+  );
+}

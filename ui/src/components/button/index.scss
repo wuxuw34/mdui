@@ -129,6 +129,10 @@
     &:focus {
       outline: 0;
     }
+    &.selected {
+      background-color: var(--color-secondary-container);
+      color: var(--color-primary);
+    }
   }
   &.icon {
     color: var(--color-primary);
