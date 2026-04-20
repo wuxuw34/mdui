@@ -65,8 +65,10 @@ export class MProgressRenderer {
     const centerY = height / 2;
 
     if (this.options.variant === 'wave') {
+      const waveAmplitude = this.options.amplitude || 0.4; // 波浪振幅
+      const waveFrequency = this.options.frequency || 10; // 波浪频率
       for (let i = 0; i < progressWidth; i += 4) {
-        const y = centerY + Math.sin(i / 10 + this.phase) * centerY * 0.4;
+        const y = centerY + Math.sin(i / waveFrequency + this.phase) * centerY * waveAmplitude;
 
         if (i === 0) {
           ctx.moveTo(i, y);
@@ -104,7 +106,7 @@ export class MProgressRenderer {
     const height = this.canvasHeight;
     const width = this.canvasWidth;
     if (!ctx) return;
-    this.context.clearRect(0, 0, width, height); // 清除画布
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); // 清除画布
     const radius = this.options.radius || Math.min(width, height) / 2 - (this.options.barWidth || 4);
     const centerX = width / 2;
     const centerY = height / 2;
@@ -132,10 +134,9 @@ export class MProgressRenderer {
     ctx.lineCap = 'round'
     if (this.options.variant === 'wave') {
       // 绘制波浪效果的圆弧
-      const waveAmplitude = 2; // 波浪振幅
-      const waveFrequency = 10; // 波浪频率
+      const waveAmplitude = this.options.amplitude || 2; // 波浪振幅
+      const waveFrequency = this.options.frequency || 10; // 波浪频率
       const wavePhase = this.phase; // 使用相位值来产生动画效果
-
       for (let angle = startAngle; angle <= endAngle; angle += 0.01) {
         const r = radius + Math.sin(angle * waveFrequency + wavePhase) * waveAmplitude; // 根据角度计算半径的波动
         const x = centerX + r * Math.cos(angle);
@@ -157,10 +158,15 @@ export class MProgressRenderer {
     ctx.lineWidth = this.options.barWidth || 4;
     ctx.lineCap = 'round'
     const gap = (this.options.barWidth / radius) * 1.05
-    ctx.arc(centerX, centerY, radius, endAngle + gap, startAngle + Math.PI * 2 - gap);
+    const _endAngle = startAngle + Math.PI * 2 - gap;
+    const _startAngle = endAngle + gap;
+    if (_endAngle > _startAngle) {
+      ctx.arc(centerX, centerY, radius, _startAngle, _endAngle);
+    }
+
     ctx.stroke();
     ctx.closePath();
-    this.phase += 0.01; // 更新相位值以产生动画效果
+    this.phase += (this.options.phase || 0.01); // 更新相位值以产生动画效果
   }
 
   updateProgress(progress: number) {
