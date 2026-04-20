@@ -1,11 +1,43 @@
 import { MProgress } from "mdui";
 import Col from "./col";
+import { useEffect, useState } from "react";
 
 export default function Indicators() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      setProgress((prev) => (prev >= 100 ? 0 : prev + 1));
+    }, 100);
+  }, []);
+
   return (
     <Col>
-      <MProgress />
-      <MProgress type="circle" />
+      <MProgress progress={progress} />
+      <MProgress
+        variant="standard"
+        progress={progress}
+      />
+      <MProgress
+        type="circle"
+        variant="standard"
+        radius={30}
+        style={{
+          height: 100,
+          width: 100,
+        }}
+        progress={progress}
+      />
+      <MProgress
+        type="circle"
+        variant="wave"
+        radius={30}
+        style={{
+          height: 100,
+          width: 100,
+        }}
+        progress={progress}  
+      />
     </Col>
   );
 }

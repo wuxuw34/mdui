@@ -2,27 +2,49 @@ import { useEffect, useRef } from "react";
 import { MProgressRenderer } from "./utils";
 import type { MProgressProps } from "./interface";
 
-export default function MProgress({ options, type = 'line', ...rest }: MProgressProps) {
+export default function MProgress({
+  variant = "wave",
+  type = "line",
+  radius = 10,
+  progress = 0,
+  ...rest
+}: MProgressProps) {
+  const { style } = rest;
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<MProgressRenderer>(null);
 
   useEffect(() => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (canvasRef.current && rect) {
+      canvasRef.current.width = rect.width;
+      canvasRef.current.height = rect.height;
+    }
     rendererRef.current = new MProgressRenderer(canvasRef.current!, {
       barWidth: 10,
       progress: 10,
-      type: type,
-      ...options,
+      type,
+      variant,
+      radius,
     });
     rendererRef.current.render();
-  }, [options]);
+  }, [variant, type, radius]);
+
+  useEffect(() => {
+    rendererRef.current?.updateProgress(progress);
+  }, [progress]);
 
   return (
-    <div {...rest}>
-      <canvas
-        ref={canvasRef}
-        width={400}
-        height={50}
-      />
+    <div
+      ref={containerRef}
+      {...rest}
+      style={{
+        height: 100,
+        width: 400,
+        ...style,
+      }}
+    >
+      <canvas ref={canvasRef} />
     </div>
   );
 }
