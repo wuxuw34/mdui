@@ -1,24 +1,27 @@
 .mdui-app-bar-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 8px;
-  width: fit-content;
+  flex-direction: row;
+  background-color: var(--color-surface);
+  padding: 6px 0;
+  justify-content: space-around;
+  width: 100%;
 
-  &.horizontal {
+  &.width-limit {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mdui-navigation-bar-badge {
+    display: flex;
     flex-direction: row;
-    background-color: var(--color-surface);
-    padding: 6px 0;
-    justify-content: space-around;
-    width: 100%;
+    align-items: center;
+    gap: 4px;
   }
-
-  &.vertical {
-    flex-direction: column;
-  }
-
   .mdui-app-bar-app-item {
+    user-select: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,7 +30,25 @@
     width: fit-content;
     font-size: 14px;
     &.active {
-      color: var(--color-primary);
+      color: var(--color-secondary);
+      & > button {
+        color: var(--color-secondary);
+      }
+      .mdui-navigation-bar-icon {
+        color: var(--color-on-secondary-container);
+      }
+    }
+
+    & > button {
+      color: var(--color-on-surface-variant);
+    }
+
+    .mdui-navigation-bar-icon {
+      color: var(--color-on-surface-variant);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

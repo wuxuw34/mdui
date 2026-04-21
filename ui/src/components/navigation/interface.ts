@@ -3,11 +3,12 @@
 interface MAppItem {
   icon: React.ReactNode;
   name: string;
-  value?: string;
+  value?: number;
   showValue?: boolean;
 }
 
-export interface MNavigationBarProps {
+export interface MNavigationBarProps extends React.HTMLAttributes<HTMLDivElement> {
   apps?: MAppItem[];
-  orientation?: "horizontal" | "vertical";
+  labelPosition?: 'bottom' | 'right'
+  itemWidth?: number | string;
 }

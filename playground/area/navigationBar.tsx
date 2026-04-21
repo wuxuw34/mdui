@@ -9,6 +9,8 @@ const menu = [
   {
     icon: <span className="material-icons">search</span>,
     name: "Search",
+    showValue: true,
+    value: 100,
   },
   {
     icon: <span className="material-icons">delete</span>,
@@ -22,7 +24,15 @@ export default function NavigationBar() {
       <MNavigationBar apps={menu} />
       <MNavigationBar
         apps={menu}
-        orientation="horizontal"
+      />
+      <MNavigationBar
+        apps={menu}
+        labelPosition="right"
+      />
+      <MNavigationBar
+        apps={menu}
+        labelPosition="right"
+        itemWidth="auto"
       />
     </Col>
   );

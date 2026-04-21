@@ -5,6 +5,7 @@ import "./index.scss";
 export interface MBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;
   variant?: "small" | "large";
+  showValue?: boolean;
 }
 
 export default function MBadge({
@@ -12,6 +13,7 @@ export default function MBadge({
   className,
   children,
   variant = "small",
+  showValue = true,
   ...rest
 }: MBadgeProps) {
   const badgeStyle = useMemo(() => {
@@ -29,7 +31,7 @@ export default function MBadge({
     >
       {children}
       <div className={badgeStyle.badgeClassName}>
-        {value && (
+        {value && showValue && (
           <div
             className="number"
             style={{
