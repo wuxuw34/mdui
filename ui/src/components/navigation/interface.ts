@@ -7,7 +7,7 @@ interface MAppItem {
   showValue?: boolean;
 }
 
-export interface MMenuItem {
+ interface MMenuItem {
   icon: React.ReactNode;
   name: string;
 }

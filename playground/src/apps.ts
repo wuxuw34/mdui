@@ -2,12 +2,17 @@
 
 export const Apps = [
   {
+    key: 'ripple',
+    name: '水波纹',
+    component: () => import('../area/ripple.tsx')
+  },
+  {
     key: 'navigationBar',
     name: '导航栏',
     component: () => import('../area/navigationBar.tsx')
   },
   {
-    key:'Badge',
+    key: 'Badge',
     name: '徽章',
     component: () => import('../area/badge.tsx')
   },

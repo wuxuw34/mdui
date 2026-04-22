@@ -11,7 +11,7 @@ interface RippleOptions {
   auto?: boolean;
   className?: string;
   callback?: (ripple: Ripple) => void;
-  container?: RefObject<HTMLElement | null>;
+  container?: RefObject<HTMLElement | null> | string;
   color?: string;
   preventDefault?: boolean;
   stopPropagation?: boolean;
@@ -62,8 +62,11 @@ export default function useRipple(
         rippleElement.classList.add(...(className?.split(" ") || []));
         rippleElement.style.backgroundColor =
           options.color || "rgb(0, 0, 0, 0.12)";
-        const c = container?.current || el;
-        c.insertBefore(rippleElement, c.firstChild);
+        const c =
+          typeof container === "string"
+            ? document.getElementById(container)
+            : container?.current || el;
+        c?.insertBefore(rippleElement, c.firstChild);
         rippleElement.addEventListener("animationend", () => {
           rippleElement.remove();
         });
