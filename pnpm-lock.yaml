@@ -294,6 +294,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@8.0.9(@types/node@24.12.2)(esbuild@0.27.2)(jiti@2.6.1)(sass@1.97.2)(terser@5.46.0))
+      material-icons:
+        specifier: ^1.13.14
+        version: 1.13.14
       mdui:
         specifier: workspace:*
         version: link:../ui

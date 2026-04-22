@@ -1,0 +1,17 @@
+.mdui-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  .mdui-layout__content {
+    display: flex;
+    flex-direction: row;
+
+    .mdui-layout__aside {
+      width: fit-content;
+    }
+    .mdui-layout__main {
+      flex: 1;
+    }
+  }
+}

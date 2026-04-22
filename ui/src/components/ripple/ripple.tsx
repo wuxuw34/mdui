@@ -27,7 +27,7 @@ export default function MRipple({ disabled = false, children }: MRippleProps) {
       rippleContainer = document.createElement("div");
       rippleContainer.id = rippleId;
       rippleContainer.className = "mdui-ripple";
-      domRef.current.appendChild(rippleContainer);
+      domRef.current.insertBefore(rippleContainer, domRef.current.firstChild || null);
     }
   }, [disabled, setEnabled, rippleId]);
 

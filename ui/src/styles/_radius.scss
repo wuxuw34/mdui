@@ -1,1 +1,10 @@
-
+$radius: 100%;
+$radius-2xl: var(--radius-2xl, 32px);
+$radius-xlp: var(--radius-xlp, 32px);
+$radius-xl: var(--radius-xl, 24px);
+$radius-lgp: var(--radius-lgp, 20px);
+$radius-lg: var(--radius-lg, 16px);
+$radius-md: var(--radius-md, 12px);
+$radius-sm: var(--radius-sm, 8px);
+$radius-xs: var(--radius-xs, 4px);
+$radius-none: var(--radius-none, 0px);

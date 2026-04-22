@@ -1,6 +1,9 @@
 import { Home } from "lucide-react";
-import { MButton } from "mdui";
+import { MButton, MCheckbox } from "mdui";
 import { useState } from "react";
+import Row from "./row";
+
+const sizes = ["xs", "sm", "md", "lg", "xl"];
 
 export default function Button() {
   const [selected, setSelected] = useState<boolean | undefined>(false);
@@ -8,6 +11,17 @@ export default function Button() {
 
   return (
     <div className="flex flex-col  gap-2">
+      <Row>
+        <div>尺寸</div>
+        {sizes.map((size) => (
+          <Row key={size} style={{
+            alignItems:'center'
+          }}>
+            <MCheckbox></MCheckbox>
+            <span>{size}</span>
+          </Row>
+        ))}
+      </Row>
       <div>按钮</div>
       <div>
         <input

@@ -12,6 +12,8 @@ import useRipple from "../../hooks/useRipple";
 import mButtonGroupContext from "../buttonGroup/context";
 import handleButtonCustomClassNames from "./button-custom";
 import type { TSize } from "../../types";
+import { MRipple } from "../ripple";
+import clsx from "clsx";
 
 export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   ripple?: boolean;
@@ -42,7 +44,6 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
     selected,
     ripple = true,
     style,
-
     ...rest
   } = props;
   const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
@@ -187,33 +188,26 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   }, [ripple, disabled, setRippleEnabled]);
 
   return (
-    <button
-      role="button"
-      ref={buttonRef}
-      {...rest}
-      data-selected={selected}
-      data-id={id}
-      disabled={disabled}
-      className={buttonStyle.className}
-      style={
-        {
-          "--radius":
-            shape === "rounded"
-              ? `var(--radius-${size})`
-              : `var(--radius-square-${size})`,
-          ...buttonStyle.style,
-          ...style,
-        } as React.CSSProperties
-      }
-    >
-      <div
-        className="ripple-container"
-        ref={rippleContainerRef}
-      ></div>
-      {startIcon}
-      {props.children}
-      {endIcon}
-    </button>
+    <MRipple disabled={!ripple}>
+      <button
+        role="button"
+        ref={buttonRef}
+        {...rest}
+        data-selected={selected}
+        data-id={id}
+        disabled={disabled}
+        className={
+          clsx({
+            'mdui-button':true,
+            [size]:true
+          })
+        }
+      >
+        {startIcon}
+        {props.children}
+        {endIcon}
+      </button>
+    </MRipple>
   );
 });
 

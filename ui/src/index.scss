@@ -28,6 +28,26 @@
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
   --color-on-error-container: #7d2b25;
+
+  //  按钮的配置
+  --size-button-xs: 32px;
+  --size-button-sm: 40px;
+  --size-button-md: 56px;
+  --size-button-lg: 96px;
+  --size-button-xl: 136px;
+  --padding-button-xs: 12px;
+  --padding-button-sm: 16px;
+  --padding-button-md: 24px;
+  --padding-button-lg: 48px;
+  --padding-button-xl: 64px;
+  --gap-button-xs: 4px;
+  --gap-button-sm: 8px;
+  --gap-button-md: 8px;
+  --gap-button-lg: 12px;
+  --gap-button-xl: 16px;
+
+//  往下的可能废弃
+
   --size-xl: 136px;
   --size-lg: 96px;
   --size-md: 56px;
@@ -52,26 +72,15 @@
   --gap-md: 8px;
   --gap-lg: 12px;
   --gap-xl: 60px;
-  --radius-sm: 20px;
-  --radius-xs: 16px;
-  --radius-md: 28px;
-  --radius-lg: 48px;
-  --radius-xl: 68px;
-  --radius-square-sm: 12px;
-  --radius-square-xs: 16px;
-  --radius-square-md: 16px;
-  --radius-square-lg: 24px;
-  --radius-square-xl: 32px;
-  --radius-pressed-sm: 8px;
-  --radius-pressed-xs: 8px;
-  --radius-pressed-md: 12px;
-  --radius-pressed-lg: 16px;
-  --radius-pressed-xl: 28px;
-  --radius-connected-xs: 4px;
-  --radius-connected-sm: 8px;
-  --radius-connected-md: 8px;
-  --radius-connected-lg: 16px;
-  --radius-connected-xl: 20px;
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-lgp: 20px;
+  --radius-xl: 28px;
+  --radius-xlp: 32px;
+  --radius-2xl: 48px;
   --color-disabled: #d3d3d3;
   --color-text-disabled: #928e94;
   --shadow-default: 0px 2px 0px 1px rgba(0, 0, 0, 0.1);

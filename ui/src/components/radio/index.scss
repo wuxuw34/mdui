@@ -1,0 +1,38 @@
+@use "../../styles/color" as *;
+
+.mdui-radio-button {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  overflow: hidden;
+
+  .mdui-radio-button-ring {
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 2px solid $color-primary;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      border-radius: 100%;
+      background-color: $color-on-surface-variant;
+      content: "";
+      display: block;
+      transition: all 0.1s ease;
+      height: 0;
+      width: 0;
+    }
+
+    &[data-checked="true"]::after {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}

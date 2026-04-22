@@ -1,11 +1,23 @@
-$color-names:
-  "primary", "on-primary", "secondary", "on-secondary", "secondary-container",
-  "on-secondary-container", "surface", "on-surface", "surface-variant",
-  "surface-container-low", "surface-container-high", "surface-container-lowest",
-  "surface-container-highest", "on-surface-variant", "surface-container",
-  "outline", "inverse-surface", "inverse-on-surface", "inverse-primary","shadow","error","error-container","on-error","on-error-container";
-$color-vars: ();
-
-@each $name in $color-names {
-  $color-vars: map-merge($color-vars, (#{$name}: var(--color-#{$name})));
-}
+$color-primary: var(--color-primary);
+$color-on-primary: var(--color-on-primary);
+$color-secondary: var(--color-secondary);
+$color-on-secondary: var(--color-on-secondary);
+$color-tertiary: var(--color-tertiary);
+$color-on-tertiary: var(--color-on-tertiary);
+$color-surface: var(--color-surface);
+$color-on-surface: var(--color-on-surface);
+$color-surface-variant: var(--color-surface-variant);
+$color-surface-container: var(--color-surface-container);
+$color-surface-container-lowest: var(--color-surface-container-lowest);
+$color-surface-container-highest: var(--color-surface-container-highest);
+$color-surface-container-high: var(--color-surface-container-high);
+$color-surface-container-low: var(--color-surface-container-low);
+$color-on-surface-variant: var(--color-on-surface-variant);
+$color-outline: var(--color-outline);
+$color-shadow: var(--color-shadow);
+$color-error: var(--color-error);
+$color-on-error: var(--color-on-error);
+$color-error-container: var(--color-error-container);
+$color-on-error-container: var(--color-on-error-container);
+$color-text-disabled: var(--color-text-disabled);
+$color-disabled: var(--color-disabled);

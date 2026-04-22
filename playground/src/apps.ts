@@ -2,6 +2,11 @@
 
 export const Apps = [
   {
+    key: 'radio',
+    name: '单选',
+    component: () => import('../area/radio.tsx')
+  },
+  {
     key: 'ripple',
     name: '水波纹',
     component: () => import('../area/ripple.tsx')

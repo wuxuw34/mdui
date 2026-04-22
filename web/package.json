@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "material-icons": "^1.13.14",
     "mdui": "workspace:*",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
