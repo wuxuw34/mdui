@@ -4,7 +4,10 @@ import type { MNavigationRailProps } from "./interface";
 import "./rail.scss";
 import useTextMeasure from "../../hooks/useTextMeasure";
 
-export default function MNavigationRail({ menu }: MNavigationRailProps) {
+export default function MNavigationRail({
+  menu,
+  onMenuChange,
+}: MNavigationRailProps) {
   const [isOpen, setIsOpen] = useState(false); // 是否打开
   const textMeasure = useTextMeasure();
 
@@ -45,6 +48,7 @@ export default function MNavigationRail({ menu }: MNavigationRailProps) {
             <MButton
               variant="text"
               size={isOpen ? "md" : "sm"}
+              onClick={() => onMenuChange && onMenuChange(item)}
             >
               {item.icon}
               {isOpen && <span> {item.name}</span>}
