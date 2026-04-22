@@ -1,5 +1,6 @@
-import { MNavigationBar } from "mdui";
+import { MNavigationBar, MNavigationRail } from "mdui";
 import Col from "./col";
+import Row from "./row";
 
 const menu = [
   {
@@ -20,20 +21,21 @@ const menu = [
 
 export default function NavigationBar() {
   return (
-    <Col>
-      <MNavigationBar apps={menu} />
-      <MNavigationBar
-        apps={menu}
-      />
-      <MNavigationBar
-        apps={menu}
-        labelPosition="right"
-      />
-      <MNavigationBar
-        apps={menu}
-        labelPosition="right"
-        itemWidth="auto"
-      />
-    </Col>
+    <Row>
+      <MNavigationRail menu={menu} />
+      <Col>
+        <MNavigationBar apps={menu} />
+        <MNavigationBar apps={menu} />
+        <MNavigationBar
+          apps={menu}
+          labelPosition="right"
+        />
+        <MNavigationBar
+          apps={menu}
+          labelPosition="right"
+          itemWidth="auto"
+        />
+      </Col>
+    </Row>
   );
 }

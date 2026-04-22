@@ -1,0 +1,7 @@
+$color-names:
+  "primary", "on-primary", "secondary", "on-secondary", "secondary-container",
+  "on-secondary-container";
+
+// @each $name in $color-names {
+//   $color-#{$name}: var(--color-#{$name});
+// }

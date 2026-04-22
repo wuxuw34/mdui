@@ -48,7 +48,6 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
   let { radiusInverse = false } = rest;
   if (groupContext.variant) {
-    console.log("groupContext.variant", groupContext.variant, props.children);
     radiusInverse = groupContext.variant === "connected";
   }
 
