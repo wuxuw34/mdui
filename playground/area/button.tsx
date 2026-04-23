@@ -1,5 +1,12 @@
 import { Home, Plus, X } from "lucide-react";
-import { MButton, MSwitch, MRadioButton, MRadioGroup, MFABsMenu } from "mdui";
+import {
+  MButton,
+  MSwitch,
+  MRadioButton,
+  MRadioGroup,
+  MFABsMenu,
+  MSegmentedButtons,
+} from "mdui";
 import { useState } from "react";
 import Row from "./row";
 
@@ -134,7 +141,16 @@ export default function Button() {
           variant="icon"
           size={size}
         ></MButton>
-
+        <MSegmentedButtons>
+          <MButton variant="outlined">按钮1</MButton>
+          <MButton
+            variant="outlined"
+            selected={selected}
+          >
+            按钮2
+          </MButton>
+          <MButton variant="outlined">按钮3</MButton>
+        </MSegmentedButtons>
         <MFABsMenu
           show={showFabs}
           icon={<Plus />}

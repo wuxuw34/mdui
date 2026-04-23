@@ -180,7 +180,7 @@ $radius-type: ("rounded", "square");
             $map: $radius-map,
             $key: "pressed",
           );
-          &.selected {
+          &[data-onlyColor="false"].selected {
             border-radius: map-get($map: $radius-pressed, $key: $size);
           }
           &:active {

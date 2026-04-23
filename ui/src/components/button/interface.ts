@@ -10,6 +10,7 @@ export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   shape?: "rounded" | "square";
   size?: TSize;
   aspectRatio?: 'square' | 'wide' | 'narrow';
+  onlyColor?: boolean;
 }
 
 export interface MFABsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -28,4 +29,8 @@ export interface MFABsMenuProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface MIconButtonProps extends MButtonProps {
   type?: 'default' | 'narrow' | 'wide'
+}
+
+export interface MSegmentedButtonsProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode
 }

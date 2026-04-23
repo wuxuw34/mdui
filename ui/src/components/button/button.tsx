@@ -24,6 +24,7 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
     aspectRatio,
     ripple = true,
     style,
+    onlyColor = false,
     ...rest
   } = props;
   const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
@@ -145,6 +146,7 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
         ref={buttonRef}
         data-id={id}
         data-aspectRatio={aspectRatio}
+        data-onlyColor={onlyColor}
         className={clsx({
           "mdui-button": true,
           [size]: true,

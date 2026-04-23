@@ -37,8 +37,10 @@ export default function MFABsMenu({
       <MButton
         variant="filled"
         aspectRatio="square"
-        shape="square"
+        shape={isExpand ? "rounded" : "square"}
+        onlyColor={true}
         onClick={handleExpand}
+        selected={isExpand}
       >
         {icon ? (
           <div
