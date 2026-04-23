@@ -1,61 +1,88 @@
-import { Home } from "lucide-react";
-import { MButton, MCheckbox } from "mdui";
+import { Home, Plus, X } from "lucide-react";
+import { MButton, MSwitch, MRadioButton, MRadioGroup, MFABsMenu } from "mdui";
 import { useState } from "react";
 import Row from "./row";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"];
+const shapes = ["rounded", "square"];
 
 export default function Button() {
   const [selected, setSelected] = useState<boolean | undefined>(false);
   const [disabled, setDisabled] = useState(false);
+  const [size, setSize] = useState<"xs" | "sm" | "md" | "lg" | "xl">("md");
+  const [shape, setShape] = useState<"rounded" | "square">("rounded");
+  const [showFabs, setShowFabs] = useState(false);
 
   return (
     <div className="flex flex-col  gap-2">
       <Row>
         <div>尺寸</div>
-        {sizes.map((size) => (
-          <Row key={size} style={{
-            alignItems:'center'
-          }}>
-            <MCheckbox></MCheckbox>
-            <span>{size}</span>
-          </Row>
-        ))}
+        <MRadioGroup
+          value={size}
+          onValueChange={(v) => setSize(v as "xs" | "sm" | "md" | "lg" | "xl")}
+        >
+          {sizes.map((size) => (
+            <Row
+              key={size}
+              style={{
+                alignItems: "center",
+              }}
+            >
+              <MRadioButton value={size}></MRadioButton>
+              <span>{size}</span>
+            </Row>
+          ))}
+        </MRadioGroup>
       </Row>
-      <div>按钮</div>
-      <div>
-        <input
-          type="checkbox"
-          defaultChecked={disabled}
-          onChange={(e) => setDisabled(e.target.checked)}
-        />
-        <span>禁用</span>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          defaultChecked={selected}
-          onChange={(e) => setSelected(e.target.checked)}
-        />
-        <span>选中</span>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          defaultChecked={typeof selected === "undefined"}
-          onChange={() =>
-            setSelected(typeof selected === "undefined" ? true : undefined)
-          }
-        />
-        <span>设置为undefined</span>
-      </div>
+      <Row>
+        <div>形状</div>
+        <MRadioGroup
+          value={shape}
+          onValueChange={(v) => setShape(v as "rounded" | "square")}
+        >
+          {shapes.map((size) => (
+            <Row
+              key={size}
+              style={{
+                alignItems: "center",
+              }}
+            >
+              <MRadioButton value={size}></MRadioButton>
+              <span>{size}</span>
+            </Row>
+          ))}
+        </MRadioGroup>
+      </Row>
+      <Row>
+        <div>是否选中</div>
+        <MSwitch
+          checked={selected}
+          onCheckedChange={setSelected}
+        ></MSwitch>
+      </Row>
+      <Row>
+        <div>是否禁用</div>
+        <MSwitch
+          checked={disabled}
+          onCheckedChange={setDisabled}
+        ></MSwitch>
+      </Row>
+      <Row>
+        <div>是否显示fabs</div>
+        <MSwitch
+          checked={showFabs}
+          onCheckedChange={setShowFabs}
+        ></MSwitch>
+      </Row>
+
       <div className="flex flex-col gap-2 w-[120px]">
         <div>
           <MButton
             selected={selected}
             disabled={disabled}
             startIcon={<Home />}
-            shape="rounded"
+            shape={shape}
+            size={size}
           >
             默认按钮
           </MButton>
@@ -65,6 +92,8 @@ export default function Button() {
           disabled={disabled}
           startIcon={<Home />}
           variant="filled"
+          shape={shape}
+          size={size}
         >
           填充按钮
         </MButton>
@@ -73,6 +102,8 @@ export default function Button() {
           disabled={disabled}
           startIcon={<Home />}
           variant="tonal"
+          size={size}
+          shape={shape}
         >
           tonal按钮
         </MButton>
@@ -80,7 +111,9 @@ export default function Button() {
           selected={selected}
           disabled={disabled}
           startIcon={<Home />}
-          variant="outline"
+          variant="outlined"
+          size={size}
+          shape={shape}
         >
           outline按钮
         </MButton>
@@ -89,6 +122,8 @@ export default function Button() {
           disabled={disabled}
           startIcon={<Home />}
           variant="text"
+          shape={shape}
+          size={size}
         >
           文本按钮
         </MButton>
@@ -97,7 +132,16 @@ export default function Button() {
           disabled={disabled}
           startIcon={<Home />}
           variant="icon"
+          size={size}
         ></MButton>
+
+        <MFABsMenu
+          show={showFabs}
+          icon={<Plus />}
+        >
+          <MButton variant="elevated">菜单</MButton>
+          <MButton variant="elevated">菜单1</MButton>
+        </MFABsMenu>
       </div>
     </div>
   );

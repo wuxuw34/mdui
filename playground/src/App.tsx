@@ -9,6 +9,7 @@ import {
   LateralTransition,
   type MLateralTransitionsRef,
   MButton,
+  MFABs,
 } from "mdui";
 import Indicators from "../area/indicators";
 import { Apps } from "./apps";

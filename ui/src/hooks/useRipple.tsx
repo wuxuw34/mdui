@@ -61,7 +61,7 @@ export default function useRipple(
         rippleElement.style.height = `${rippleSize}px`;
         rippleElement.classList.add(...(className?.split(" ") || []));
         rippleElement.style.backgroundColor =
-          options.color || "rgb(0, 0, 0, 0.12)";
+          options.color || "rgb(0, 0, 0, 0.18)";
         const c =
           typeof container === "string"
             ? document.getElementById(container)

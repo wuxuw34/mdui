@@ -1,0 +1,57 @@
+.mdui-fabs-menu {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 99999;
+
+  .mdui-fabs-menu-container {
+    position: absolute;
+    top: 0;
+    transform: translateY(0%);
+    opacity: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    z-index: -1;
+    &.expand {
+      animation: expand 0.3s;
+      animation-direction: normal;
+      animation-fill-mode: backwards;
+      opacity: 1;
+      transform: translateY(calc(-100% - 8px));
+    }
+    &.unexpand {
+      animation: unexpand 0.3s;
+    }
+  }
+
+  @keyframes expand {
+    0% {
+      transform: translateY(0%);
+      opacity: 0;
+    }
+    80% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-100%);
+      opacity: 1;
+    }
+  }
+
+  @keyframes unexpand {
+    0% {
+      transform: translateY(-100%);
+      opacity: 1;
+    }
+    10%{
+      opacity: 0.2;
+    }
+    100% {
+      transform: translateY(0%);
+      opacity: 0;
+    }
+  }
+}

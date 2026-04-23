@@ -2,6 +2,11 @@
 
 export const Apps = [
   {
+    key: 'iconButton',
+    name: '图标按钮',
+    component: () => import('../area/iconButton.tsx')
+  },
+  {
     key: 'radio',
     name: '单选',
     component: () => import('../area/radio.tsx')

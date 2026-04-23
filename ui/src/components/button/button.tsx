@@ -1,31 +1,10 @@
-import React, {
-  forwardRef,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import "./index.scss";
+import { forwardRef, useContext, useEffect, useRef, useState } from "react";
+import "./button.scss";
 import { nanoid } from "nanoid";
-import useRipple from "../../hooks/useRipple";
 import mButtonGroupContext from "../buttonGroup/context";
-import handleButtonCustomClassNames from "./button-custom";
-import type { TSize } from "../../types";
 import { MRipple } from "../ripple";
 import clsx from "clsx";
-
-export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  ripple?: boolean;
-  variant?: "default" | "outline" | "text" | "icon" | "tonal" | "filled";
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-  disabled?: boolean;
-  selected?: boolean | undefined;
-  shape?: "rounded" | "square";
-  size?: TSize;
-  radiusInverse?: boolean;
-}
+import type { MButtonProps } from "./interface";
 
 export interface MButtonRef {
   changePadding: (x: number, y: number) => void;
@@ -35,29 +14,21 @@ export interface MButtonRef {
 const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   const {
     size = "md",
-    variant = "default",
+    variant = "elevated",
     className,
     startIcon,
     endIcon,
     disabled,
     shape = "rounded",
     selected,
+    aspectRatio,
     ripple = true,
     style,
     ...rest
   } = props;
   const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
-  let { radiusInverse = false } = rest;
-  if (groupContext.variant) {
-    radiusInverse = groupContext.variant === "connected";
-  }
 
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const rippleContainerRef = useRef<HTMLDivElement>(null);
-  const { setEnabled: setRippleEnabled } = useRipple(buttonRef, {
-    className: getRippleBackgroundColor(),
-    container: rippleContainerRef,
-  });
 
   const [id] = useState(nanoid()); // 按钮的唯一标识
   const sizeRef = useRef({
@@ -66,28 +37,6 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
   });
   const initialPadding = useRef<boolean>(false); // 是否初始化了
   const targetPaddingRef = useRef<number[]>([]); // 目标padding值
-
-  const buttonStyle = useMemo<{
-    className: string;
-    style: React.CSSProperties;
-  }>(() => {
-    return handleButtonCustomClassNames({
-      size,
-      variant,
-      shape,
-      selected,
-      className,
-      radiusInverse,
-    });
-  }, [size, variant, shape, selected, className, radiusInverse]);
-
-  function getRippleBackgroundColor() {
-    if (variant === "default") {
-      return "ripple-active-default";
-    } else {
-      return "ripple-active";
-    }
-  }
 
   useEffect(() => {
     if (selected && groupContext.current !== id) {
@@ -179,29 +128,34 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
     }
   }, [groupContext, id]);
 
-  useEffect(() => {
-    const button = buttonRef.current;
-    if (!ripple || !button || disabled) {
-      setRippleEnabled(false);
-      return;
+  const getButtonState = () => {
+    let state: "default" | "selected" | "unselected" = "default";
+    if (selected) {
+      state = "selected";
+    } else if (typeof selected === "boolean" && !selected) {
+      state = "unselected";
     }
-  }, [ripple, disabled, setRippleEnabled]);
+    return state;
+  };
 
   return (
     <MRipple disabled={!ripple}>
       <button
         role="button"
         ref={buttonRef}
-        {...rest}
-        data-selected={selected}
         data-id={id}
-        disabled={disabled}
-        className={
-          clsx({
-            'mdui-button':true,
-            [size]:true
-          })
-        }
+        data-aspectRatio={aspectRatio}
+        className={clsx({
+          "mdui-button": true,
+          [size]: true,
+          [variant]: true,
+          [getButtonState()]: true,
+          [shape]: true,
+          disabled: disabled,
+          className,
+        })}
+        style={style}
+        {...rest}
       >
         {startIcon}
         {props.children}

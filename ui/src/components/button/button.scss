@@ -1,0 +1,240 @@
+@use "sass:map";
+@use "sass:color";
+@use "../../styles/variables" as *;
+@use "../../styles/color" as *;
+@use "../../styles/radius" as *;
+@use "../../styles/font" as *;
+
+$size-xs: var(--size-button-xs);
+$size-sm: var(--size-button-sm);
+$size-md: var(--size-button-md);
+$size-lg: var(--size-button-lg);
+$size-xl: var(--size-button-xl);
+$p-xs: var(--padding-button-xs);
+$p-sm: var(--padding-button-sm);
+$p-md: var(--padding-button-md);
+$p-lg: var(--padding-button-lg);
+$p-xl: var(--padding-button-xl);
+$gap-xs: var(--gap-button-xs);
+$gap-sm: var(--gap-button-sm);
+$gap-md: var(--gap-button-md);
+$gap-lg: var(--gap-button-lg);
+$gap-xl: var(--gap-button-xl);
+
+$sizes: (
+  "xs": (
+    "size": $size-xs,
+    "p": $p-xs,
+    "gap": $gap-xs,
+    fontSize: $font-size-xs,
+  ),
+  "sm": (
+    "size": $size-sm,
+    "p": $p-sm,
+    "gap": $gap-sm,
+    fontSize: $font-size-sm,
+  ),
+  "md": (
+    "size": $size-md,
+    fontSize: $font-size-md,
+    "gap": $gap-md,
+    "p": $p-md,
+  ),
+  "lg": (
+    fontSize: $font-size-lg,
+    "gap": $gap-lg,
+    "size": $size-lg,
+    "p": $p-lg,
+  ),
+  "xl": (
+    "size": $size-xl,
+    "p": $p-xl,
+    "gap": $gap-xl,
+    fontSize: $font-size-xl,
+  ),
+);
+
+$button-style: (
+  "elevated": (
+    default: (
+      background-color: $color-surface-container-low,
+      color: $color-primary,
+    ),
+    unselected: (
+      background-color: $color-surface-container-low,
+      color: $color-primary,
+    ),
+    selected: (
+      background-color: $color-primary,
+      color: $color-on-primary,
+    ),
+  ),
+  filled: (
+    default: (
+      background-color: $color-primary,
+      color: $color-on-primary,
+    ),
+    unselected: (
+      background-color: $color-surface-container,
+      color: $color-on-surface-variant,
+    ),
+    selected: (
+      background-color: $color-primary,
+      color: $color-on-primary,
+    ),
+  ),
+  tonal: (
+    default: (
+      background-color: $color-secondary-container,
+      color: $color-on-secondary-container,
+    ),
+    unselected: (
+      background-color: $color-secondary-container,
+      color: $color-on-secondary-container,
+    ),
+    selected: (
+      background-color: $color-secondary,
+      color: $color-on-secondary,
+    ),
+  ),
+  outlined: (
+    default: (
+      outline-color: $color-outline-variant,
+      color: $color-on-surface-variant,
+    ),
+    unselected: (
+      outline-color: $color-outline-variant,
+      color: $color-on-surface-variant,
+    ),
+    selected: (
+      background-color: $color-inverse-surface,
+      color: $color-inverse-on-surface,
+    ),
+  ),
+);
+$radius-type: ("rounded", "square");
+
+.mdui-button {
+  background-color: transparent;
+  position: relative;
+  // overflow: hidden;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  font-size: var(--text);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  letter-spacing: 0.025em;
+  outline: 0;
+  box-sizing: border-box;
+  white-space: nowrap;
+  width: fit-content;
+  box-shadow: var(--shadow);
+  transition: all 0.2s linear;
+  gap: var(--gap);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  &.outlined {
+    outline-width: 1px;
+    outline-style: solid;
+  }
+
+  @each $size, $value in $sizes {
+    @each $type in $radius-type {
+      $radius: map-get(
+        $map: $radius-map,
+        $key: $type,
+      );
+      &.#{$type} {
+        &.#{$size} {
+          @if $type == "rounded" {
+            border-radius: calc(map-get($value, "size") / 2);
+          } @else {
+            border-radius: map-get($map: $radius, $key: $size);
+          }
+          font-size: map-get($value, "fontSize");
+          overflow: hidden;
+          gap: map-get($value, "gap");
+          height: map-get($value, "size");
+          padding: 0 map-get($value, "p");
+          &[data-aspectRatio="square"] {
+            width: map-get($value, "size");
+            height: map-get($value, "size");
+            padding: 0;
+          }
+          &[data-aspectRatio="narrow"] {
+            height: map-get($value, "size");
+            padding: map-get($value, "p") 0;
+          }
+          $radius-pressed: map-get(
+            $map: $radius-map,
+            $key: "pressed",
+          );
+          &.selected {
+            border-radius: map-get($map: $radius-pressed, $key: $size);
+          }
+          &:active {
+            border-radius: map-get($map: $radius-pressed, $key: $size);
+          }
+        }
+      }
+    }
+  }
+
+  @each $style, $value in $button-style {
+    &.#{$style} {
+      @each $state, $properties in $value {
+        &.#{$state} {
+          @each $property, $value in $properties {
+            @if $property == "background-color" {
+              &::before {
+                background-color: $value;
+              }
+            } @else {
+              #{$property}: $value;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.text {
+    color: $color-primary;
+  }
+
+  &.icon {
+    aspect-ratio: 1 / 1;
+    padding: 0 !important;
+    color: $color-primary;
+  }
+
+  &.disabled {
+    color: $color-on-surface;
+    opacity: 0.62;
+    pointer-events: none;
+    &::before {
+      background-color: $color-surface;
+      opacity: 0.9;
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  &:hover::before {
+    opacity: 0.92;
+  }
+}

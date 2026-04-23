@@ -1,0 +1,43 @@
+$size-default: var(--size-button-md);
+$size-md: var(--size-button-mdp);
+$size-lg: var(--size-button-lg);
+
+$size-map: (
+  default: (
+    "width": $size-default,
+    "height": $size-default,
+    font-size: var(--font-size-md),
+  ),
+  md: (
+    "width": $size-md,
+    "height": $size-md,
+    font-size: var(--font-size-md),
+  ),
+  lg: (
+    "width": $size-lg,
+    "height": $size-lg,
+    font-size: var(--font-size-lg),
+  ),
+);
+
+.mdui-fabs {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 999999;
+  transition: all 0.2s ease-in-out;
+
+  @each $size, $value in $size-map {
+    &.#{$size} {
+      @each $property, $val in $value {
+        #{$property}: $val;
+      }
+      & > button {
+        @each $property, $val in $value {
+          #{$property}: $val !important;
+        }
+        padding: 0 !important;
+      }
+    }
+  }
+}

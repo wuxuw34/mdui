@@ -1,10 +1,36 @@
-$radius: 100%;
-$radius-2xl: var(--radius-2xl, 32px);
-$radius-xlp: var(--radius-xlp, 32px);
-$radius-xl: var(--radius-xl, 24px);
-$radius-lgp: var(--radius-lgp, 20px);
-$radius-lg: var(--radius-lg, 16px);
-$radius-md: var(--radius-md, 12px);
-$radius-sm: var(--radius-sm, 8px);
-$radius-xs: var(--radius-xs, 4px);
-$radius-none: var(--radius-none, 0px);
+$radius-full: 100%;
+$radius-square-xs: var(--radius-square-xs, 12px);
+$radius-square-sm: var(--radius-square-sm, 12px);
+$radius-square-md: var(--radius-square-md, 16px);
+$radius-square-lg: var(--radius-square-lg, 28px);
+$radius-square-xl: var(--radius-square-xl, 28px);
+
+$radius-pressed-xs: var(--radius-pressed-xs, 8px);
+$radius-pressed-sm: var(--radius-pressed-sm, 8px);
+$radius-pressed-md: var(--radius-pressed-md, 12px);
+$radius-pressed-lg: var(--radius-pressed-lg, 16px);
+$radius-pressed-xl: var(--radius-pressed-xl, 16px);
+
+$radius-map: (
+  rounded: (
+    xs: $radius-full,
+    sm: $radius-full,
+    md: $radius-full,
+    lg: $radius-full,
+    xl: $radius-full,
+  ),
+  square: (
+    xs: $radius-square-xs,
+    sm: $radius-square-sm,
+    md: $radius-square-md,
+    lg: $radius-square-lg,
+    xl: $radius-square-xl,
+  ),
+  pressed: (
+    xs: $radius-pressed-xs,
+    sm: $radius-pressed-sm,
+    md: $radius-pressed-md,
+    lg: $radius-pressed-lg,
+    xl: $radius-pressed-xl,
+  ),
+);

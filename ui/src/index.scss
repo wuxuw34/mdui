@@ -33,6 +33,7 @@
   --size-button-xs: 32px;
   --size-button-sm: 40px;
   --size-button-md: 56px;
+  --size-button-mdp: 80px;
   --size-button-lg: 96px;
   --size-button-xl: 136px;
   --padding-button-xs: 12px;
@@ -45,6 +46,26 @@
   --gap-button-md: 8px;
   --gap-button-lg: 12px;
   --gap-button-xl: 16px;
+
+  --radius-square-xs:12px;
+  --radius-square-sm:12px;
+  --radius-square-md:16px;
+  --radius-square-lg:28px;
+  --radius-square-xl:28px;
+
+  --radius-pressed-xs:8px;
+  --radius-pressed-sm:8px;
+  --radius-pressed-md:12px;
+  --radius-pressed-lg:16px;
+  --radius-pressed-xl:16px;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 32px;
+
+  
 
 //  往下的可能废弃
 
@@ -73,14 +94,6 @@
   --gap-lg: 12px;
   --gap-xl: 60px;
   --radius-none: 0px;
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-lgp: 20px;
-  --radius-xl: 28px;
-  --radius-xlp: 32px;
-  --radius-2xl: 48px;
   --color-disabled: #d3d3d3;
   --color-text-disabled: #928e94;
   --shadow-default: 0px 2px 0px 1px rgba(0, 0, 0, 0.1);
