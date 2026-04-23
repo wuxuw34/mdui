@@ -34,3 +34,9 @@ export interface MIconButtonProps extends MButtonProps {
 export interface MSegmentedButtonsProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
 }
+
+
+export interface MSplitButtonProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: TSize
+  children?: React.ReactNode
+}

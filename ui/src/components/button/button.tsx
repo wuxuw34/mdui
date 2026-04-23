@@ -147,15 +147,16 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
         data-id={id}
         data-aspectRatio={aspectRatio}
         data-onlyColor={onlyColor}
-        className={clsx({
-          "mdui-button": true,
-          [size]: true,
-          [variant]: true,
-          [getButtonState()]: true,
-          [shape]: true,
-          disabled: disabled,
-          className,
-        })}
+        className={
+          clsx({
+            "mdui-button": true,
+            [size]: true,
+            [variant]: true,
+            [getButtonState()]: true,
+            [shape]: true,
+            disabled: disabled,
+          }) + (className ? ` ${className}` : "")
+        }
         style={style}
         {...rest}
       >

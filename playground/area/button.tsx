@@ -6,6 +6,7 @@ import {
   MRadioGroup,
   MFABsMenu,
   MSegmentedButtons,
+  MSplitButton,
 } from "mdui";
 import { useState } from "react";
 import Row from "./row";
@@ -151,6 +152,7 @@ export default function Button() {
           </MButton>
           <MButton variant="outlined">按钮3</MButton>
         </MSegmentedButtons>
+        <MSplitButton size={size}>split</MSplitButton>
         <MFABsMenu
           show={showFabs}
           icon={<Plus />}

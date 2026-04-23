@@ -170,6 +170,7 @@ $radius-type: ("rounded", "square");
           &[data-aspectRatio="square"] {
             width: map-get($value, "size");
             height: map-get($value, "size");
+            aspect-ratio: 1 / 1;
             padding: 0;
           }
           &[data-aspectRatio="narrow"] {
