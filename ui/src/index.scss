@@ -5,6 +5,8 @@
   --radius-square: 0.75rem;
   --color-primary: rgb(107, 84, 168);
   --color-on-primary: #faf9fb;
+  --color-primary-container: #c8b3fd;
+  --color-on-primary-container: #4e3b7b;
   --color-secondary: #5d5d72;
   --color-on-secondary: #ffffff;
   --color-secondary-container: #e2e0f9;
@@ -47,17 +49,17 @@
   --gap-button-lg: 12px;
   --gap-button-xl: 16px;
 
-  --radius-square-xs:12px;
-  --radius-square-sm:12px;
-  --radius-square-md:16px;
-  --radius-square-lg:28px;
-  --radius-square-xl:28px;
+  --radius-square-xs: 12px;
+  --radius-square-sm: 12px;
+  --radius-square-md: 16px;
+  --radius-square-lg: 28px;
+  --radius-square-xl: 28px;
 
-  --radius-pressed-xs:8px;
-  --radius-pressed-sm:8px;
-  --radius-pressed-md:12px;
-  --radius-pressed-lg:16px;
-  --radius-pressed-xl:16px;
+  --radius-pressed-xs: 8px;
+  --radius-pressed-sm: 8px;
+  --radius-pressed-md: 12px;
+  --radius-pressed-lg: 16px;
+  --radius-pressed-xl: 16px;
 
   --font-size-xs: 12px;
   --font-size-sm: 14px;
@@ -65,9 +67,7 @@
   --font-size-lg: 20px;
   --font-size-xl: 32px;
 
-  
-
-//  往下的可能废弃
+  //  往下的可能废弃
 
   --size-xl: 136px;
   --size-lg: 96px;

@@ -42,7 +42,6 @@ export default function MNavigationBar({
             variant="text"
             size="sm"
             selected={activeApp === app.name}
-            radiusInverse={true}
           >
             <MBadge
               value={app.value}

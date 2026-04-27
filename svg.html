@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Path 提取器</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title .badge {
+      font-size: 12px;
+      background: #e8f0fe;
+      color: #1a73e8;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 400;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      border-color: #1a73e8;
+    }
+
+    .preview-box {
+      width: 100%;
+      height: 300px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+      overflow: hidden;
+    }
+
+    .preview-box svg {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .preview-box .placeholder {
+      color: #999;
+      font-size: 14px;
+    }
+
+    .result-area {
+      margin-top: 12px;
+    }
+
+    .result-area .path-item {
+      background: #f5f5f5;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      word-break: break-all;
+      position: relative;
+      border: 1px solid #e8e8e8;
+    }
+
+    .result-area .path-item .path-index {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .result-area .path-item .path-d {
+      color: #1a1a2e;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #1a73e8;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1557b0;
+    }
+
+    .btn-success {
+      background: #34a853;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #2d8f47;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #666;
+      border: 1px solid #ddd;
+    }
+
+    .btn-outline:hover {
+      background: #f5f5f5;
+    }
+
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+
+    .btn-copy {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #323232;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .empty-state {
+      text-align: center;
+      color: #999;
+      padding: 40px 20px;
+      font-size: 14px;
+    }
+
+    .empty-state .icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔧 SVG Path 提取器</h1>
+    <p class="subtitle">输入 SVG 代码，自动提取所有 &lt;path&gt; 的 d 属性</p>
+
+    <div class="grid">
+      <!-- 输入区 -->
+      <div class="card">
+        <div class="card-title">
+          <span>输入 SVG</span>
+          <span class="badge">粘贴代码</span>
+        </div>
+        <textarea id="svgInput" placeholder="在此粘贴 SVG 代码...&#10;&#10;例如:&#10;&lt;svg&gt;&#10;  &lt;path d=&quot;M10 10 L 90 10 L 50 90 Z&quot;/&gt;&#10;&lt;/svg&gt;"></textarea>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="extractPaths()">提取路径</button>
+          <button class="btn btn-outline" onclick="clearAll()">清空</button>
+        </div>
+      </div>
+
+      <!-- 预览区 -->
+      <div class="card">
+        <div class="card-title">
+          <span>预览</span>
+          <span class="badge" id="pathCount">0 个路径</span>
+        </div>
+        <div class="preview-box" id="previewBox">
+          <div class="placeholder">输入 SVG 后点击"提取路径"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 结果区 -->
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-title">
+        <span>提取的 Path 路径</span>
+        <span class="badge">点击复制</span>
+      </div>
+      <div class="result-area" id="resultArea">
+        <div class="empty-state">
+          <div class="icon">📋</div>
+          <div>暂无提取结果</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function extractPaths() {
+      const input = document.getElementById('svgInput').value;
+      const resultArea = document.getElementById('resultArea');
+      const previewBox = document.getElementById('previewBox');
+      const pathCount = document.getElementById('pathCount');
+
+      if (!input.trim()) {
+        showToast('请先输入 SVG 代码');
+        return;
+      }
+
+      // 解析 SVG
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(input, 'text/html');
+      const svg = doc.querySelector('svg');
+
+      if (!svg) {
+        showToast('未找到 SVG 标签');
+        return;
+      }
+
+      const paths = svg.querySelectorAll('path');
+      
+      if (paths.length === 0) {
+        resultArea.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">🔍</div>
+            <div>未找到 &lt;path&gt; 元素</div>
+          </div>
+        `;
+        previewBox.innerHTML = `<div class="placeholder">未找到路径</div>`;
+        pathCount.textContent = '0 个路径';
+        return;
+      }
+
+      // 显示结果
+      let html = '';
+      paths.forEach((path, index) => {
+        const d = path.getAttribute('d') || '';
+        html += `
+          <div class="path-item">
+            <div class="path-index">Path #${index + 1}</div>
+            <div class="path-d">${escapeHtml(d)}</div>
+            <button class="btn btn-success btn-sm btn-copy" onclick="copyPath(this, '${escapeHtml(d)}')">
+              📋 复制
+            </button>
+          </div>
+        `;
+      });
+      resultArea.innerHTML = html;
+      pathCount.textContent = `${paths.length} 个路径`;
+
+      // 更新预览
+      updatePreview(input);
+      showToast(`成功提取 ${paths.length} 个路径`);
+    }
+
+    function updatePreview(svgCode) {
+      const previewBox = document.getElementById('previewBox');
+      
+      // 提取 viewBox 或设置默认值
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svgCode, 'text/html');
+      const svg = doc.querySelector('svg');
+      
+      if (!svg) {
+        previewBox.innerHTML = `<div class="placeholder">预览不可用</div>`;
+        return;
+      }
+
+      // 确保有 viewBox
+      if (!svg.getAttribute('viewBox')) {
+        svg.setAttribute('viewBox', '0 0 100 100');
+      }
+      
+      // 设置宽高
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', '100%');
+
+      previewBox.innerHTML = svg.outerHTML;
+    }
+
+    function copyPath(btn, d) {
+      // 解码 HTML 实体
+      const textarea = document.createElement('textarea');
+      textarea.value = d;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      // 按钮反馈
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✅ 已复制';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+      }, 1500);
+
+      showToast('已复制到剪贴板');
+    }
+
+    function clearAll() {
+      document.getElementById('svgInput').value = '';
+      document.getElementById('resultArea').innerHTML = `
+        <div class="empty-state">
+          <div class="icon">📋</div>
+          <div>暂无提取结果</div>
+        </div>
+      `;
+      document.getElementById('previewBox').innerHTML = `
+        <div class="placeholder">输入 SVG 后点击"提取路径"</div>
+      `;
+      document.getElementById('pathCount').textContent = '0 个路径';
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>

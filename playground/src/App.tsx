@@ -66,6 +66,7 @@ export default function App() {
         {Apps.map((app) => (
           <MTab
             value={app.key}
+            key={app.key}
             onClick={() => {
               setActive(app.key);
             }}

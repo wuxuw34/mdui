@@ -1,4 +1,4 @@
-import { MProgress } from "mdui";
+import { MLoader, MProgress } from "mdui";
 import Col from "./col";
 import { useEffect, useState } from "react";
 
@@ -13,7 +13,10 @@ export default function Indicators() {
 
   return (
     <Col>
-      <MProgress progress={progress} amplitude={0.3} />
+      <MProgress
+        progress={progress}
+        amplitude={0.3}
+      />
       <MProgress
         variant="standard"
         progress={progress}
@@ -36,8 +39,10 @@ export default function Indicators() {
           height: 100,
           width: 100,
         }}
-        progress={progress}  
+        progress={progress}
       />
+      <MLoader />
+      <MLoader variant="contained" />
     </Col>
   );
 }
