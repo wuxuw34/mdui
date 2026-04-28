@@ -1,0 +1,50 @@
+@use "../../styles/color" as *;
+@use "../../styles/radius" as *;
+@use "../../styles/shadow" as *;
+@use "../../styles/easing" as *;
+
+.mdui-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 1001;
+  min-height: 300px;
+  max-width: 640px;
+  background-color: $color-surface-container-low;
+  padding: 16px;
+  width: 100%;
+  border-radius: $radius-square-xl $radius-square-xl 0 0;
+  box-shadow: $shadow;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%) translateX(-50%);
+  transition: transform $easing-expressive-default-effects;
+
+  &.open {
+    transform: translateY(calc(0% + var(--offset, 0px))) translateX(-50%);
+  }
+
+  & > .mdui-bottom-sheet__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 12px;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      background-color: $color-on-surface-variant;
+      width: 32px;
+      height: 4px;
+      border-radius: 2px;
+    }
+
+    &:hover::after {
+      background-color: $color-primary;
+    }
+  }
+
+  & > .mdui-bottom-sheet__content {
+    flex: 1;
+  }
+}

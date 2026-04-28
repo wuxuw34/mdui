@@ -35,17 +35,17 @@ export default function usePointerMove<T extends HTMLElement = HTMLDivElement>(o
   const onPointerUp = useCallback((e: PointerEvent) => {
     if (isMovingRef.current) {
       isMovingRef.current = false
-      ref.current?.removeEventListener("pointermove", onPointerMove)
+      window.removeEventListener("pointermove", onPointerMove)
 
       options?.onPointerUp?.(e)
       if (onPointerUpRef.current) {
-        ref.current?.removeEventListener("pointerup", onPointerUpRef.current)
+        window.removeEventListener("pointerup", onPointerUpRef.current)
         window.removeEventListener("pointerup", onPointerUpRef.current)
       }
-      ref.current?.removeEventListener("pointermove", onPointerMove)
+      window.removeEventListener("pointermove", onPointerMove)
     }
 
-  }, [options, ref, onPointerMove])
+  }, [options, onPointerMove])
 
   const onPointerDown = useCallback((e: React.PointerEvent<T>) => {
     
@@ -58,11 +58,10 @@ export default function usePointerMove<T extends HTMLElement = HTMLDivElement>(o
     setInitPos(p)
     prevPosRef.current = p
     initPosRef.current = p
-    ref.current?.addEventListener("pointermove", onPointerMove)
+    window.addEventListener("pointermove", onPointerMove)
     onPointerUpRef.current = onPointerUp
-    ref.current?.addEventListener("pointerup", onPointerUpRef.current)
     window.addEventListener("pointerup", onPointerUpRef.current)
-  }, [options, ref, onPointerMove, onPointerUp])
+  }, [options, onPointerMove, onPointerUp])
 
 
   return {

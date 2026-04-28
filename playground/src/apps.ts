@@ -2,6 +2,11 @@
 
 export const Apps = [
   {
+    key: 'sheet',
+    name: '抽屉',
+    component: () => import('../area/sheet.tsx')
+  },
+  {
     key: 'shape',
     name: '形状',
     component: () => import('../area/Shape.tsx')
