@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { MSheetContext } from "./context";
-import { MSheetManager } from "./util";
 import { createPortal } from "react-dom";
 import type { MSheetConfig } from "./interface";
 import MBottomSheet from "./bottom";
@@ -12,21 +11,16 @@ export default function MSheetProvider({
 }: {
   children?: React.ReactNode;
 }) {
-  const sheetInstanceRef = useRef<MSheetManager>(MSheetManager.getInstance());
   const [currentSheet, setCurrentSheet] = useState<MSheetConfig>({});
   const listeners = useRef<Set<(show: boolean) => void>>(new Set());
 
-  useEffect(() => {
-    const unsubscribe = sheetInstanceRef.current.subscribe((config) => {
-      setCurrentSheet({
-        ...config,
-      });
-    });
-    return unsubscribe;
-  }, []);
-
   const show = (config: MSheetConfig) => {
-    sheetInstanceRef.current.show(config);
+    setCurrentSheet(pre=>{
+      return {
+        ...pre,
+        ...config
+      }
+    })
   };
 
   const handleShowChange = (show: boolean) => {

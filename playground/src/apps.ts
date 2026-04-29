@@ -2,6 +2,11 @@
 
 export const Apps = [
   {
+    key: 'snackbar',
+    name: '弹出框',
+    component: () => import('../area/snackbar.tsx')
+  },
+  {
     key: 'sheet',
     name: '抽屉',
     component: () => import('../area/sheet.tsx')

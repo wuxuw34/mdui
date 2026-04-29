@@ -1,0 +1,39 @@
+@use "../../styles/color" as *;
+@use "../../styles/easing" as *;
+
+.mdui-snackbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 8px 0 16px;
+  background-color: $color-on-surface;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  position: fixed;
+  z-index: 10000;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  transition: transform $easing-expressive-default-effects;
+  min-width: 300px;
+
+  &.open {
+    transform: translateY(calc(0% - var(--offset))) translateX(-50%);
+  }
+
+  & > .mdui-snackbar__content {
+    flex: 1;
+    color: $color-inverse-on-surface;
+  }
+
+  & > .mdui-snackbar__action {
+    color: $color-primary;
+  }
+
+  & > .mdui-snackbar__close {
+    color: $color-on-primary;
+  }
+}
