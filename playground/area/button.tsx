@@ -20,9 +20,17 @@ export default function Button() {
   const [size, setSize] = useState<"xs" | "sm" | "md" | "lg" | "xl">("md");
   const [shape, setShape] = useState<"rounded" | "square">("rounded");
   const [showFabs, setShowFabs] = useState(false);
+  const [animation, setAnimation] = useState(false);
 
   return (
     <div className="flex flex-col  gap-2">
+      <Row>
+        是否显示动画
+        <MSwitch
+          checked={animation}
+          onCheckedChange={setAnimation}
+        ></MSwitch>
+      </Row>
       <Row>
         <div>尺寸</div>
         <MRadioGroup
@@ -90,6 +98,7 @@ export default function Button() {
             disabled={disabled}
             startIcon={<Home />}
             shape={shape}
+            animation={animation}
             size={size}
           >
             默认按钮
@@ -101,6 +110,7 @@ export default function Button() {
           startIcon={<Home />}
           variant="filled"
           shape={shape}
+          animation={animation}
           size={size}
         >
           填充按钮
@@ -110,6 +120,7 @@ export default function Button() {
           disabled={disabled}
           startIcon={<Home />}
           variant="tonal"
+          animation={animation}
           size={size}
           shape={shape}
         >
@@ -120,6 +131,7 @@ export default function Button() {
           disabled={disabled}
           startIcon={<Home />}
           variant="outlined"
+          animation={animation}
           size={size}
           shape={shape}
         >
@@ -130,6 +142,7 @@ export default function Button() {
           disabled={disabled}
           startIcon={<Home />}
           variant="text"
+          animation={animation}
           shape={shape}
           size={size}
         >

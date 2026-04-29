@@ -130,8 +130,10 @@
     }
 
     .mdui-icon {
-      height: 24px;
-      width: 24px;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .mtui-textfield-prefix-icon {

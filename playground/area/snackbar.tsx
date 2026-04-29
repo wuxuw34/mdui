@@ -1,4 +1,4 @@
-import { MButton, useSnackbar } from "mdui";
+import { MButton, useSnackbar, MIconButton } from "mdui";
 import Col from "./col";
 import { useEffect, useState } from "react";
 
@@ -32,6 +32,15 @@ export default function Snackbar() {
           context.open({
             open: true,
             text: Date.now().toString(),
+            duration: 3000,
+            action: (
+              <MIconButton
+                variant="text"
+                size="xs"
+              >
+                action
+              </MIconButton>
+            ),
           });
           setOpen(true);
         }}

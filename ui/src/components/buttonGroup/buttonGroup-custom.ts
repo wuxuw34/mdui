@@ -1,5 +1,8 @@
-import type { TSize } from "../../types";
+import type { TSize } from './../button/interface';
+
 import type { MButtonGroupProps } from "./buttonGroup";
+
+
 
 const setButtonGroupGapSize = (style: React.CSSProperties, size: TSize) => {
   const obj = {

@@ -1,7 +1,7 @@
 
 
 interface MultiLine {
-  multiLine: boolean;
+  multiLine?: boolean;
   rows?: number;
 }
 

@@ -11,6 +11,8 @@ export interface MButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   size?: TSize;
   aspectRatio?: 'square' | 'wide' | 'narrow';
   onlyColor?: boolean;
+  animation?: boolean;
+  selectable?: boolean;
 }
 
 export interface MFABsProps extends React.HTMLAttributes<HTMLDivElement> {

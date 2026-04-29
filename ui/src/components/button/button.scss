@@ -135,6 +135,7 @@ $radius-type: ("rounded", "square");
   box-shadow: var(--shadow);
   transition: all 0.2s linear;
   gap: var(--gap);
+  z-index: 1;
 
   &::before {
     content: "";
@@ -184,7 +185,7 @@ $radius-type: ("rounded", "square");
           &[data-onlyColor="false"].selected {
             border-radius: map-get($map: $radius-pressed, $key: $size);
           }
-          &:active {
+          &.animation:active {
             border-radius: map-get($map: $radius-pressed, $key: $size);
           }
         }

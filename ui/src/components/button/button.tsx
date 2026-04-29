@@ -24,7 +24,9 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
     aspectRatio,
     ripple = true,
     style,
+    selectable = false,
     onlyColor = false,
+    animation = false,
     ...rest
   } = props;
   const groupContext = useContext(mButtonGroupContext); // 按钮组的上下文
@@ -131,10 +133,12 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
 
   const getButtonState = () => {
     let state: "default" | "selected" | "unselected" = "default";
-    if (selected) {
-      state = "selected";
-    } else if (typeof selected === "boolean" && !selected) {
-      state = "unselected";
+    if (selectable) {
+      if (selected) {
+        state = "selected";
+      } else if (typeof selected === "boolean" && !selected) {
+        state = "unselected";
+      }
     }
     return state;
   };
@@ -147,16 +151,18 @@ const MButton = forwardRef<MButtonRef, MButtonProps>((props: MButtonProps) => {
         data-id={id}
         data-aspectRatio={aspectRatio}
         data-onlyColor={onlyColor}
-        className={
-          clsx({
-            "mdui-button": true,
-            [size]: true,
-            [variant]: true,
-            [getButtonState()]: true,
-            [shape]: true,
+        className={clsx(
+          "mdui-button",
+          size,
+          variant,
+          getButtonState(),
+          shape,
+          className,
+          {
             disabled: disabled,
-          }) + (className ? ` ${className}` : "")
-        }
+            animation: animation,
+          },
+        )}
         style={style}
         {...rest}
       >

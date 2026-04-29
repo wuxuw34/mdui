@@ -9,10 +9,18 @@ import { createPortal } from "react-dom";
 interface SnackbarProps extends React.HTMLAttributes<HTMLDivElement> {
   open: boolean;
   text: string;
+  action: React.ReactNode;
   handleOpenChange: (open: boolean) => void;
+  showClose: boolean;
 }
 
-const SnackBar = ({ open, text, handleOpenChange }: SnackbarProps) => {
+const SnackBar = ({
+  open,
+  text,
+  action,
+  handleOpenChange,
+  showClose,
+}: SnackbarProps) => {
   return (
     <div
       className={clsx("mdui-snackbar", {
@@ -25,16 +33,18 @@ const SnackBar = ({ open, text, handleOpenChange }: SnackbarProps) => {
       }
     >
       <div className="mdui-snackbar__content">{text}</div>
-      <div className="mdui-snackbar__action">{text}</div>
-      <div className="mdui-snackbar__close">
-        <MButton
-          variant="icon"
-          size="xs"
-          onClick={() => handleOpenChange(false)}
-        >
-          <span className="material-icons">close</span>
-        </MButton>
-      </div>
+      <div className="mdui-snackbar__action">{action}</div>
+      {showClose && (
+        <div className="mdui-snackbar__close">
+          <MButton
+            variant="icon"
+            size="xs"
+            onClick={() => handleOpenChange(false)}
+          >
+            <span className="material-icons">close</span>
+          </MButton>
+        </div>
+      )}
     </div>
   );
 };
@@ -49,6 +59,7 @@ export default function MSnackbarProvider({
     open: false,
     text: "",
     duration: 1000,
+    showClose: true,
   });
   const timeRef = useRef<NodeJS.Timeout | null>(null);
   const openTimeRef = useRef<NodeJS.Timeout | null>(null);
@@ -122,8 +133,10 @@ export default function MSnackbarProvider({
       {children}
       {createPortal(
         <SnackBar
+          action={currentConfig.action}
           open={!!currentConfig.open}
           text={currentConfig.text}
+          showClose={!!currentConfig.showClose}
           handleOpenChange={handleOpenChange}
         />,
         document.body,

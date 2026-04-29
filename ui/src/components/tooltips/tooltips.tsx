@@ -5,6 +5,7 @@ import {
   flip,
   offset,
   shift,
+  size,
 } from "@floating-ui/react";
 import type { MTooltipsPropsWithVariant } from "./interface";
 import "./tooltips.scss";
@@ -20,6 +21,9 @@ export default function MTooltips({
   footer,
   className,
   style,
+  sameWidth = false,
+  open = false,
+  onOpenChange,
   ...rest
 }: MTooltipsPropsWithVariant) {
   const tooltipId = useId();
@@ -39,8 +43,23 @@ export default function MTooltips({
 
     computePosition(reference, floating, {
       placement: position,
-      middleware: [offset(8), flip(), shift({ padding: 8 })],
-    }).then(({ x, y }) => {
+      middleware: [
+        offset(8),
+        flip(),
+        size({
+          apply({ rects, elements }) {
+            // 将浮层元素的宽度设置为和参考元素一样宽
+            if (sameWidth) {
+              Object.assign(elements.floating.style, {
+                width: `${rects.reference.width}px`,
+              });
+            }
+          },
+        }),
+        shift({ padding: 8 }),
+      ],
+    }).then((obj) => {
+      const { x, y } = obj;
       Object.assign(floating.style, {
         left: `${x}px`,
         top: `${y}px`,
@@ -93,7 +112,7 @@ export default function MTooltips({
   }, [updatePosition, visible]);
 
   useEffect(() => {
-    if (!visible || mode !== "click") {
+    if (!visible || (mode !== "click" && mode !== "manual")) {
       return;
     }
 
@@ -111,6 +130,11 @@ export default function MTooltips({
   }, [mode, visible]);
 
   useEffect(() => {
+    setVisible(open);
+  }, [open]);
+
+  useEffect(() => {
+    onOpenChange?.(visible);
     if (!visible) {
       return;
     }
@@ -148,13 +172,19 @@ export default function MTooltips({
       <div
         aria-describedby={visible ? tooltipId : undefined}
         className="mdui-tooltips-trigger"
-        onBlur={mode !== "click" ? hideTooltip : undefined}
+        onBlur={mode !== "click" && mode !== "manual" ? hideTooltip : undefined}
         onClick={handleTriggerClick}
-        onFocus={mode !== "click" ? showTooltip : undefined}
+        onFocus={
+          mode !== "click" && mode !== "manual" ? showTooltip : undefined
+        }
         ref={referenceRef}
         tabIndex={0}
-        onMouseEnter={mode === "hover" ? showTooltip : undefined}
-        onMouseLeave={mode === "hover" ? hideTooltip : undefined}
+        onMouseEnter={
+          mode === "hover" || mode !== "manual" ? showTooltip : undefined
+        }
+        onMouseLeave={
+          mode === "hover" || mode !== "manual" ? hideTooltip : undefined
+        }
       >
         {trigger}
       </div>

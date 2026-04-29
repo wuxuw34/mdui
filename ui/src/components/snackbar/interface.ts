@@ -2,7 +2,9 @@
 export interface MSnackbarConfig {
   text: string,
   open?: boolean,
-  duration?: number
+  action?: React.ReactNode,
+  duration?: number,
+  showClose?: boolean
 }
 
 export type MSnackbarContextType = {

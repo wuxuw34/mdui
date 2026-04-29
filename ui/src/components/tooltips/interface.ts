@@ -15,9 +15,12 @@ type Plain = {
 
 export interface MTooltipsProps extends React.HTMLAttributes<HTMLDivElement> {
   trigger: React.ReactNode
-  mode?: 'hover' | 'focus' | 'click'
+  mode?: 'hover' | 'focus' | 'click' | 'manual'
   position?: 'top' | 'bottom' | 'left' | 'right'
   footer?: React.ReactNode
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+  sameWidth?: boolean
 }
 
 export type MTooltipsPropsWithVariant = (Rich | Plain) & MTooltipsProps

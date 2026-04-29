@@ -1,6 +1,7 @@
 .mdui-tooltips {
   display: inline-flex;
   position: relative;
+  width: fit-content;
 
   & > .mdui-tooltips-trigger {
     display: inline-flex;
