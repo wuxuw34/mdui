@@ -1,6 +1,5 @@
-import { cn } from "../../utils/cn";
-import dividerVariants from "./variants";
-
+import "./index.scss";
+import clsx from "clsx";
 interface MDividerProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: "vertical" | "horizontal";
   color?: string;
@@ -16,11 +15,13 @@ export default function MDivider({
   return (
     <div
       {...rest}
-      className={cn(dividerVariants({ orientation }))}
-      style={{
-        backgroundColor: color || "var(--primary)",
-        "--size": `${size}px`,
-      } as React.CSSProperties}
+      className={clsx("mdui-divider", orientation)}
+      style={
+        {
+          backgroundColor: color || undefined,
+          "--size": `${size}px`,
+        } as React.CSSProperties
+      }
     />
   );
 }

@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import type { MSheetConfig } from "./interface";
 import MBottomSheet from "./bottom";
 import { MOverlay } from "../overlay";
+import MSideSheet from "./side";
 
 export default function MSheetProvider({
   children,
@@ -56,14 +57,33 @@ export default function MSheetProvider({
       }}
     >
       {children}
-      {createPortal(<MOverlay show={!!currentSheet.show} />, document.body)}
       {createPortal(
-        <MBottomSheet
+        <MOverlay
           show={!!currentSheet.show}
-          onShowChange={handleShowChange}
-        >
-          {currentSheet.content}
-        </MBottomSheet>,
+          onClick={() => handleShowChange(false)}
+        />,
+        document.body,
+      )}
+      {createPortal(
+        <>
+          {currentSheet.variant === "bottom" ? (
+            <MBottomSheet
+              show={!!currentSheet.show}
+              onShowChange={handleShowChange}
+            >
+              {currentSheet.content}
+            </MBottomSheet>
+          ) : (
+            <MSideSheet
+              show={!!currentSheet.show}
+              onShowChange={handleShowChange}
+              header={currentSheet.header}
+              footer={currentSheet.footer}
+            >
+              {currentSheet.content}
+            </MSideSheet>
+          )}
+        </>,
         document.body,
       )}
     </MSheetContext.Provider>

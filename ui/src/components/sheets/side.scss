@@ -1,0 +1,52 @@
+@use "../../styles/color" as *;
+@use "../../styles/radius" as *;
+@use "../../styles/shadow" as *;
+@use "../../styles/easing" as *;
+
+.mdui-side-sheet {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  z-index: 1001;
+  height: 100%;
+  max-width: 640px;
+  background-color: $color-surface-container-low;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: $shadow;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  transform: translateY(0%) translateX(100%);
+  transition: transform $easing-expressive-default-effects;
+
+  &.open {
+    transform: translateY(0%) translateX(0%);
+  }
+
+  & > .mdui-side-sheet__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: $color-on-surface-variant;
+
+    & > .mdui-side-sheet__header_left {
+      flex: 1;
+      line-height: 28px;
+      font-size: 22px;
+    }
+  }
+
+  &>.mdui-side-sheet__content{
+    flex:1;
+  }
+
+  &>.mdui-side-sheet__footer{
+
+  }
+}

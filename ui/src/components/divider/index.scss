@@ -1,0 +1,14 @@
+@use "../../styles/color" as *;
+
+.mdui-divider {
+  background-color: $color-outline-variant;
+
+  &.horizontal {
+    width: 100%;
+    height: var(--size);
+  }
+  &.vertical {
+    height: 100%;
+    width: var(--size);
+  }
+}
