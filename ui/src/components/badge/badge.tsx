@@ -8,6 +8,7 @@ export interface MBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   showValue?: boolean;
   label?: React.ReactNode;
   active?: boolean;
+  labelPosition?: "bottom" | "right";
 }
 
 export default function MBadge({
@@ -18,6 +19,7 @@ export default function MBadge({
   showValue = true,
   style,
   active = false,
+  labelPosition = "bottom",
   label,
   ...rest
 }: MBadgeProps) {
@@ -35,17 +37,36 @@ export default function MBadge({
         <div
           className={clsx("mdui-badge__content", {
             active: active,
+            "no-label": !label,
+            "right-label": labelPosition === "right",
           })}
         >
           {children}
+          {label && labelPosition === "right" && (
+            <div
+              className={clsx("mdui-badge__label", {
+                active: active,
+              })}
+            >
+              {label}
+            </div>
+          )}
         </div>
       </MRipple>
-      {label && <div className={
-        clsx("mdui-badge__label", {
-          active: active,
-        })
-      }>{label}</div>}
-      <div className={clsx("mdui-badge__count", variant)}>
+      {label && labelPosition === "bottom" && (
+        <div
+          className={clsx("mdui-badge__label", {
+            active: active,
+          })}
+        >
+          {label}
+        </div>
+      )}
+      <div
+        className={clsx("mdui-badge__count", variant, {
+          "no-label": !label,
+        })}
+      >
         {value && showValue && (
           <div
             className="number"
