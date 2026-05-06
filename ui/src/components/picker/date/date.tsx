@@ -22,6 +22,7 @@ export default function MDatePicker() {
     month: moment().month(),
     date: moment().date(),
   });
+  const [showMonth, setShowMonth] = useState<boolean>(false); // 显示月份选择
   const [month, setMonth] = useState<number>(moment().month());
   const [year, setYear] = useState<number>(moment().year());
 
@@ -114,6 +115,9 @@ export default function MDatePicker() {
           <MButton
             variant="text"
             size="xs"
+            onClick={() => {
+              setShowMonth((pre) => !pre);
+            }}
             endIcon={<span className="material-icons">arrow_drop_down</span>}
           >
             {month}
@@ -215,6 +219,11 @@ export default function MDatePicker() {
             })}
           </tbody>
         </table>
+        <div
+          className={clsx("mdui-date-picker__content-month", {
+            active: showMonth,
+          })}
+        ></div>
       </div>
       <div className="mdui-date-picker__footer">
         <MButton

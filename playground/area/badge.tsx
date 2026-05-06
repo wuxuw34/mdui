@@ -8,19 +8,15 @@ export default function Badge() {
     <Col>
       <div>徽标</div>
       <Row>
-        <MButton variant="text">
-          <MBadge value={100}>
-            <Home />
-          </MBadge>
-        </MButton>
-        <MButton variant="text">
-          <MBadge
-            value={1000}
-            variant="large"
-          >
-            <Sun />
-          </MBadge>
-        </MButton>
+        <MBadge value={100}>
+          <Home />
+        </MBadge>
+        <MBadge
+          value={1000}
+          variant="large"
+        >
+          <Sun />
+        </MBadge>
       </Row>
     </Col>
   );
