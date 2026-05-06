@@ -1,12 +1,13 @@
 import "./index.scss";
 import { MRipple } from "../ripple";
 import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
 
 export interface MBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;
   variant?: "small" | "large";
   showValue?: boolean;
+  label?: React.ReactNode;
+  active?: boolean;
 }
 
 export default function MBadge({
@@ -16,49 +17,46 @@ export default function MBadge({
   variant = "small",
   showValue = true,
   style,
+  active = false,
+  label,
   ...rest
 }: MBadgeProps) {
-  const countRef = useRef<HTMLDivElement>(null);
-  const [countWidth, setCountWidth] = useState(0);
-
-  useEffect(() => {
-    const updateCountWidth = () => {
-      if (countRef.current) {
-        setCountWidth(countRef.current.offsetWidth);
-      }
-    };
-    updateCountWidth();
-  }, []);
-
   return (
-    <MRipple>
-      <div
-        className={clsx("mdui-badge", className, variant)}
-        style={
-          {
-            "--width": countWidth / 2 + "px",
-            ...style,
-          } as React.CSSProperties
-        }
-        {...rest}
-      >
-        <div className={clsx("mdui-badge__content")}>
+    <div
+      className={clsx("mdui-badge", className, variant)}
+      style={
+        {
+          ...style,
+        } as React.CSSProperties
+      }
+      {...rest}
+    >
+      <MRipple color="var(--color-secondary-container)">
+        <div
+          className={clsx("mdui-badge__content", {
+            active: active,
+          })}
+        >
           {children}
-          <div className={clsx("mdui-badge__count", variant)}>
-            {value && showValue && (
-              <div
-                className="number"
-                style={{
-                  display: variant === "small" ? "none" : "flex",
-                }}
-                ref={countRef}
-              >
-                {value > 999 ? "999+" : value}
-              </div>
-            )}
-          </div>
         </div>
+      </MRipple>
+      {label && <div className={
+        clsx("mdui-badge__label", {
+          active: active,
+        })
+      }>{label}</div>}
+      <div className={clsx("mdui-badge__count", variant)}>
+        {value && showValue && (
+          <div
+            className="number"
+            style={{
+              display: variant === "small" ? "none" : "flex",
+            }}
+          >
+            {value > 999 ? "999+" : value}
+          </div>
+        )}
       </div>
-    </MRipple>
+    </div>
   );
 }

@@ -10,12 +10,13 @@ import type { MRippleProps } from "./interface";
 import useRipple from "../../hooks/useRipple";
 import "./ripple.scss";
 
-export default function MRipple({ disabled = false, children }: MRippleProps) {
+export default function MRipple({ disabled = false, children, color }: MRippleProps) {
   const domRef = useRef<HTMLElement>(null);
   const id = useId();
   const rippleId = `ripple-${id}`;
   const { setEnabled } = useRipple(domRef, {
     container: rippleId,
+    color: color || "rgba(0, 0, 0, 0.12)",
   });
 
   useEffect(() => {
