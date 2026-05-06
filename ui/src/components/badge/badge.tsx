@@ -45,9 +45,9 @@ export default function MBadge({
             "right-label": labelPosition === "right",
           })}
           ref={(ref) => {
-            console.log("渲染", ref);
             if (ref) {
-              setContentWidth(ref.offsetWidth);
+              const content = ref.children[1] as HTMLElement;
+              setContentWidth(content?.offsetWidth || 0);
             }
           }}
           style={{
@@ -89,6 +89,7 @@ export default function MBadge({
       <div
         className={clsx("mdui-badge__count", variant, {
           "no-label": !label,
+          "right-label": labelPosition === "right",
         })}
         style={{
           transform: `translateX(-${labelWidth}px)`,

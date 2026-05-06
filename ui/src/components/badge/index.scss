@@ -43,6 +43,7 @@
       flex-direction: row;
       gap: 4px;
       padding: calc($size-sm / 2);
+      border-radius: calc($size-sm);
     }
 
     & > .mdui-badge__label {
@@ -97,6 +98,10 @@
       & > .number {
         width: fit-content;
       }
+    }
+
+    &.right-label {
+      top: calc($size-sm / 2 - 8px);
     }
   }
 }

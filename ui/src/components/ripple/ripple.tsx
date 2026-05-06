@@ -2,7 +2,6 @@ import {
   Children,
   cloneElement,
   isValidElement,
-  useCallback,
   useEffect,
   useId,
   useRef,
@@ -24,10 +23,24 @@ export default function MRipple({
     color: color || "rgba(0, 0, 0, 0.12)",
   });
 
- 
   useEffect(() => {
     setEnabled(!disabled);
     if (!domRef.current) return;
+    if (
+      children &&
+      isValidElement(children) &&
+      typeof (
+        children.props as {
+          ref: (ref: HTMLElement | null) => void;
+        }
+      ).ref === "function"
+    ) {
+      (
+        children.props as {
+          ref: (ref: HTMLElement | null) => void;
+        }
+      ).ref(domRef.current);
+    }
     domRef.current.style.position = "relative";
     let rippleContainer = domRef.current?.querySelector("#" + rippleId);
     if (!rippleContainer) {
@@ -39,7 +52,7 @@ export default function MRipple({
         domRef.current.firstChild || null,
       );
     }
-  }, [disabled, setEnabled, rippleId]);
+  }, [disabled, setEnabled, rippleId, children]);
 
   if (Children.count(children) > 1 || !isValidElement(children)) {
     console.warn("MRipple component only accepts one child");
@@ -53,23 +66,7 @@ export default function MRipple({
   return (
     <>
       {cloneElement(children, {
-        ref: (ref) => {
-          if (
-            typeof (
-              children.props as {
-                ref: (ref: HTMLElement | null) => void;
-              }
-            )?.ref === "function"
-          ) {
-            (
-              children.props as {
-                ref: (ref: HTMLElement | null) => void;
-              }
-            ).ref(ref);
-          }
-          // @eslint-disable-next-line eslint(react-hooks/refs)
-          domRef.current = ref;
-        },
+        ref: domRef,
       } as {
         ref: React.Ref<HTMLElement>;
       })}
