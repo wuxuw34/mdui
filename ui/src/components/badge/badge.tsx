@@ -1,6 +1,7 @@
 import "./index.scss";
 import { MRipple } from "../ripple";
 import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
 
 export interface MBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;
@@ -23,6 +24,9 @@ export default function MBadge({
   label,
   ...rest
 }: MBadgeProps) {
+  const [labelWidth, setLabelWidth] = useState(0);
+  const [contentWidth, setContentWidth] = useState(0);
+
   return (
     <div
       className={clsx("mdui-badge", className, variant)}
@@ -40,6 +44,15 @@ export default function MBadge({
             "no-label": !label,
             "right-label": labelPosition === "right",
           })}
+          ref={(ref) => {
+            console.log("渲染", ref);
+            if (ref) {
+              setContentWidth(ref.offsetWidth);
+            }
+          }}
+          style={{
+            width: contentWidth === 0 ? "auto" : contentWidth + labelWidth,
+          }}
         >
           {children}
           {label && labelPosition === "right" && (
@@ -47,6 +60,14 @@ export default function MBadge({
               className={clsx("mdui-badge__label", {
                 active: active,
               })}
+              ref={(ref) => {
+                if (ref) {
+                  const updateLabel = () => {
+                    setLabelWidth(ref!.offsetWidth + 8 || 0);
+                  };
+                  updateLabel();
+                }
+              }}
             >
               {label}
             </div>
@@ -58,6 +79,9 @@ export default function MBadge({
           className={clsx("mdui-badge__label", {
             active: active,
           })}
+          ref={() => {
+            setLabelWidth(0);
+          }}
         >
           {label}
         </div>
@@ -66,6 +90,9 @@ export default function MBadge({
         className={clsx("mdui-badge__count", variant, {
           "no-label": !label,
         })}
+        style={{
+          transform: `translateX(-${labelWidth}px)`,
+        }}
       >
         {value && showValue && (
           <div

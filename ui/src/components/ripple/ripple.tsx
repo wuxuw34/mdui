@@ -2,6 +2,7 @@ import {
   Children,
   cloneElement,
   isValidElement,
+  useCallback,
   useEffect,
   useId,
   useRef,
@@ -10,7 +11,11 @@ import type { MRippleProps } from "./interface";
 import useRipple from "../../hooks/useRipple";
 import "./ripple.scss";
 
-export default function MRipple({ disabled = false, children, color }: MRippleProps) {
+export default function MRipple({
+  disabled = false,
+  children,
+  color,
+}: MRippleProps) {
   const domRef = useRef<HTMLElement>(null);
   const id = useId();
   const rippleId = `ripple-${id}`;
@@ -19,6 +24,7 @@ export default function MRipple({ disabled = false, children, color }: MRipplePr
     color: color || "rgba(0, 0, 0, 0.12)",
   });
 
+ 
   useEffect(() => {
     setEnabled(!disabled);
     if (!domRef.current) return;
@@ -28,7 +34,10 @@ export default function MRipple({ disabled = false, children, color }: MRipplePr
       rippleContainer = document.createElement("div");
       rippleContainer.id = rippleId;
       rippleContainer.className = "mdui-ripple";
-      domRef.current.insertBefore(rippleContainer, domRef.current.firstChild || null);
+      domRef.current.insertBefore(
+        rippleContainer,
+        domRef.current.firstChild || null,
+      );
     }
   }, [disabled, setEnabled, rippleId]);
 
@@ -44,7 +53,23 @@ export default function MRipple({ disabled = false, children, color }: MRipplePr
   return (
     <>
       {cloneElement(children, {
-        ref: domRef,
+        ref: (ref) => {
+          if (
+            typeof (
+              children.props as {
+                ref: (ref: HTMLElement | null) => void;
+              }
+            )?.ref === "function"
+          ) {
+            (
+              children.props as {
+                ref: (ref: HTMLElement | null) => void;
+              }
+            ).ref(ref);
+          }
+          // @eslint-disable-next-line eslint(react-hooks/refs)
+          domRef.current = ref;
+        },
       } as {
         ref: React.Ref<HTMLElement>;
       })}
