@@ -1,6 +1,7 @@
 @use "../../styles/color" as *;
 @use "../../styles/radius" as *;
 @use "../../styles/size" as *;
+@use "../../styles/easing" as *;
 
 .mdui-badge {
   position: relative;
@@ -11,58 +12,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 4px;
-  transition: all 0.2s ease-in-out;
-
-  .mdui-badge__content {
-    position: relative;
-    width: fit-content;
-    padding: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    overflow: hidden;
-    cursor: pointer;
-    border-radius: calc($size-sm / 2);
-    // height: $size-sm;
-    padding: 8px calc($size-sm / 2);
-    color: $color-secondary;
-    transition: all 0.2s ease-in-out;
-
-    &.no-label {
-      padding: calc($size-sm / 2);
-      border-radius: 100%;
-    }
-
-    &.active {
-      color: $color-primary;
-      background-color: $color-surface-container-low;
-    }
-
-    &.right-label {
-      flex-direction: row;
-      gap: 4px;
-      padding: calc($size-sm / 2);
-      border-radius: calc($size-sm);
-    }
-
-    & > .mdui-badge__label {
-      font-size: 15px;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-      margin-left: 8px;
-    }
-  }
-
-  & > .mdui-badge__label {
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    color: $color-secondary;
-    font-weight: 500;
-    &.active {
-      color: $color-primary;
-    }
-  }
+  transition: all $easing-expressive-default-effects;
 
   & > .mdui-badge__count {
     position: absolute;
@@ -73,18 +23,18 @@
     border-radius: 6px;
     padding: 4px;
     background-color: $color-error;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &.small {
       width: 6px;
       height: 6px;
       border-radius: 3px;
       padding: 0;
-      top: 4px;
-      right: calc($size-sm / 2 - 3px);
+      top: 0;
+      right: 0;
       padding: 3px;
-    }
-    &.no-label {
-      top: calc($size-sm / 2 - 3px);
     }
     &.large {
       height: 16px;
@@ -92,16 +42,13 @@
       width: fit-content;
       border-radius: 8px;
       padding: 0 4px;
+      transform: translateX(calc(100% - 14px)) translateY(calc(-100% + 14px));
       font-size: 10px;
       line-height: 16px;
       color: $color-on-error;
       & > .number {
-        width: fit-content;
+        text-align: center;
       }
-    }
-
-    &.right-label {
-      top: calc($size-sm / 2 - 8px);
     }
   }
 }

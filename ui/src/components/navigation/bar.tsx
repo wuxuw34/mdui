@@ -39,20 +39,22 @@ export default function MNavigationBar({
           onClick={() => setActiveApp(app.name)}
         >
           <MButton
-            variant="text"
-            size="sm"
-            selected={activeApp === app.name}
+            variant={activeApp === app.name ? "tonal" : "text"}
+            size={labelPosition === "bottom" ? "xs" : "sm"}
+            style={{
+              gap: 4,
+            }}
           >
             <MBadge
               value={app.value}
-              showValue={app.showValue}
+              show={app.showValue}
               variant={app.value && app.showValue ? "large" : "small"}
             >
               <div className="mdui-navigation-bar-icon ">{app.icon}</div>
-              {labelPosition === "right" && (
-                <span className="mdui-m-l-1">{app.name}</span>
-              )}
             </MBadge>
+            {labelPosition === "right" && (
+              <span className="mdui-m-l-1">{app.name}</span>
+            )}
           </MButton>
           {labelPosition === "bottom" && (
             <span className="mdui-m-l-1">{app.name}</span>

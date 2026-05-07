@@ -40,8 +40,7 @@ export default function MRipple({
           ref: (ref: HTMLElement | null) => void;
         }
       ).ref(domRef.current);
-    }
-    domRef.current.style.position = "relative";
+    } 
     let rippleContainer = domRef.current?.querySelector("#" + rippleId);
     if (!rippleContainer) {
       rippleContainer = document.createElement("div");

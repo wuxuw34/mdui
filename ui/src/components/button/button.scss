@@ -4,6 +4,7 @@
 @use "../../styles/color" as *;
 @use "../../styles/radius" as *;
 @use "../../styles/font" as *;
+@use "../../styles/easing" as *;
 
 $size-xs: var(--size-button-xs);
 $size-sm: var(--size-button-sm);
@@ -140,9 +141,15 @@ $radius-type: ("rounded", "square");
   &::before {
     content: "";
     position: absolute;
-    inset: 0;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
     border-radius: inherit;
     z-index: -1;
+    width: 0;
+    transform-origin: center;
+    transition: width $easing-expressive-default-effects;
   }
 
   &.outlined {
@@ -201,6 +208,7 @@ $radius-type: ("rounded", "square");
             @if $property == "background-color" {
               &::before {
                 background-color: $value;
+                width: 100%;
               }
             } @else {
               #{$property}: $value;

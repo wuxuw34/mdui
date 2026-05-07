@@ -28,20 +28,18 @@ export default function Badge() {
         />
       </Row>
       <Row>
-        <MBadge
-          value={100}
-          active={true}
-          label={label}
-          labelPosition={labelPosition}
-        >
+        <MBadge value={100}>
           <Home />
         </MBadge>
         <MBadge
           value={1000}
           variant="large"
-          active={true}
-          label={label}
-          labelPosition={labelPosition}
+        >
+          <Sun />
+        </MBadge>
+        <MBadge
+          value={1}
+          variant="large"
         >
           <Sun />
         </MBadge>

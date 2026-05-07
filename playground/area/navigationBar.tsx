@@ -23,7 +23,7 @@ export default function NavigationBar() {
   return (
     <Row>
       <MNavigationRail menu={menu} />
-      <Col>
+      <Col className="w-full">
         <MNavigationBar apps={menu} />
         <MNavigationBar apps={menu} />
         <MNavigationBar

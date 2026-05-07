@@ -3,6 +3,7 @@ import { MButton } from "../button";
 import type { MNavigationRailProps } from "./interface";
 import "./rail.scss";
 import useTextMeasure from "../../hooks/useTextMeasure";
+import { MBadge } from "../badge";
 
 export default function MNavigationRail({
   menu,
@@ -10,6 +11,19 @@ export default function MNavigationRail({
 }: MNavigationRailProps) {
   const [isOpen, setIsOpen] = useState(false); // 是否打开
   const textMeasure = useTextMeasure();
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [widths, setWidths] = useState<
+    {
+      id: string;
+      iconWidth: number;
+      labelWidth: number;
+    }[]
+  >([]);
+
+  const getCurrentWidth = (id: string) => {
+    const item = widths.find((width) => width.id === id);
+    return item ? item.iconWidth + item.labelWidth + (isOpen ? 28 : 20) : 0;
+  };
 
   return (
     <div
@@ -29,31 +43,83 @@ export default function MNavigationRail({
         )}
       </MButton>
       <MButton
-        variant="text"
+        variant="filled"
+        shape="square"
+        aspectRatio={isOpen ? "wide" : "square"}
+        style={{
+          padding: "0 16px",
+        }}
         className="mdui-navigation-header-button"
       >
         <span className="material-icons">mode_edit</span>
-        <span
-          className="mdui-navigation-header-button-text"
-          style={{
-            width: isOpen ? textMeasure.current.measureText("Edit") : 0,
-          }}
-        >
-          Edit
-        </span>
+        {isOpen && (
+          <div className="mdui-navigation-header-button-text">Edit</div>
+        )}
       </MButton>
       <div className="mdui-navigation-rail-menu">
         {menu.map((item) => (
-          <div key={item.name}>
+          <div
+            key={item.name}
+            className="mdui-navigation-rail-menu-item"
+            onClick={() => setActiveMenu(item.name)}
+          >
             <MButton
-              variant="text"
-              size={isOpen ? "md" : "sm"}
+              variant={activeMenu === item.name ? "tonal" : "text"}
+              size="sm"
               onClick={() => onMenuChange && onMenuChange(item)}
+              style={{
+                height: isOpen ? 56 : 40,
+                padding: "0 16px",
+                borderRadius: isOpen ? 28 : 20,
+                width: isOpen ? getCurrentWidth(item.name) : 56,
+              }}
             >
-              {item.icon}
-              {isOpen && <span> {item.name}</span>}
+              <MBadge>
+                <div
+                  className="mdui-navigation-rail-menu-item__icon"
+                  ref={(ref) => {
+                    if (ref) {
+                      setWidths((prev) => {
+                        const index = prev.findIndex((p) => p.id === item.name);
+                        if (index !== -1) {
+                          if (prev[index].iconWidth === ref.clientWidth) {
+                            return prev;
+                          }
+                          prev[index].iconWidth = ref.clientWidth;
+                          prev[index].labelWidth =
+                            textMeasure.current.measureText(item.name);
+                          return [...prev];
+                        } else {
+                          return [
+                            ...prev,
+                            {
+                              id: item.name,
+                              iconWidth: ref.clientWidth,
+                              labelWidth: textMeasure.current.measureText(
+                                item.name,
+                              ),
+                            },
+                          ];
+                        }
+                      });
+                    }
+                  }}
+                >
+                  {item.icon}
+                </div>
+              </MBadge>
+              {isOpen && (
+                <div className="mdui-navigation-rail-menu-item__label ">
+                  {item.name}
+                </div>
+              )}
             </MButton>
-            {!isOpen && <span> {item.name}</span>}
+            {!isOpen && (
+              <div className="mdui-navigation-rail-menu-item__label">
+                {" "}
+                {item.name}
+              </div>
+            )}
           </div>
         ))}
       </div>
