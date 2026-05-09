@@ -7,7 +7,7 @@ interface MAppItem {
   showValue?: boolean;
 }
 
- interface MMenuItem {
+interface MMenuItem {
   icon: React.ReactNode;
   name: string;
 }
@@ -15,6 +15,10 @@ interface MAppItem {
 export interface MNavigationRailProps extends React.HTMLAttributes<HTMLDivElement> {
   menu: MMenuItem[];
   onMenuChange?: (index: MMenuItem) => void;
+  expandMode?: 'standard' | 'modal'
+  as?: 'drawer' | 'rail'
+  onOpenChange?: (v: boolean) => void;
+  open?: boolean;
 }
 
 export interface MNavigationBarProps extends React.HTMLAttributes<HTMLDivElement> {

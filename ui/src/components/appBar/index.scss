@@ -1,0 +1,74 @@
+@use "../../styles/color" as *;
+@use "../../styles/easing" as *;
+
+.mdui-app-bar {
+  background-color: $color-surface;
+  user-select: none;
+  overflow: hidden;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+
+  & > .mdui-app-bar__footer {
+    height: 56px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    z-index: 0;
+    transition: transform $easing-expressive-default-effects;
+    position: relative;
+  }
+
+  & > .mdui-app-bar__content {
+    background-color: $color-surface;
+    position: relative;
+    height: 64px;
+    padding: 0 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 10;
+
+    & > .mdui-app-bar__icon {
+      height: 48px;
+      width: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & > .mdui-app-bar__search {
+      flex: 1;
+      box-shadow: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .mdui-app-bar__title {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 28px;
+    flex: 1;
+    color: $color-on-surface;
+    display: flex;
+    align-items: center;
+
+    & > .mdui-app-bar__title-text {
+      transition: opacity $easing-expressive-default-effects;
+      &.with-subtitle {
+        display: flex;
+        flex-direction: column;
+      }
+
+      & > .mdui-app-bar__subtitle {
+        color: $color-surface-variant;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+    &.center {
+      justify-content: center;
+    }
+  }
+}

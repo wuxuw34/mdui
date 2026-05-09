@@ -4,12 +4,16 @@ import type { MNavigationRailProps } from "./interface";
 import "./rail.scss";
 import useTextMeasure from "../../hooks/useTextMeasure";
 import { MBadge } from "../badge";
+import { createPortal } from "react-dom";
+import { MOverlay } from "../overlay";
 
-export default function MNavigationRail({
+export function MNavigationRailInner({
   menu,
   onMenuChange,
+  onOpenChange,
+  open,
 }: MNavigationRailProps) {
-  const [isOpen, setIsOpen] = useState(false); // 是否打开
+  const [isOpen, setIsOpen] = useState(open); // 是否打开
   const textMeasure = useTextMeasure();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [widths, setWidths] = useState<
@@ -19,6 +23,8 @@ export default function MNavigationRail({
       labelWidth: number;
     }[]
   >([]);
+
+    console.log("MNavigationRail", open);
 
   const getCurrentWidth = (id: string) => {
     const item = widths.find((width) => width.id === id);
@@ -34,7 +40,10 @@ export default function MNavigationRail({
     >
       <MButton
         variant="icon"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setIsOpen(!isOpen);
+          onOpenChange?.(!isOpen);
+        }}
       >
         {isOpen ? (
           <span className="material-icons">menu_open</span>
@@ -124,5 +133,57 @@ export default function MNavigationRail({
         ))}
       </div>
     </div>
+  );
+}
+
+export default function MNavigationRail({
+  expandMode = "standard",
+  as = "rail",
+  onOpenChange,
+  open = false,
+  ...rest
+}: MNavigationRailProps) {
+  const [isOpen, setIsOpen] = useState(open); // 是否打开
+
+
+
+  if (expandMode === "standard") {
+    return <MNavigationRailInner open={isOpen} {...rest} />;
+  }
+
+  const handleOpenChange = (v: boolean) => {
+    onOpenChange?.(v);
+    console.log("handleOpenChange", v);
+    setIsOpen(v);
+  };
+
+  return (
+    <>
+      {as === "rail" && (
+        <MNavigationRailInner
+          onOpenChange={handleOpenChange}
+          {...rest}
+        />
+      )}
+      {createPortal(
+        <>
+          <MOverlay show={isOpen}>
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+            >
+              <MNavigationRailInner
+                onOpenChange={handleOpenChange}
+                open={isOpen}
+                {...rest}
+              />
+            </div>
+          </MOverlay>
+        </>,
+        document.body,
+      )}
+    </>
   );
 }

@@ -2,7 +2,12 @@
 
 export const Apps = [
   {
-    key:'picker',
+    key: 'appBar',
+    name: '应用栏',
+    component: () => import('../area/appBar.tsx')
+  },
+  {
+    key: 'picker',
     name: '选择器',
     component: () => import('../area/picker.tsx')
   },
